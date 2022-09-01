@@ -46,4 +46,12 @@ public class Bot extends TelegramLongPollingBot {
 	public String getBotUsername() {
 		return botConfig.getUsernameBot();
 	}
+
+	public void sendMessage(SendMessage sendMessage) {
+		try {
+			execute(sendMessage);
+		} catch (TelegramApiException e) {
+
+		}
+	}
 }
