@@ -24,6 +24,14 @@ public class MessageHandler {
 				newMessage.setText(MainMessageConstructor.getMessage());
 				break;
 
+			case "Настройки":
+				newMessage.setText(StringConst.settingsMessage)
+						.addReplyButtons(Buttons.settingsButtons);
+			break;
+
+			case "Настроить время отправки сообщения":
+				newMessage.setText()
+
 			default:
 				newMessage.setText(StringConst.hui);
 				break;
