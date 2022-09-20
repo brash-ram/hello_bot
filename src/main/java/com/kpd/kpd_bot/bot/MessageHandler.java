@@ -20,20 +20,18 @@ public class MessageHandler {
 						.addReplyButtons(Buttons.startButtons);
 				break;
 
-			case "Приветственное сообщение":
-				newMessage.setText(MainMessageConstructor.getMessage());
-				break;
+			case "Новости этого дня":
+				newMessage.setText(StringConst.newsParametersMessage)
+						.addReplyButtons();
 
 			case "Настройки":
 				newMessage.setText(StringConst.settingsMessage)
 						.addReplyButtons(Buttons.settingsButtons);
 			break;
 
-			case "Настроить время отправки сообщения":
-				newMessage.setText()
 
 			default:
-				newMessage.setText(StringConst.hui);
+				newMessage.setText(StringConst.defaultMessage);
 				break;
 		}
 		return newMessage;

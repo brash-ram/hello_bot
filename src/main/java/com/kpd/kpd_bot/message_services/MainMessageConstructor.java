@@ -6,6 +6,6 @@ public class MainMessageConstructor {
 	private static Adapter weatherAdapter = new WeatherAdapter();
 
 	public static String getMessage() {
-		return StringConst.helloMessage + "\n" + weatherAdapter.getTextFromMessageService();
+		return StringConst.helloMessage;
 	}
 }
