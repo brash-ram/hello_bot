@@ -20,14 +20,14 @@ public class MessageHandler {
 						.addReplyButtons(Buttons.startButtons);
 				break;
 
-			case "Новости этого дня":
-				newMessage.setText(StringConst.newsParametersMessage)
-						.addReplyButtons();
+			case "Получить новости этого дня прямо сейчас":
+				newMessage;
+				break;
 
 			case "Настройки":
 				newMessage.setText(StringConst.settingsMessage)
 						.addReplyButtons(Buttons.settingsButtons);
-			break;
+				break;
 
 
 			default:

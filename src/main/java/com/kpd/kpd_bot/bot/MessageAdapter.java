@@ -55,4 +55,6 @@ public class MessageAdapter {
 	public SendMessage getSendMessage() {
 		return sendMessage;
 	}
+
+
 }
