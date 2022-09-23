@@ -2,7 +2,6 @@ package com.kpd.kpd_bot.api;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kpd.kpd_bot.config.QuoteConfig;
-import com.kpd.kpd_bot.dto.request.WeatherApiRequestDTO;
 import com.kpd.kpd_bot.dto.response.BaseQuoteResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,7 @@ public class QuoteAPI {
 	}
 
 	public BaseQuoteResponseDTO getQuote() {
-		Object responseApi = webService.makeRequest(quoteConfig.getUrl(), this.getUri(), null)[0];
+		Object responseApi = webService.makeRequestToObjects(quoteConfig.getUrl(), this.getUri(), null)[0];
 		return mapper.convertValue(responseApi, BaseQuoteResponseDTO.class);
 	}
 }

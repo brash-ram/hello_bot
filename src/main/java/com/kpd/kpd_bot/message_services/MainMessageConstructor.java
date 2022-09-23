@@ -14,7 +14,8 @@ public class MainMessageConstructor {
 	public String getMessage() {
 		StringBuilder sb = new StringBuilder();
 		sb.append(StringConst.helloMessage).append("\n")
-				.append(quoteAdapter.getTextFromMessageService()).append("\n");
+				.append(quoteAdapter.getTextFromMessageService()).append("\n")
+				.append(weatherAdapter.getTextFromMessageService()).append("\n");
 		return sb.toString();
 	}
 }
