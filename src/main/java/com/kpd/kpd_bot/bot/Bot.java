@@ -14,6 +14,7 @@ public class Bot extends TelegramLongPollingBot {
 
 
 	private BotConfig botConfig;
+	private MessageHandler messageHandler;
 
 	@Override
 	public String getBotToken() {
@@ -23,7 +24,7 @@ public class Bot extends TelegramLongPollingBot {
 	@Override
 	public void onUpdateReceived(Update update) {
 		if (update.hasMessage() && update.getMessage().hasText()) {
-			MessageAdapter message = MessageHandler.handleMessage(update);
+			MessageAdapter message = messageHandler.handleMessage(update);
 			try {
 				execute(message.getSendMessage());
 			} catch (TelegramApiException e) {

@@ -7,7 +7,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 
 @ConfigurationProperties(prefix = "bot")
 @Data
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class BotConfig {
 		private String token;
 		private String usernameBot;
