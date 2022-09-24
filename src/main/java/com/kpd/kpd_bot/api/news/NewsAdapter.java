@@ -1,6 +1,6 @@
-package com.kpd.kpd_bot.message_services.adapters;
+package com.kpd.kpd_bot.api.news;
 
-import com.kpd.kpd_bot.message_services.Adapter;
+import com.kpd.kpd_bot.api.Adapter;
 
 public class NewsAdapter implements Adapter {
 

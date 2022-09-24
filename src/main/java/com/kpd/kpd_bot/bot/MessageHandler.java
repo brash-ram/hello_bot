@@ -1,6 +1,6 @@
 package com.kpd.kpd_bot.bot;
 
-import com.kpd.kpd_bot.message_services.MainMessageConstructor;
+import com.kpd.kpd_bot.service.MainMessageConstructor;
 import com.kpd.kpd_bot.statics.Buttons;
 import com.kpd.kpd_bot.statics.StringConst;
 import lombok.RequiredArgsConstructor;

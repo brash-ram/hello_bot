@@ -1,11 +1,11 @@
 package com.kpd.kpd_bot.api.weather;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.kpd.kpd_bot.api.WebService;
+import com.kpd.kpd_bot.service.WebService;
 import com.kpd.kpd_bot.config.WeatherConfig;
-import com.kpd.kpd_bot.dto.response.BaseWeatherResponseDTO;
+import com.kpd.kpd_bot.api.weather.model.BaseWeatherResponseDTO;
 import lombok.RequiredArgsConstructor;
-import org.jvnet.hk2.annotations.Service;
+import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -17,6 +17,8 @@ public class WeatherAPI {
     private final WeatherConfig weatherConfig;
 
     private final ObjectMapper mapper;
+
+
     public String testMethod(){
         return "Погода";
     }
@@ -29,7 +31,7 @@ public class WeatherAPI {
     }
 
     public BaseWeatherResponseDTO getWeather() {
-        Object responseApi = webService.makeRequestToObject(weatherConfig.getUrl(), this.getUri(), null);
+        Object responseApi = webService.<Object>makeRequest(weatherConfig.getUrl(), this.getUri(), Object.class);
         return mapper.convertValue(responseApi, BaseWeatherResponseDTO.class);
     }
 }

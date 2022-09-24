@@ -1,13 +1,13 @@
-package com.kpd.kpd_bot.message_services;
+package com.kpd.kpd_bot.api.weather;
 
 import com.kpd.kpd_bot.api.weather.WeatherAPI;
 import com.kpd.kpd_bot.api.weather.model.Weather;
 import com.kpd.kpd_bot.api.weather.model.WeatherMain;
 import com.kpd.kpd_bot.api.weather.model.Wind;
-import com.kpd.kpd_bot.dto.response.BaseQuoteResponseDTO;
-import com.kpd.kpd_bot.dto.response.BaseWeatherResponseDTO;
+import com.kpd.kpd_bot.api.weather.model.BaseWeatherResponseDTO;
+import com.kpd.kpd_bot.api.Adapter;
 import lombok.RequiredArgsConstructor;
-import org.jvnet.hk2.annotations.Service;
+import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor

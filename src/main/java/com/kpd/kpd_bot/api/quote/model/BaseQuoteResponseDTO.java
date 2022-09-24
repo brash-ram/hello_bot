@@ -1,4 +1,4 @@
-package com.kpd.kpd_bot.dto.response;
+package com.kpd.kpd_bot.api.quote.model;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

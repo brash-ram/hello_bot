@@ -1,4 +1,4 @@
-package com.kpd.kpd_bot.dto.response;
+package com.kpd.kpd_bot.api.weather.model;
 
 import com.kpd.kpd_bot.api.weather.model.Weather;
 import com.kpd.kpd_bot.api.weather.model.WeatherMain;

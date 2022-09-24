@@ -1,7 +1,8 @@
-package com.kpd.kpd_bot.message_services;
+package com.kpd.kpd_bot.api.quote;
 
-import com.kpd.kpd_bot.api.QuoteAPI;
-import com.kpd.kpd_bot.dto.response.BaseQuoteResponseDTO;
+import com.kpd.kpd_bot.api.quote.QuoteAPI;
+import com.kpd.kpd_bot.api.quote.model.BaseQuoteResponseDTO;
+import com.kpd.kpd_bot.api.Adapter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

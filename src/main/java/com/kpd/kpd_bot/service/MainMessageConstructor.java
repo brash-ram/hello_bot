@@ -1,10 +1,12 @@
-package com.kpd.kpd_bot.message_services;
+package com.kpd.kpd_bot.service;
 
+import com.kpd.kpd_bot.api.Adapter;
+import com.kpd.kpd_bot.api.quote.QuoteAdapter;
+import com.kpd.kpd_bot.api.weather.WeatherAdapter;
 import com.kpd.kpd_bot.statics.StringConst;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
 @Service
 @RequiredArgsConstructor
 public class MainMessageConstructor {
