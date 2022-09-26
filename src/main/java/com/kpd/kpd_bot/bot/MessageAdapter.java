@@ -2,8 +2,10 @@ package com.kpd.kpd_bot.bot;
 
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardRemove;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.util.ArrayList;
@@ -12,6 +14,9 @@ import java.util.List;
 public class MessageAdapter {
 
 	private final SendMessage sendMessage = new SendMessage();
+	private List<List<InlineKeyboardButton>> inlineKeyboard = new ArrayList<>();
+	private List<InlineKeyboardButton> currentRowInlineButtons = new ArrayList<>();
+
 
 	public MessageAdapter setChatId(long chatId) {
 		sendMessage.setChatId(chatId);
@@ -51,8 +56,35 @@ public class MessageAdapter {
 		return this;
 	}
 
+	public MessageAdapter addInlineButtonInRow(String buttonText, String callbackData) {
+		InlineKeyboardButton button = new InlineKeyboardButton();
+		button.setText(buttonText);
+		button.setCallbackData(callbackData);
+		currentRowInlineButtons.add(button);
+		return this;
+	}
+
+	public MessageAdapter addNewInlineRow() {
+		if (currentRowInlineButtons.size() != 0) {
+			inlineKeyboard.add(currentRowInlineButtons);
+			currentRowInlineButtons = new ArrayList<>();
+		}
+		return this;
+	}
+
 	public SendMessage getSendMessage() {
+		this.setInlineKeyboard();
 		return sendMessage;
+	}
+
+	private MessageAdapter setInlineKeyboard() {
+		if (inlineKeyboard.size() != 0 || currentRowInlineButtons.size() != 0) {
+			this.addNewInlineRow();
+			InlineKeyboardMarkup keyboard = new InlineKeyboardMarkup();
+			keyboard.setKeyboard(inlineKeyboard);
+			sendMessage.setReplyMarkup(keyboard);
+		}
+		return this;
 	}
 
 

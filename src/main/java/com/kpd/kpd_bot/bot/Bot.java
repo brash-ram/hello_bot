@@ -31,6 +31,9 @@ public class Bot extends TelegramLongPollingBot {
 				throw new RuntimeException(e);
 			}
 		}
+		else if (update.hasCallbackQuery()) {
+
+		}
 	}
 
 	@Override

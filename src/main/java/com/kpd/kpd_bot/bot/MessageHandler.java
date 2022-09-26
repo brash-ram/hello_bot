@@ -21,7 +21,9 @@ public class MessageHandler {
 		switch (messageText) {
 			case "/start" -> newMessage.setText(StringConst.startMessage)
 					.addReplyButtons(Buttons.startButtons);
-			case "Получить новости этого дня прямо сейчас" -> newMessage.setText(mainMessageConstructor.getMessage());
+			case "Получить новости этого дня прямо сейчас" -> newMessage.setText(mainMessageConstructor.getMessage())
+					.addInlineButtonInRow("but 1", "but_1").addNewInlineRow()
+					.addInlineButtonInRow("but 2", "but_2").addInlineButtonInRow("but 3", "but_3");
 			case "Настройки" -> newMessage.setText(StringConst.settingsMessage)
 					.addReplyButtons(Buttons.settingsButtons);
 			default -> newMessage.setText(StringConst.defaultMessage);
