@@ -77,6 +77,20 @@ public class MessageAdapter {
 		return sendMessage;
 	}
 
+	public MessageAdapter setInlineKeyboard(InlineKeyboardMarkup inlineKeyboard) {
+		sendMessage.setReplyMarkup(inlineKeyboard);
+		return this;
+	}
+
+	public InlineKeyboardMarkup getInlineKeyboard() {
+		InlineKeyboardMarkup keyboard = new InlineKeyboardMarkup();
+		if (inlineKeyboard.size() != 0 || currentRowInlineButtons.size() != 0) {
+			this.addNewInlineRow();
+			keyboard.setKeyboard(inlineKeyboard);
+		}
+		return keyboard;
+	}
+
 	private MessageAdapter setInlineKeyboard() {
 		if (inlineKeyboard.size() != 0 || currentRowInlineButtons.size() != 0) {
 			this.addNewInlineRow();

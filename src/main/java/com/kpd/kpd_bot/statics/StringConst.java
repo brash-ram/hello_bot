@@ -10,6 +10,7 @@ public class StringConst {
 	public static final String helloMessage = "Привет!";
 
 	public static final String newsParametersMessage = "Что вы хотите видеть в сообщении?";
+	public static final String startTimeSend = "10";
 
 	public static final String defaultMessage = "Выберите необходимый пункт меню для продолжения";
 
