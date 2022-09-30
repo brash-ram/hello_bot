@@ -23,15 +23,17 @@ public class MessageHandler {
 		Message message = update.getMessage();
 		String messageText = message.getText();
 		MessageAdapter newMessage = new MessageAdapter().setChatId(message.getChatId());
+		Long userId = update.getMessage().getFrom().getId();
 
+		if (!userService.existUser(userId)) {
+			userService.saveNewUser(update.getMessage().getFrom());
+		}
 
 		switch (messageText) {
-			case "/start" -> {
+			case "/start" ->
 				newMessage.setText(StringConst.startMessage)
 					.addReplyButtons(Buttons.startButtons);
-				userService.saveNewUser(update.getMessage().getFrom());
-			}
-			case "Получить новости этого дня прямо сейчас" -> newMessage.setText(mainMessageConstructor.getMessage())
+			case "Получить новости этого дня прямо сейчас" -> newMessage.setText(mainMessageConstructor.getMessage(userId))
 					.addInlineButtonInRow("but 1", "but_1").addNewInlineRow()
 					.addInlineButtonInRow("but 2", "but_2").addInlineButtonInRow("but 3", "but_3");
 			case "Настройки" -> newMessage.setText(StringConst.settingsMessage)
