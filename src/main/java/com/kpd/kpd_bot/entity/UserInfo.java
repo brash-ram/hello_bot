@@ -12,7 +12,7 @@ import javax.persistence.*;
 @Entity
 @Accessors(chain = true)
 @Table(name = "users")
-public class User {
+public class UserInfo {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
@@ -23,10 +23,14 @@ public class User {
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_setting", nullable = false)
-	private Setting setting;
+	private UserSetting userSetting;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_subscription", nullable = false)
 	private Subscription  subscription;
+
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "user_exchange_rates_setting", nullable = false)
+	private ExchangeRatesSetting  exchangeRatesSetting;
 
 }

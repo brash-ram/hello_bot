@@ -12,25 +12,17 @@ import javax.persistence.*;
 @Getter
 @Entity
 @Accessors(chain = true)
-@Table(name = "subscription")
-public class Subscription {
+@Table(name = "exchange_rates_setting")
+public class ExchangeRatesSetting {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id", nullable = false)
 	private Long id;
 
-	@Column(nullable = false)
-	private boolean weather;
+	@Column(name = "source_currency", nullable = false)
+	private String sourceCurrency;
 
-	@Column(nullable = false)
-	private boolean quote;
+	@Column(name = "target_currency", nullable = false)
+	private String targetCurrency;
 
-	@Column(nullable = false)
-	private boolean news;
-
-	@Column(nullable = false)
-	private boolean film;
-
-	@Column(name = "exchange_rates", nullable = false)
-	private boolean exchange_rates;
 }
