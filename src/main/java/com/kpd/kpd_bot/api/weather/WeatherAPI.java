@@ -18,20 +18,15 @@ public class WeatherAPI {
 
     private final ObjectMapper mapper;
 
-
-    public String testMethod(){
-        return "Погода";
-    }
-
-    private String getUri() {
+    private String getUrl() {
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
-                .path("?lat={lat}&lon={lon}&appid={API key}")
+                .scheme("https").host(weatherConfig.getUrl()).path("?lat={lat}&lon={lon}&appid={API key}")
                 .buildAndExpand("44.34", "10.99", weatherConfig.getToken());
         return uriComponents.toUriString();
     }
 
     public BaseWeatherResponseDTO getWeather() {
-        Object responseApi = webService.<Object>makeRequest(weatherConfig.getUrl(), this.getUri(), Object.class);
+        Object responseApi = webService.<Object>makeRequest(this.getUrl(), Object.class);
         return mapper.convertValue(responseApi, BaseWeatherResponseDTO.class);
     }
 }

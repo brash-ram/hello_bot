@@ -16,15 +16,15 @@ public class QuoteAPI {
 	private final WebService webService;
 	private final ObjectMapper mapper;
 
-	private String getUri() {
+	private String getUrl() {
 		UriComponents uriComponents = UriComponentsBuilder.newInstance()
-				.path("/{mode}")
+				.scheme("https").host(quoteConfig.getUrl()).path("/{mode}")
 				.buildAndExpand("today");
 		return uriComponents.toUriString();
 	}
 
 	public BaseQuoteResponseDTO getQuote() {
-		Object responseApi =  webService.<Object[]>makeRequest(quoteConfig.getUrl(), this.getUri(), Object[].class)[0];
+		Object responseApi =  webService.<Object[]>makeRequest(this.getUrl(), Object[].class)[0];
 		return mapper.convertValue(responseApi, BaseQuoteResponseDTO.class);
 	}
 }
