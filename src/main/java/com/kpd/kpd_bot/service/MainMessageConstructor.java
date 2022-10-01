@@ -19,7 +19,7 @@ public class MainMessageConstructor {
 	public String getMessage(Long userId) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(StringConst.helloMessage).append("\n");
-		Subscription subscription = userRepository.getReferenceById(userId).getSubscription();
+		Subscription subscription = userRepository.findById(userId).get().getSubscription();
 		if (subscription.isQuote()) {
 			sb.append(quoteAdapter.getTextFromMessageService()).append("\n");
 		}

@@ -44,6 +44,9 @@ public class InlineKeyboardHandler {
 		if (editMessage != null) {
 			bot.execute(editMessage);
 		}
-
 	}
+
+//	private EditMessageText editMessage(long chatId, int messageId, String text) {
+//
+//	}
 }
