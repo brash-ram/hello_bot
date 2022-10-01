@@ -14,12 +14,12 @@ import org.springframework.stereotype.Service;
 public class MainMessageConstructor {
 	private final Adapter weatherAdapter;
 	private final Adapter quoteAdapter;
-	private final UserRepository userRepository;
+	private final SubscriptionService subscriptionService;
 
 	public String getMessage(Long userId) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(StringConst.helloMessage).append("\n");
-		Subscription subscription = userRepository.findById(userId).get().getSubscription();
+		Subscription subscription = subscriptionService.getSubscriptionByUserId(userId);
 		if (subscription.isQuote()) {
 			sb.append(quoteAdapter.getTextFromMessageService()).append("\n");
 		}

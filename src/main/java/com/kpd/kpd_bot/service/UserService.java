@@ -24,13 +24,11 @@ public class UserService {
 		Subscription subscription = subscriptionService.saveNewSubscription();
 		ExchangeRatesSetting exchangeRatesSetting = exchangeRatesSettingService.saveNewExchangeRatesSetting();
 		UserInfo newUser = new UserInfo(user.getId(), user.getUserName(), setting, subscription, exchangeRatesSetting);
-		UserInfo savedUser = userRepository.save(newUser);
-		return savedUser;
+		return userRepository.save(newUser);
 	}
 
 	public boolean existUser(Long userId) {
 		return userRepository.existsById(userId);
 	}
-
 
 }
