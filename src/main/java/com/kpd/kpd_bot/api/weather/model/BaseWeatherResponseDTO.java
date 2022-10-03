@@ -14,5 +14,4 @@ public class BaseWeatherResponseDTO {
     private WeatherMain main;
     private Wind wind;
     private String name;
-
 }

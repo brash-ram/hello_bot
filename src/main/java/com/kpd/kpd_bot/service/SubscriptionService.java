@@ -16,7 +16,7 @@ public class SubscriptionService {
 	private final UserRepository userRepository;
 
 	public Subscription saveNewSubscription() {
-		return subscriptionRepository.save(new Subscription(null, false, true, true, true, false));
+		return subscriptionRepository.save(new Subscription(null, true, true, true, true, true));
 	}
 
 	public Subscription getSubscriptionByUserId(Long userId) {

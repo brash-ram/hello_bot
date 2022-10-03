@@ -21,7 +21,7 @@ public class WeatherAPI {
     private String getUrl() {
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
                 .scheme("https").host(weatherConfig.getUrl()).path("?lat={lat}&lon={lon}&appid={API key}")
-                .buildAndExpand("44.34", "10.99", weatherConfig.getToken());
+                .buildAndExpand("54.62", "39.69", weatherConfig.getToken());
         return uriComponents.toUriString();
     }
 
