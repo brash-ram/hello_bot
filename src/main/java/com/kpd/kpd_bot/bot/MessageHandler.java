@@ -11,7 +11,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Service
@@ -32,21 +31,21 @@ public class MessageHandler {
 		}
 
 		switch (messageText) {
-			case "/start" -> newMessage.setText(StringConst.startMessage)
+			case "/start" ->
+				newMessage.setText(StringConst.START_MESSAGE)
 					.addReplyButtons(Buttons.startButtons);
 			case "Получить новости этого дня прямо сейчас" -> newMessage.setText(mainMessageConstructor.getMessage(userId));
-			case "Настройки" -> newMessage.setText(StringConst.settingsMessage)
+			case "Настройки" -> newMessage.setText(StringConst.SETTINGS_MESSAGE)
 					.addReplyButtons(Buttons.settingsButtons);
-			case "Настроить время отправки сообщения" -> newMessage.setText(StringConst.startTimeSend)
+			case "Настроить время отправки сообщения" -> newMessage.setText(StringConst.START_TIME_SEND)
 					.setInlineKeyboard(new InlineKeyboardConstructor()
 							.addInlineButtonInRow("<<", "<<")
 							.addInlineButtonInRow(">>", ">>")
 							.addNewInlineRow().addInlineButtonInRow("Подтвердить", "setTimeSend")
-							.getInlineKeyboard())
-			;
-			case "Настройка информационных параметров сообщения" -> newMessage.setText(StringConst.newsParametersMessage)
+							.getInlineKeyboard());
+			case "Настройка информационных параметров сообщения" -> newMessage.setText(StringConst.NEWS_PARAMETERS_MESSAGE)
 					.setInlineKeyboard(SettingSubscriptionsKeyboard.createInlineKeyboardSettingSubscription(userService.findById(userId).getSubscription()));
-			default -> newMessage.setText(StringConst.defaultMessage);
+			default -> newMessage.setText(StringConst.DEFAULT_MESSAGE);
 		}
 		bot.execute(newMessage.getSendMessage());
 	}

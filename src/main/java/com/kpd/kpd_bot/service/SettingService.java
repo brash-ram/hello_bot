@@ -20,4 +20,8 @@ public class SettingService {
 	public UserSetting saveNewSetting() {
 		return settingRepository.save(new UserSetting(null, timeSendDefault, cityDefault));
 	}
+
+	public UserSetting saveSetting(UserSetting userSetting) {
+		return settingRepository.save(userSetting);
+	}
 }

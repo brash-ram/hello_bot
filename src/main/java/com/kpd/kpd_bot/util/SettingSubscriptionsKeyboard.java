@@ -18,11 +18,12 @@ public class SettingSubscriptionsKeyboard {
 
 	public static InlineKeyboardMarkup createInlineKeyboardSettingSubscription(Subscription subscription) {
 		InlineKeyboardConstructor constructor = new InlineKeyboardConstructor();
-		constructor.addInlineButtonInRow(StringConst.weather + " " + (subscription.getWeather() ? yes : no), "weather").addNewInlineRow();
-		constructor.addInlineButtonInRow(StringConst.quote + " " + (subscription.getQuote() ? yes : no), "quote").addNewInlineRow();
-		constructor.addInlineButtonInRow(StringConst.film + " " + (subscription.getFilm() ? yes : no), "film").addNewInlineRow();
-		constructor.addInlineButtonInRow(StringConst.exchangeRates + " " + (subscription.getExchangeRates() ? yes : no), "exchangeRates").addNewInlineRow();
-		constructor.addInlineButtonInRow(StringConst.news + " " + (subscription.getNews() ? yes : no), "news").addNewInlineRow();
+		constructor.addInlineButtonInRow(StringConst.BACK, "backSubscription").addNewInlineRow();
+		constructor.addInlineButtonInRow(StringConst.WEATHER + " " + (subscription.getWeather() ? yes : no), "weather").addNewInlineRow();
+		constructor.addInlineButtonInRow(StringConst.QUOTE + " " + (subscription.getQuote() ? yes : no), "quote").addNewInlineRow();
+		constructor.addInlineButtonInRow(StringConst.FILM + " " + (subscription.getFilm() ? yes : no), "film").addNewInlineRow();
+		constructor.addInlineButtonInRow(StringConst.EXCHANGE_RATES + " " + (subscription.getExchangeRates() ? yes : no), "exchangeRates").addNewInlineRow();
+		constructor.addInlineButtonInRow(StringConst.NEWS + " " + (subscription.getNews() ? yes : no), "news").addNewInlineRow();
 		return constructor.getInlineKeyboard();
 	}
 }

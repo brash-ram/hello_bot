@@ -1,16 +1,16 @@
 package com.kpd.kpd_bot.bot;
 
 import com.kpd.kpd_bot.entity.Subscription;
-import com.kpd.kpd_bot.entity.UserInfo;
+import com.kpd.kpd_bot.service.SettingService;
 import com.kpd.kpd_bot.service.SubscriptionService;
 import com.kpd.kpd_bot.service.UserService;
+import com.kpd.kpd_bot.statics.Buttons;
 import com.kpd.kpd_bot.statics.StringConst;
 import com.kpd.kpd_bot.util.SettingSubscriptionsKeyboard;
 import com.kpd.kpd_bot.util.TimeSendInlineKeyboardHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -21,6 +21,7 @@ public class InlineKeyboardHandler {
 	private final TimeSendInlineKeyboardHandler timeSendInlineKeyboardHandler;
 	private final SubscriptionService subscriptionService;
 	private final UserService userService;
+	private final SettingService settingService;
 
 	public void handleMessage(Update update, Bot bot) throws TelegramApiException {
 		String callData = update.getCallbackQuery().getData();
@@ -39,9 +40,11 @@ public class InlineKeyboardHandler {
 				editMessage = this.editMessage(chatId, messageId,
 						timeSendInlineKeyboardHandler.addHour(messageText), update.getCallbackQuery().getMessage().getReplyMarkup());
 
-			default -> {
-				this.handleSettingSubscription(callData, userId, editMessage);
-			}
+			case "backSubscription" -> newMessage = new MessageAdapter().setChatId(chatId).setText(StringConst.START_MESSAGE).addReplyButtons(Buttons.startButtons);
+
+			case "setTimeSend" -> settingService.saveSetting(userService.findById(userId).getUserSetting().setTimeSend(messageText));
+
+			default -> this.handleSettingSubscription(callData, userId, editMessage);
 		}
 
 		if (newMessage != null) {
@@ -70,14 +73,6 @@ public class InlineKeyboardHandler {
 		editMessage.setMessageId(messageId);
 		editMessage.setText(text);
 		editMessage.setReplyMarkup(keyboardMarkup);
-		return editMessage;
-	}
-
-	private EditMessageText editMessage(long chatId, int messageId, String text) {
-		EditMessageText editMessage = new EditMessageText();
-		editMessage.setChatId(chatId);
-		editMessage.setText(text);
-		editMessage.setMessageId(messageId);
 		return editMessage;
 	}
 }

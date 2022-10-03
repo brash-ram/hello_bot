@@ -1,10 +1,7 @@
 package com.kpd.kpd_bot.service;
 
 import com.kpd.kpd_bot.api.Adapter;
-import com.kpd.kpd_bot.api.quote.QuoteAdapter;
-import com.kpd.kpd_bot.api.weather.WeatherAdapter;
 import com.kpd.kpd_bot.entity.Subscription;
-import com.kpd.kpd_bot.jpa.UserRepository;
 import com.kpd.kpd_bot.statics.StringConst;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,7 +15,7 @@ public class MainMessageConstructor {
 
 	public String getMessage(Long userId) {
 		StringBuilder sb = new StringBuilder();
-		sb.append(StringConst.helloMessage).append("\n");
+		sb.append(StringConst.HELLO_MESSAGE).append("\n");
 		Subscription subscription = subscriptionService.getSubscriptionByUserId(userId);
 		if (subscription.getQuote()) {
 			sb.append(quoteAdapter.getTextFromMessageService()).append("\n");
