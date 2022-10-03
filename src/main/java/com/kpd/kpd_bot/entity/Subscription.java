@@ -3,6 +3,7 @@ package com.kpd.kpd_bot.entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lombok.experimental.Accessors;
 
 import javax.persistence.*;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
+@Setter
 @Entity
 @Accessors(chain = true)
 @Table(name = "subscription")
@@ -20,17 +22,17 @@ public class Subscription {
 	private Long id;
 
 	@Column(nullable = false)
-	private boolean weather;
+	private Boolean weather;
 
 	@Column(nullable = false)
-	private boolean quote;
+	private Boolean quote;
 
 	@Column(nullable = false)
-	private boolean news;
+	private Boolean news;
 
 	@Column(nullable = false)
-	private boolean film;
+	private Boolean film;
 
 	@Column(name = "exchange_rates", nullable = false)
-	private boolean exchange_rates;
+	private Boolean exchangeRates;
 }

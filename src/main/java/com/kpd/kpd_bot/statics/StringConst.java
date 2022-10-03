@@ -14,4 +14,10 @@ public class StringConst {
 
 	public static final String defaultMessage = "Выберите необходимый пункт меню для продолжения";
 
+	public static final String weather = "Погода";
+	public static final String quote = "Цитата дня";
+	public static final String film = "Фильм дня ";
+	public static final String exchangeRates = "Курс валют";
+	public static final String news = "Новости ";
+
 }

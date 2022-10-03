@@ -31,4 +31,7 @@ public class UserService {
 		return userRepository.existsById(userId);
 	}
 
+	public UserInfo findById(Long userId) {return userRepository.findById(userId).get();}
+
+
 }

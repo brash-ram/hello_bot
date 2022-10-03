@@ -14,9 +14,6 @@ import java.util.List;
 public class MessageAdapter {
 
 	private final SendMessage sendMessage = new SendMessage();
-	private List<List<InlineKeyboardButton>> inlineKeyboard = new ArrayList<>();
-	private List<InlineKeyboardButton> currentRowInlineButtons = new ArrayList<>();
-
 
 	public MessageAdapter setChatId(long chatId) {
 		sendMessage.setChatId(chatId);
@@ -56,48 +53,13 @@ public class MessageAdapter {
 		return this;
 	}
 
-	public MessageAdapter addInlineButtonInRow(String buttonText, String callbackData) {
-		InlineKeyboardButton button = new InlineKeyboardButton();
-		button.setText(buttonText);
-		button.setCallbackData(callbackData);
-		currentRowInlineButtons.add(button);
-		return this;
-	}
-
-	public MessageAdapter addNewInlineRow() {
-		if (currentRowInlineButtons.size() != 0) {
-			inlineKeyboard.add(currentRowInlineButtons);
-			currentRowInlineButtons = new ArrayList<>();
-		}
-		return this;
-	}
 
 	public SendMessage getSendMessage() {
-		this.setInlineKeyboard();
 		return sendMessage;
 	}
 
 	public MessageAdapter setInlineKeyboard(InlineKeyboardMarkup inlineKeyboard) {
 		sendMessage.setReplyMarkup(inlineKeyboard);
-		return this;
-	}
-
-	public InlineKeyboardMarkup getInlineKeyboard() {
-		InlineKeyboardMarkup keyboard = new InlineKeyboardMarkup();
-		if (inlineKeyboard.size() != 0 || currentRowInlineButtons.size() != 0) {
-			this.addNewInlineRow();
-			keyboard.setKeyboard(inlineKeyboard);
-		}
-		return keyboard;
-	}
-
-	private MessageAdapter setInlineKeyboard() {
-		if (inlineKeyboard.size() != 0 || currentRowInlineButtons.size() != 0) {
-			this.addNewInlineRow();
-			InlineKeyboardMarkup keyboard = new InlineKeyboardMarkup();
-			keyboard.setKeyboard(inlineKeyboard);
-			sendMessage.setReplyMarkup(keyboard);
-		}
 		return this;
 	}
 

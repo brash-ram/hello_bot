@@ -20,10 +20,10 @@ public class MainMessageConstructor {
 		StringBuilder sb = new StringBuilder();
 		sb.append(StringConst.helloMessage).append("\n");
 		Subscription subscription = subscriptionService.getSubscriptionByUserId(userId);
-		if (subscription.isQuote()) {
+		if (subscription.getQuote()) {
 			sb.append(quoteAdapter.getTextFromMessageService()).append("\n");
 		}
-		if (subscription.isWeather()) {
+		if (subscription.getWeather()) {
 			sb.append(weatherAdapter.getTextFromMessageService()).append("\n");
 		}
 		return sb.toString();

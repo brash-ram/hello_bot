@@ -6,6 +6,8 @@ import com.kpd.kpd_bot.jpa.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+
 @Service
 @RequiredArgsConstructor
 public class SubscriptionService {
@@ -19,5 +21,9 @@ public class SubscriptionService {
 
 	public Subscription getSubscriptionByUserId(Long userId) {
 		return userRepository.findById(userId).get().getSubscription();
+	}
+
+	public Subscription saveSubscription(Subscription subscription) {
+		return subscriptionRepository.save(subscription);
 	}
 }
