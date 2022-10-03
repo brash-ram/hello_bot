@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Buttons {
-	public static final String[] startButtons = {"Получить новости этого дня прямо сейчас", "Настройки", "Помощь"};
+	public static final String[] startButtons = {"Получить новости этого дня прямо сейчас", "Настройки", "Справка"};
 	public static final String[] settingsButtons = {"Настроить время отправки сообщения",
 													"Настроить форму обращения к пользователю",
 													"Настроить информационные параметры сообщения"};

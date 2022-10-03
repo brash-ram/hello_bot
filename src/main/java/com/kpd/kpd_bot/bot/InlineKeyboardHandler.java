@@ -6,11 +6,13 @@ import com.kpd.kpd_bot.service.SubscriptionService;
 import com.kpd.kpd_bot.service.UserService;
 import com.kpd.kpd_bot.statics.Buttons;
 import com.kpd.kpd_bot.statics.StringConst;
+import com.kpd.kpd_bot.util.InlineKeyboardConstructor;
 import com.kpd.kpd_bot.util.SettingSubscriptionsKeyboard;
 import com.kpd.kpd_bot.util.TimeSendInlineKeyboardHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -44,8 +46,25 @@ public class InlineKeyboardHandler {
 
 			case "setTimeSend" -> settingService.saveSetting(userService.findById(userId).getUserSetting().setTimeSend(messageText));
 
+			case "setSendingMessageTime" ->
+				newMessage = new MessageAdapter().setChatId(chatId)
+						.setText(StringConst.START_TIME_SEND)
+						.setInlineKeyboard(new InlineKeyboardConstructor()
+						.addInlineButtonInRow("<<", "<<")
+						.addInlineButtonInRow(">>", ">>")
+						.addNewInlineRow().addInlineButtonInRow("Подтвердить", "setTimeSend")
+						.getInlineKeyboard());
+
+			case "setMessageInfoParameters" -> newMessage = new MessageAdapter().setChatId(chatId).
+					setText(StringConst.NEWS_PARAMETERS_MESSAGE)
+					.setInlineKeyboard(SettingSubscriptionsKeyboard
+					.createInlineKeyboardSettingSubscription(userService.findById(userId).getSubscription()));
+
+			case "setUserForm" -> newMessage.setText(StringConst.USER_FORM);
+
+
 			default -> this.handleSettingSubscription(callData, userId, editMessage);
-		}
+	}
 
 		if (newMessage != null) {
 			bot.execute(newMessage.getSendMessage());

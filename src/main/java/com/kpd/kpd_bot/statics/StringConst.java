@@ -9,6 +9,11 @@ public class StringConst {
 
 	public static final String HELLO_MESSAGE = "Привет!";
 
+	public static final String HELP_MESSAGE = "Данный телеграм-бот предназначен для " +
+			"ежедневной отправки приветственного сообщения с основной информацией дня: курсы валют, погода " +
+			"(по месту, которое указал пользователь), цитата дня, фильм дня, новости. " +
+			"В пункте меню \"Настройки\" вы можете выбрать информацию, которую хотите видеть в сообщении, " +
+			"форму обращения к вам и время отправки сообщения.";
 	public static final String NEWS_PARAMETERS_MESSAGE = "Что вы хотите видеть в сообщении?";
 	public static final String START_TIME_SEND = "10";
 
@@ -20,5 +25,8 @@ public class StringConst {
 	public static final String EXCHANGE_RATES = "Курс валют";
 	public static final String NEWS = "Новости ";
 	public static final String BACK = "Назад";
+
+	public static final String USER_FORM = "Напишите, как вы хотите, чтобы к вам обращались в сообщении.";
+
 
 }

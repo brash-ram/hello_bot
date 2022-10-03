@@ -15,11 +15,14 @@ public class MainMessageConstructor {
 
 	public String getMessage(Long userId) {
 		StringBuilder sb = new StringBuilder();
+
 		sb.append(StringConst.HELLO_MESSAGE).append("\n");
 		Subscription subscription = subscriptionService.getSubscriptionByUserId(userId);
+
 		if (subscription.getQuote()) {
 			sb.append(quoteAdapter.getTextFromMessageService()).append("\n");
 		}
+
 		if (subscription.getWeather()) {
 			sb.append(weatherAdapter.getTextFromMessageService()).append("\n");
 		}
