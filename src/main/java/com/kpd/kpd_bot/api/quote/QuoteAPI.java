@@ -17,10 +17,9 @@ public class QuoteAPI {
 	private final ObjectMapper mapper;
 
 	private String getUrl() {
-		UriComponents uriComponents = UriComponentsBuilder.newInstance()
+		return UriComponentsBuilder.newInstance()
 				.scheme("https").host(quoteConfig.getUrl()).path("/{mode}")
-				.buildAndExpand("today");
-		return uriComponents.toUriString();
+				.buildAndExpand("today").toUriString();
 	}
 
 	public BaseQuoteResponseDTO getQuote() {

@@ -4,6 +4,8 @@ import com.kpd.kpd_bot.service.MainMessageConstructor;
 import com.kpd.kpd_bot.service.UserService;
 import com.kpd.kpd_bot.statics.Buttons;
 import com.kpd.kpd_bot.statics.StringConst;
+import com.kpd.kpd_bot.util.InlineKeyboardConstructor;
+import com.kpd.kpd_bot.util.SettingSubscriptionsKeyboard;
 import com.kpd.kpd_bot.util.TimeSendInlineKeyboardHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,14 +32,20 @@ public class MessageHandler {
 		}
 
 		switch (messageText) {
-			case "/start" ->
-				newMessage.setText(StringConst.startMessage)
+			case "/start" -> newMessage.setText(StringConst.startMessage)
 					.addReplyButtons(Buttons.startButtons);
 			case "Получить новости этого дня прямо сейчас" -> newMessage.setText(mainMessageConstructor.getMessage(userId));
 			case "Настройки" -> newMessage.setText(StringConst.settingsMessage)
 					.addReplyButtons(Buttons.settingsButtons);
 			case "Настроить время отправки сообщения" -> newMessage.setText(StringConst.startTimeSend)
-					.setInlineKeyboard(timeSendInlineKeyboardHandler.getKeyboard());
+					.setInlineKeyboard(new InlineKeyboardConstructor()
+							.addInlineButtonInRow("<<", "<<")
+							.addInlineButtonInRow(">>", ">>")
+							.addNewInlineRow().addInlineButtonInRow("Подтвердить", "setTimeSend")
+							.getInlineKeyboard())
+			;
+			case "Настройка информационных параметров сообщения" -> newMessage.setText(StringConst.newsParametersMessage)
+					.setInlineKeyboard(SettingSubscriptionsKeyboard.createInlineKeyboardSettingSubscription(userService.findById(userId).getSubscription()));
 			default -> newMessage.setText(StringConst.defaultMessage);
 		}
 		bot.execute(newMessage.getSendMessage());
