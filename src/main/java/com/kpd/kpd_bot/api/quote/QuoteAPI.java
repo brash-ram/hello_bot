@@ -6,7 +6,6 @@ import com.kpd.kpd_bot.config.QuoteConfig;
 import com.kpd.kpd_bot.api.quote.model.BaseQuoteResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 @Service
@@ -23,7 +22,7 @@ public class QuoteAPI {
 	}
 
 	public BaseQuoteResponseDTO getQuote() {
-		Object responseApi =  webService.<Object[]>makeRequest(this.getUrl(), Object[].class)[0];
+		Object responseApi =  webService.<Object[]>makePostRequest(this.getUrl(), Object[].class)[0];
 		return mapper.convertValue(responseApi, BaseQuoteResponseDTO.class);
 	}
 }

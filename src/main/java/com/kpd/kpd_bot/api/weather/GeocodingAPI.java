@@ -22,13 +22,13 @@ public class GeocodingAPI {
 
     private String getUrl(String city) {
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
-                .scheme("http").host(weatherConfig.getGeoUrl()).path("?q={city name}&limit=1&appid={API key}")
-                .buildAndExpand(city, weatherConfig.getToken());
+                .scheme("http").host(weatherConfig.getGeoUrl()).path("direct?q={city name},{country}&limit=1&appid={API key}")
+                .buildAndExpand(city, "643", weatherConfig.getToken());
         return uriComponents.toUriString();
     }
 
     public GeoCoordinateResponseDTO getGeoCoordinate(String city) {
-        Object responseApi = webService.<Object>makeRequest(this.getUrl(city), Object.class);
+        Object responseApi = webService.<Object>makeGetRequest(this.getUrl(city), Object.class);
         return mapper.convertValue(responseApi, GeoCoordinateResponseDTO.class);
     }
 }

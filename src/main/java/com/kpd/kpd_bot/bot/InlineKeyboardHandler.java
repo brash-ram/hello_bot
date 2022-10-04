@@ -51,21 +51,27 @@ public class InlineKeyboardHandler {
 
 			case "setTimeSend" -> settingService.saveSetting(userService.findById(userId).getUserSetting().setTimeSend(messageText));
 
-			case "setSendingMessageTime" ->
-				newMessage = new MessageAdapter().setChatId(chatId)
-						.setText(StringConst.START_TIME_SEND)
-						.setInlineKeyboard(new InlineKeyboardConstructor()
+			case "setSendingMessageTime" ->editMessage = this.editMessage(chatId, messageId, StringConst.START_TIME_SEND,
+					new InlineKeyboardConstructor()
 						.addInlineButtonInRow("<<", "<<")
 						.addInlineButtonInRow(">>", ">>")
 						.addNewInlineRow().addInlineButtonInRow("Подтвердить", "setTimeSend")
-						.getInlineKeyboard());
+						.getInlineKeyboard()
+						);
+//				newMessage = new MessageAdapter().setChatId(chatId)
+//						.setText(StringConst.START_TIME_SEND)
+//						.setInlineKeyboard(new InlineKeyboardConstructor()
+//						.addInlineButtonInRow("<<", "<<")
+//						.addInlineButtonInRow(">>", ">>")
+//						.addNewInlineRow().addInlineButtonInRow("Подтвердить", "setTimeSend")
+//						.getInlineKeyboard());
 
 			case "setMessageInfoParameters" -> newMessage = new MessageAdapter().setChatId(chatId).
 					setText(StringConst.NEWS_PARAMETERS_MESSAGE)
 					.setInlineKeyboard(SettingSubscriptionsKeyboard
 					.createInlineKeyboardSettingSubscription(userService.findById(userId).getSubscription()));
 
-			case "setUserForm" -> newMessage.setText(StringConst.USER_FORM);
+			case "setUserForm" -> newMessage = new MessageAdapter().setText(StringConst.USER_FORM);
 
 
 			default -> this.handleSettingSubscription(callData, userId, editMessage);

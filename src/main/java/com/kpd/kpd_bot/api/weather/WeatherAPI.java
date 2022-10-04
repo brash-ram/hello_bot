@@ -29,7 +29,7 @@ public class WeatherAPI {
 
     public BaseWeatherResponseDTO getWeather(String city) {
         GeoCoordinate coordinate = geocodingAPI.getGeoCoordinate(city).getCoordinateList().get(0);
-        Object responseApi = webService.<Object>makeRequest(this.getUrl(coordinate.getLat(), coordinate.getLon()), Object.class);
+        Object responseApi = webService.<Object>makePostRequest(this.getUrl(coordinate.getLat(), coordinate.getLon()), Object.class);
         return mapper.convertValue(responseApi, BaseWeatherResponseDTO.class);
     }
 }
