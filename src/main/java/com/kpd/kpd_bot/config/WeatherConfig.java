@@ -10,4 +10,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class WeatherConfig {
     private String url;
     private String token;
+    private String geoUrl;
 }
