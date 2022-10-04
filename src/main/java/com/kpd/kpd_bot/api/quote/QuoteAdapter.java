@@ -12,7 +12,7 @@ public class QuoteAdapter implements Adapter {
 	private final QuoteAPI quoteAPI;
 
 	@Override
-	public String getTextFromMessageService() {
+	public String getTextFromMessageService(String... args) {
 		BaseQuoteResponseDTO responseDTO = quoteAPI.getQuote();
 		return this.formatFromObjectToText(responseDTO);
 	}

@@ -20,6 +20,13 @@ public class SettingSubscriptionsKeyboard {
 		InlineKeyboardConstructor constructor = new InlineKeyboardConstructor();
 		constructor.addInlineButtonInRow(StringConst.BACK, "backSubscription").addNewInlineRow();
 		constructor.addInlineButtonInRow(StringConst.WEATHER + " " + (subscription.getWeather() ? yes : no), "weather").addNewInlineRow();
+
+//		if (subscription.getWeather()) {
+//			constructor.addInlineButtonInRow(StringConst.CURRENT_WEATHER + " " + (subscription.getWeather() ? yes : no), "weather").addNewInlineRow()
+//			.addInlineButtonInRow(StringConst.DAY_WEATHER + " " + (subscription.getWeather() ? yes : no), "weather").addNewInlineRow()
+//			.addInlineButtonInRow(StringConst.WEEK_WEATHER + " " + (subscription.getWeather() ? yes : no), "weather").addNewInlineRow();
+//		}
+
 		constructor.addInlineButtonInRow(StringConst.QUOTE + " " + (subscription.getQuote() ? yes : no), "quote").addNewInlineRow();
 		constructor.addInlineButtonInRow(StringConst.FILM + " " + (subscription.getFilm() ? yes : no), "film").addNewInlineRow();
 		constructor.addInlineButtonInRow(StringConst.EXCHANGE_RATES + " " + (subscription.getExchangeRates() ? yes : no), "exchangeRates").addNewInlineRow();

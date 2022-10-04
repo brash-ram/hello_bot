@@ -1,7 +1,9 @@
 package com.kpd.kpd_bot.service;
 
 import com.kpd.kpd_bot.api.Adapter;
+import com.kpd.kpd_bot.api.weather.WeatherAdapter;
 import com.kpd.kpd_bot.entity.Subscription;
+import com.kpd.kpd_bot.entity.UserInfo;
 import com.kpd.kpd_bot.statics.StringConst;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,22 +11,23 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class MainMessageConstructor {
-	private final Adapter weatherAdapter;
+	private final WeatherAdapter weatherAdapter;
 	private final Adapter quoteAdapter;
-	private final SubscriptionService subscriptionService;
+	private final UserService userService;
 
 	public String getMessage(Long userId) {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append(StringConst.HELLO_MESSAGE).append("\n");
-		Subscription subscription = subscriptionService.getSubscriptionByUserId(userId);
+		UserInfo userInfo = userService.findById(userId);
+		Subscription subscription = userInfo.getSubscription();
 
 		if (subscription.getQuote()) {
 			sb.append(quoteAdapter.getTextFromMessageService()).append("\n");
 		}
 
 		if (subscription.getWeather()) {
-			sb.append(weatherAdapter.getTextFromMessageService()).append("\n");
+			sb.append(weatherAdapter.getTextFromMessageService(userInfo.getUserSetting().getCity())).append("\n");
 		}
 		return sb.toString();
 	}

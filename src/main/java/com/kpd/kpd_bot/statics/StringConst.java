@@ -28,5 +28,9 @@ public class StringConst {
 
 	public static final String USER_FORM = "Напишите, как вы хотите, чтобы к вам обращались в сообщении.";
 
+	public static final String CURRENT_WEATHER = "Текущая погода";
 
+	public static final String DAY_WEATHER = "Почасовой прогноз на 24 часа";
+
+	public static final String WEEK_WEATHER = "Прогноз на неделю";
 }

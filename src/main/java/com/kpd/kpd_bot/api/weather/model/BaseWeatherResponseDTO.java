@@ -1,10 +1,6 @@
 package com.kpd.kpd_bot.api.weather.model;
 
-import com.kpd.kpd_bot.api.weather.model.Weather;
-import com.kpd.kpd_bot.api.weather.model.WeatherMain;
-import com.kpd.kpd_bot.api.weather.model.Wind;
 import lombok.*;
-
 import java.util.List;
 
 @Data

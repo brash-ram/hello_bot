@@ -15,8 +15,8 @@ public class WeatherAdapter implements Adapter {
 
     private final WeatherAPI weatherAPI;
     @Override
-    public String getTextFromMessageService() {
-        BaseWeatherResponseDTO responseDTO = weatherAPI.getWeather();
+    public String getTextFromMessageService(String... args) {
+        BaseWeatherResponseDTO responseDTO = weatherAPI.getWeather(args[0]);
         return this.formatFromObjectToText(responseDTO);
     }
 

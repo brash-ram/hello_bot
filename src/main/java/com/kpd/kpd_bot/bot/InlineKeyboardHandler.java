@@ -42,7 +42,12 @@ public class InlineKeyboardHandler {
 				editMessage = this.editMessage(chatId, messageId,
 						timeSendInlineKeyboardHandler.addHour(messageText), update.getCallbackQuery().getMessage().getReplyMarkup());
 
-			case "backSubscription" -> newMessage = new MessageAdapter().setChatId(chatId).setText(StringConst.START_MESSAGE).addReplyButtons(Buttons.startButtons);
+			case "backSubscription" -> newMessage = new MessageAdapter().setChatId(chatId).setText(StringConst.SETTINGS_MESSAGE)
+					.setInlineKeyboard(new InlineKeyboardConstructor()
+							.addInlineButtonInRow("Настроить время отправки сообщения", "setSendingMessageTime")
+							.addNewInlineRow().addInlineButtonInRow("Настроить информационные параметры сообщения", "setMessageInfoParameters")
+							.addNewInlineRow().addInlineButtonInRow("Настроить форму обращения к пользователю", "setUserForm")
+							.getInlineKeyboard());
 
 			case "setTimeSend" -> settingService.saveSetting(userService.findById(userId).getUserSetting().setTimeSend(messageText));
 
