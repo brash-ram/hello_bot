@@ -18,8 +18,8 @@ public class MainMessageConstructor {
 	public String getMessage(Long userId) {
 		StringBuilder sb = new StringBuilder();
 
-		sb.append(StringConst.HELLO_MESSAGE).append("\n");
 		UserInfo userInfo = userService.findById(userId);
+		sb.append(StringConst.HELLO_MESSAGE).append(userInfo.getName()).append("!\n");
 		Subscription subscription = userInfo.getSubscription();
 
 		if (subscription.getQuote()) {

@@ -1,9 +1,11 @@
 package com.kpd.kpd_bot.bot;
 
 import com.kpd.kpd_bot.entity.Subscription;
+import com.kpd.kpd_bot.myenum.UserStateEnum;
 import com.kpd.kpd_bot.service.SettingService;
 import com.kpd.kpd_bot.service.SubscriptionService;
 import com.kpd.kpd_bot.service.UserService;
+import com.kpd.kpd_bot.service.UserStateService;
 import com.kpd.kpd_bot.statics.Buttons;
 import com.kpd.kpd_bot.statics.StringConst;
 import com.kpd.kpd_bot.util.InlineKeyboardConstructor;
@@ -24,6 +26,7 @@ public class InlineKeyboardHandler {
 	private final SubscriptionService subscriptionService;
 	private final UserService userService;
 	private final SettingService settingService;
+	private final UserStateService userStateService;
 
 	public void handleMessage(Update update, Bot bot) throws TelegramApiException {
 		String callData = update.getCallbackQuery().getData();
@@ -71,7 +74,11 @@ public class InlineKeyboardHandler {
 					.setInlineKeyboard(SettingSubscriptionsKeyboard
 					.createInlineKeyboardSettingSubscription(userService.findById(userId).getSubscription()));
 
-			case "setUserForm" -> newMessage = new MessageAdapter().setText(StringConst.USER_FORM);
+			case "setUserForm" -> {
+				userStateService.saveUserState(userId, UserStateEnum.WAIT_NAME);
+				newMessage = new MessageAdapter().setChatId(chatId).setText(StringConst.INPUT_NAME_FOR_USER);
+				editMessage = null;
+			}
 
 
 			default -> this.handleSettingSubscription(callData, userId, editMessage);
@@ -80,7 +87,10 @@ public class InlineKeyboardHandler {
 		if (newMessage != null) {
 			bot.execute(newMessage.getSendMessage());
 		}
-		bot.execute(editMessage);
+		if (editMessage != null) {
+			bot.execute(editMessage);
+		}
+
 	}
 
 	private EditMessageText handleSettingSubscription(String field, Long userId, EditMessageText editMessage) {

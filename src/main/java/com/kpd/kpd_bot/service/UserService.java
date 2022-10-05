@@ -27,6 +27,9 @@ public class UserService {
 		return userRepository.save(newUser);
 	}
 
+	public UserInfo saveUser(UserInfo userInfo) {
+		return userRepository.save(userInfo);
+	}
 	public boolean existUser(Long userId) {
 		return userRepository.existsById(userId);
 	}
