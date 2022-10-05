@@ -1,6 +1,7 @@
 package com.kpd.kpd_bot.api.weather;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.kpd.kpd_bot.api.weather.model.GeoCoordinate;
 import com.kpd.kpd_bot.api.weather.model.GeoCoordinateResponseDTO;
 import com.kpd.kpd_bot.config.WeatherConfig;
 import com.kpd.kpd_bot.service.WebService;
@@ -27,8 +28,7 @@ public class GeocodingAPI {
         return uriComponents.toUriString();
     }
 
-    public GeoCoordinateResponseDTO getGeoCoordinate(String city) {
-        Object responseApi = webService.<Object>makeGetRequest(this.getUrl(city), Object.class);
-        return mapper.convertValue(responseApi, GeoCoordinateResponseDTO.class);
+    public GeoCoordinate getGeoCoordinate(String city) {
+        return webService.<GeoCoordinate[]>makeGetRequest(this.getUrl(city), GeoCoordinate[].class)[0];
     }
 }

@@ -22,7 +22,6 @@ public class QuoteAPI {
 	}
 
 	public BaseQuoteResponseDTO getQuote() {
-		Object responseApi =  webService.<Object[]>makePostRequest(this.getUrl(), Object[].class)[0];
-		return mapper.convertValue(responseApi, BaseQuoteResponseDTO.class);
+		return webService.<BaseQuoteResponseDTO[]>makePostRequest(this.getUrl(), BaseQuoteResponseDTO[].class)[0];
 	}
 }
