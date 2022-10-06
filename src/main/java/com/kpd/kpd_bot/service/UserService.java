@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.User;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class UserService {
@@ -18,6 +20,7 @@ public class UserService {
 	private final SettingService settingService;
 	private final SubscriptionService subscriptionService;
 	private final ExchangeRatesSettingService exchangeRatesSettingService;
+	private final SettingRepository settingRepository;
 
 	public UserInfo saveNewUser(User user) {
 		UserSetting setting = settingService.saveNewSetting();
@@ -35,6 +38,9 @@ public class UserService {
 	}
 
 	public UserInfo findById(Long userId) {return userRepository.findById(userId).get();}
+	public List<UserInfo> findByHour(String hour) {
+		return userRepository.findByUserSettingIn(settingRepository.findByTimeSend(hour));
+	}
 
 
 }
