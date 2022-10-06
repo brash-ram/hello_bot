@@ -52,7 +52,10 @@ public class InlineKeyboardHandler {
 							.addNewInlineRow().addInlineButtonInRow("Настроить форму обращения к пользователю", "setUserForm")
 							.getInlineKeyboard());
 
-			case "setTimeSend" -> settingService.saveSetting(userService.findById(userId).getUserSetting().setTimeSend(messageText));
+			case "setTimeSend" -> {
+				settingService.saveSetting(userService.findById(userId).getUserSetting().setTimeSend(messageText));
+				editMessage = null;
+			}
 
 			case "setSendingMessageTime" ->editMessage = this.editMessage(chatId, messageId, StringConst.START_TIME_SEND,
 					new InlineKeyboardConstructor()
@@ -61,13 +64,6 @@ public class InlineKeyboardHandler {
 						.addNewInlineRow().addInlineButtonInRow("Подтвердить", "setTimeSend")
 						.getInlineKeyboard()
 						);
-//				newMessage = new MessageAdapter().setChatId(chatId)
-//						.setText(StringConst.START_TIME_SEND)
-//						.setInlineKeyboard(new InlineKeyboardConstructor()
-//						.addInlineButtonInRow("<<", "<<")
-//						.addInlineButtonInRow(">>", ">>")
-//						.addNewInlineRow().addInlineButtonInRow("Подтвердить", "setTimeSend")
-//						.getInlineKeyboard());
 
 			case "setMessageInfoParameters" -> newMessage = new MessageAdapter().setChatId(chatId).
 					setText(StringConst.NEWS_PARAMETERS_MESSAGE)
