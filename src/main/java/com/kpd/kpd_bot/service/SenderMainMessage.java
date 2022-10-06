@@ -17,7 +17,7 @@ public class SenderMainMessage {
 	private final Bot bot;
 	private final MainMessageConstructor mainMessageConstructor;
 
-	@Scheduled(initialDelay = 10000, fixedRate = 10000)
+	@Scheduled(initialDelay = 5000, fixedRate = 600000)
 	@Async
 	public void sendMessage() throws TelegramApiException {
 		String currentHour = DateGetter.getCurrentHourIfNewHour();
