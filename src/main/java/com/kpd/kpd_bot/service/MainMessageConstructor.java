@@ -4,7 +4,7 @@ import com.kpd.kpd_bot.api.Adapter;
 import com.kpd.kpd_bot.api.weather.WeatherAdapter;
 import com.kpd.kpd_bot.entity.Subscription;
 import com.kpd.kpd_bot.entity.UserInfo;
-import com.kpd.kpd_bot.statics.StringConst;
+import com.kpd.kpd_bot.util.DateGetter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +19,8 @@ public class MainMessageConstructor {
 		StringBuilder sb = new StringBuilder();
 
 		UserInfo userInfo = userService.findById(userId);
-		sb.append(StringConst.HELLO_MESSAGE).append(userInfo.getName()).append("!\n");
+
+		sb.append(DateGetter.getMessageWithTime()).append(userInfo.getName()).append("!\n");
 		Subscription subscription = userInfo.getSubscription();
 
 		if (subscription.getQuote()) {

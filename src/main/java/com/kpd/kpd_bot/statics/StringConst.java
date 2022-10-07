@@ -7,7 +7,7 @@ public class StringConst {
 	public static final String SETTINGS_MESSAGE = "Вы можете настроить время отправки и информационные параметры сообщения," +
 												  " а также форму обращения к вам";
 
-	public static final String HELLO_MESSAGE = "Привет ";
+	public static final String HELLO_MESSAGE = "Привет, ";
 
 	public static final String HELP_MESSAGE = "Данный телеграм-бот предназначен для " +
 			"ежедневной отправки приветственного сообщения с основной информацией дня: курсы валют, погода " +
@@ -26,8 +26,6 @@ public class StringConst {
 	public static final String NEWS = "Новости ";
 	public static final String BACK = "Назад";
 
-	public static final String USER_FORM = "Напишите, как вы хотите, чтобы к вам обращались в сообщении.";
-
 	public static final String CURRENT_WEATHER = "Текущая погода";
 
 	public static final String DAY_WEATHER = "Почасовой прогноз на 24 часа";
@@ -35,5 +33,5 @@ public class StringConst {
 	public static final String WEEK_WEATHER = "Прогноз на неделю";
 
 	public static final String GOOD_INPUT_NAME_FOR_USER = "Вы успешно изменили обращение к себе!";
-	public static final String INPUT_NAME_FOR_USER = "Введите новое обращение к вам:";
+	public static final String INPUT_NAME_FOR_USER = "Напишите, как вы хотите, чтобы к вам обращались в сообщении.";
 }

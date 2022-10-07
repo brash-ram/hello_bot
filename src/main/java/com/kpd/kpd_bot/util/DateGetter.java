@@ -22,4 +22,19 @@ public class DateGetter {
 		}
 		return result;
 	}
+
+	public static String getMessageWithTime() {
+		LocalTime now = LocalTime.now();
+		String result = "";
+		if ((now.getHour() >= 5) && (now.getHour() < 12)) {
+			result = "Доброе утро, ";
+		} else if ((now.getHour() >= 12) && (now.getHour() < 17)) {
+			result = "Добрый день, ";
+		} else if ((now.getHour() >= 17) && (now.getHour() < 22)) {
+			result = "Добрый вечер, ";
+		} else if ((now.getHour() >= 22) && (now.getHour() < 5)) {
+			result = "Доброй ночи, ";
+		}
+		return result;
+	}
 }

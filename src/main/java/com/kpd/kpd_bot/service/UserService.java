@@ -26,7 +26,7 @@ public class UserService {
 		UserSetting setting = settingService.saveNewSetting();
 		Subscription subscription = subscriptionService.saveNewSubscription();
 		ExchangeRatesSetting exchangeRatesSetting = exchangeRatesSettingService.saveNewExchangeRatesSetting();
-		UserInfo newUser = new UserInfo(user.getId(), user.getUserName(), setting, subscription, exchangeRatesSetting);
+		UserInfo newUser = new UserInfo(user.getId(), user.getFirstName(), setting, subscription, exchangeRatesSetting);
 		return userRepository.save(newUser);
 	}
 
