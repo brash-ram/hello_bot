@@ -37,6 +37,16 @@ public class WebService {
                 .block();
     }
 
+    public <T> T makeGetRequest(String url, Class<T> typeResponse, HttpHeaders headers) {
+        return client.get()
+                .uri(url)
+                .accept(APPLICATION_JSON)
+                .headers(httpHeaders -> httpHeaders.addAll(headers))
+                .retrieve()
+                .bodyToMono(typeResponse)
+                .block();
+    }
+
     public <T> T makePostRequest(String url, Object requestDto, Class<T> typeResponse) {
         return client.post()
                 .uri(url)
