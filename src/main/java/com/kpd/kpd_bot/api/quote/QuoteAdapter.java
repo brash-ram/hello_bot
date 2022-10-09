@@ -1,6 +1,5 @@
 package com.kpd.kpd_bot.api.quote;
 
-import com.kpd.kpd_bot.api.quote.QuoteAPI;
 import com.kpd.kpd_bot.api.quote.model.BaseQuoteResponseDTO;
 import com.kpd.kpd_bot.api.Adapter;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +18,7 @@ public class QuoteAdapter implements Adapter {
 
 	private String formatFromObjectToText(BaseQuoteResponseDTO dto) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("Цитата дня:\n")
+		sb.append("\nЦитата дня:\n")
 				.append(dto.getA()).append("\n")
 				.append(dto.getQ());
 

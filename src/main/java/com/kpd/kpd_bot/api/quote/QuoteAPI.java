@@ -1,6 +1,5 @@
 package com.kpd.kpd_bot.api.quote;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kpd.kpd_bot.service.WebService;
 import com.kpd.kpd_bot.config.QuoteConfig;
 import com.kpd.kpd_bot.api.quote.model.BaseQuoteResponseDTO;
@@ -13,7 +12,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class QuoteAPI {
 	private final QuoteConfig quoteConfig;
 	private final WebService webService;
-	private final ObjectMapper mapper;
 
 	private String getUrl() {
 		return UriComponentsBuilder.newInstance()

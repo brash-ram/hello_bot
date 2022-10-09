@@ -57,7 +57,7 @@ public class InlineKeyboardHandler {
 				editMessage = null;
 			}
 
-			case "setSendingMessageTime" ->editMessage = this.editMessage(chatId, messageId, StringConst.START_TIME_SEND,
+			case "setSendingMessageTime" -> editMessage = this.editMessage(chatId, messageId, StringConst.START_TIME_SEND,
 					new InlineKeyboardConstructor()
 						.addInlineButtonInRow("<<", "<<")
 						.addInlineButtonInRow(">>", ">>")

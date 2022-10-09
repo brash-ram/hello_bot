@@ -6,13 +6,6 @@ import com.kpd.kpd_bot.statics.StringConst;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 public class SettingSubscriptionsKeyboard {
-
-//			StringConst.weather,
-//			StringConst.quote,
-//			StringConst.film,
-//			StringConst.exchangeRates,
-//			StringConst.news
-
 	private static final String yes = "✅";
 	private static final String no = "❌";
 
@@ -21,7 +14,6 @@ public class SettingSubscriptionsKeyboard {
 		constructor.addInlineButtonInRow(StringConst.BACK, "backSubscription").addNewInlineRow();
 		constructor.addInlineButtonInRow(StringConst.WEATHER + " " + (subscription.getWeather() ? yes : no), "weather").addNewInlineRow();
 
-//		if (subscription.getWeather()) {
 //			constructor.addInlineButtonInRow(StringConst.CURRENT_WEATHER + " " + (subscription.getWeather() ? yes : no), "weather").addNewInlineRow()
 //			.addInlineButtonInRow(StringConst.DAY_WEATHER + " " + (subscription.getWeather() ? yes : no), "weather").addNewInlineRow()
 //			.addInlineButtonInRow(StringConst.WEEK_WEATHER + " " + (subscription.getWeather() ? yes : no), "weather").addNewInlineRow();

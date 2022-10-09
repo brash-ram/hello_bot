@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 public class Buttons {
 	public static final String[] startButtons = {"Получить новости этого дня прямо сейчас", "Настройки", "Справка"};
 	public static final String[] settingsButtons = {"Настроить время отправки сообщения",
-													"Настроить форму обращения к пользователю",
+													"Настроить форму обращения",
 													"Настроить информационные параметры сообщения"};
 
 	public static final String[] infoSettingsButtons = {""};

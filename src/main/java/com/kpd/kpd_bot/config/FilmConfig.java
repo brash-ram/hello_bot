@@ -4,9 +4,10 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
-@ConfigurationProperties(prefix = "quote")
+@ConfigurationProperties(prefix = "film")
 @Data
 @RequiredArgsConstructor
-public class QuoteConfig {
-	private String url;
+public class FilmConfig {
+    private String url;
+    private String token;
 }
