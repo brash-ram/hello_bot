@@ -22,7 +22,8 @@ public class WeatherAPI {
 
     private String getUrl(Double lat, Double lon) {
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
-                .scheme("https").host(weatherConfig.getUrl()).path("?lat={lat}&lon={lon}&appid={API key}")
+                .scheme("https").host(weatherConfig.getUrl()).path("?lat={lat}&lon={lon}&exclude=current&units=metric" +
+                        "&lang=ru&appid={API key}")
                 .buildAndExpand(lat.toString(), lon.toString(), weatherConfig.getToken());
         return uriComponents.toUriString();
     }

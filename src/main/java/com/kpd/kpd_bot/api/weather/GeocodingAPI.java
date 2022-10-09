@@ -19,7 +19,6 @@ public class GeocodingAPI {
     private final WebService webService;
 
     private final WeatherConfig weatherConfig;
-    private final ObjectMapper mapper;
 
     private String getUrl(String city) {
         UriComponents uriComponents = UriComponentsBuilder.newInstance()

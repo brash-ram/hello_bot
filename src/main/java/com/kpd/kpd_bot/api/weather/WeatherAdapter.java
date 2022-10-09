@@ -6,6 +6,8 @@ import com.kpd.kpd_bot.api.weather.model.WeatherMain;
 import com.kpd.kpd_bot.api.weather.model.Wind;
 import com.kpd.kpd_bot.api.weather.model.BaseWeatherResponseDTO;
 import com.kpd.kpd_bot.api.Adapter;
+import com.kpd.kpd_bot.util.PressureConverter;
+import com.kpd.kpd_bot.util.WindDegreesConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -25,16 +27,15 @@ public class WeatherAdapter implements Adapter {
         Weather weather = dto.getWeather().get(0);
         WeatherMain weatherMain = dto.getMain();
         Wind wind = dto.getWind();
-        sb.append("Погода в ")
+        sb.append("\nПогода в ")
                 .append(dto.getName()).append(":\n")
-                .append(weather.getMain()).append("\n")
-                .append("Температура: ").append(weatherMain.getTemp()).append(" °C\n")
-                .append("Ощущается как: ").append(weatherMain.getFeels_like()).append(" °C\n")
-                .append("Давление: ").append(weatherMain.getPressure()).append("\n")
-                .append(weatherMain.getHumidity()).append("\n")
-                .append(wind.getSpeed()).append("\n")
-                .append(wind.getDeg()).append("\n")
-                .append(wind.getGust()).append("\n");
+                .append("Температура ").append((int)weatherMain.getTemp()).append(" °C, ")
+                .append(weather.getDescription()).append("\n")
+                .append("Ощущается как ").append((int)weatherMain.getFeels_like()).append(" °C\n")
+                .append("Давление: ").append(PressureConverter.convertPressure(weatherMain.getPressure()))
+                .append(" мм рт. ст.\n").append("Влажность: ").append(weatherMain.getHumidity()).append(" %\n")
+                .append("Ветер: ").append((int)wind.getSpeed()).append(" м/c, ")
+                .append(WindDegreesConverter.convertWindDegreesToDirection(wind.getDeg())).append("\n");
         return sb.toString();
     }
 }
