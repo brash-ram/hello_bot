@@ -18,7 +18,7 @@ public class QuoteAdapter implements Adapter {
 
 	private String formatFromObjectToText(BaseQuoteResponseDTO dto) {
 		StringBuilder sb = new StringBuilder();
-		sb.append("\nЦитата дня:\n")
+		sb.append("\nЦитата дня\n")
 				.append(dto.getA()).append("\n")
 				.append(dto.getQ());
 

@@ -1,24 +1,21 @@
 package com.kpd.kpd_bot.bot;
 
-import com.kpd.kpd_bot.entity.UserInfo;
-import com.kpd.kpd_bot.entity.UserSetting;
 import com.kpd.kpd_bot.entity.UserState;
 import com.kpd.kpd_bot.myenum.UserStateEnum;
 import com.kpd.kpd_bot.service.MainMessageConstructor;
-import com.kpd.kpd_bot.service.SettingService;
 import com.kpd.kpd_bot.service.UserService;
 import com.kpd.kpd_bot.service.UserStateService;
 import com.kpd.kpd_bot.statics.Buttons;
 import com.kpd.kpd_bot.statics.StringConst;
 import com.kpd.kpd_bot.util.InlineKeyboardConstructor;
-import com.kpd.kpd_bot.util.SettingSubscriptionsKeyboard;
 import com.kpd.kpd_bot.util.TimeSendInlineKeyboardHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
+
+import java.io.UnsupportedEncodingException;
 
 @Service
 @RequiredArgsConstructor
@@ -28,7 +25,7 @@ public class MessageHandler {
 	private final UserService userService;
 	private final UserStateService userStateService;
 
-	public void handleMessage(Update update, Bot bot) throws TelegramApiException {
+	public void handleMessage(Update update, Bot bot) throws TelegramApiException, UnsupportedEncodingException {
 		Message message = update.getMessage();
 		String messageText = message.getText();
 		MessageAdapter newMessage = new MessageAdapter().setChatId(message.getChatId());

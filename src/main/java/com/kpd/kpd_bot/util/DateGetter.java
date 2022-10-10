@@ -32,7 +32,7 @@ public class DateGetter {
 			result = "Добрый день, ";
 		} else if ((now.getHour() >= 17) && (now.getHour() < 22)) {
 			result = "Добрый вечер, ";
-		} else if ((now.getHour() >= 22) && (now.getHour() < 5)) {
+		} else if (((now.getHour() >= 22) && (now.getHour() < 23)) || (now.getHour() >= 0) && (now.getHour() < 5)) {
 			result = "Доброй ночи, ";
 		}
 		return result;

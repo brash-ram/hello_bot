@@ -10,6 +10,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.io.UnsupportedEncodingException;
+
 @Service
 @RequiredArgsConstructor
 public class SenderMainMessage {
@@ -25,7 +27,11 @@ public class SenderMainMessage {
 			userService.findByHour(currentHour).forEach(
 					userInfo -> {
 						MessageAdapter newMessage = new MessageAdapter();
-						newMessage.setText(mainMessageConstructor.getMessage(userInfo.getId())).setChatId(userInfo.getId());
+						try {
+							newMessage.setText(mainMessageConstructor.getMessage(userInfo.getId())).setChatId(userInfo.getId());
+						} catch (UnsupportedEncodingException e) {
+							throw new RuntimeException(e);
+						}
 
 						try {
 							bot.execute(newMessage.getSendMessage());

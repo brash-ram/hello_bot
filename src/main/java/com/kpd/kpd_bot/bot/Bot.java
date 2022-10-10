@@ -10,6 +10,8 @@ import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageTe
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.io.UnsupportedEncodingException;
+
 
 @Component
 @RequiredArgsConstructor
@@ -31,6 +33,8 @@ public class Bot extends TelegramLongPollingBot {
 			try {
 				messageHandler.handleMessage(update, this);
 			} catch (TelegramApiException e) {
+				throw new RuntimeException(e);
+			} catch (UnsupportedEncodingException e) {
 				throw new RuntimeException(e);
 			}
 		}

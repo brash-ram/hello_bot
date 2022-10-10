@@ -9,6 +9,8 @@ import com.kpd.kpd_bot.util.DateGetter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
+
 @Service
 @RequiredArgsConstructor
 public class MainMessageConstructor {
@@ -18,7 +20,7 @@ public class MainMessageConstructor {
 	private final FilmAdapter filmAdapter;
 	private final UserService userService;
 
-	public String getMessage(Long userId) {
+	public String getMessage(Long userId) throws UnsupportedEncodingException {
 		StringBuilder sb = new StringBuilder();
 
 		UserInfo userInfo = userService.findById(userId);

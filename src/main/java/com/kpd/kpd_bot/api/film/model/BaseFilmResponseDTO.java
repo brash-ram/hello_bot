@@ -10,12 +10,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BaseFilmResponseDTO {
-    private long kinopoiskId;
-    private String nameRu;
-    private double ratingKinopoisk;
-    private int year;
-    private int filmLength;
-    private String shortDescription;
-    private List<Countries> countries;
-    private List<Genres> genres;
+    private List<PremiereResponseItem> items;
 }
