@@ -13,7 +13,12 @@ import java.util.List;
 @Service
 public class MessageAdapter {
 
-	private final SendMessage sendMessage = new SendMessage();
+	private final SendMessage sendMessage;
+
+	public MessageAdapter() {
+		sendMessage = new SendMessage();
+		sendMessage.enableMarkdown(true);
+	}
 
 	public MessageAdapter setChatId(long chatId) {
 		sendMessage.setChatId(chatId);

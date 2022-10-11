@@ -4,12 +4,10 @@ import com.kpd.kpd_bot.api.Adapter;
 import com.kpd.kpd_bot.api.film.model.Countries;
 import com.kpd.kpd_bot.api.film.model.Genres;
 import com.kpd.kpd_bot.api.film.model.PremiereResponseItem;
+import com.kpd.kpd_bot.util.DateGetter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
-import java.util.Locale;
 
 @Service
 @RequiredArgsConstructor
@@ -23,19 +21,22 @@ public class FilmAdapter implements Adapter {
     }
 
     private String formatFromObjectToText(PremiereResponseItem dto) {
+        if (dto == null) {
+            return "Кинопремьер не ожидается";
+        }
+
         StringBuilder sb = new StringBuilder();
         List<Genres> genres = dto.getGenres();
         List<Countries> countries = dto.getCountries();
 
-        sb.append("Премьера этого месяца\n")
-                .append("Фильм: ").append(dto.getNameRu()).append("\n")
-                .append("Год: ").append(dto.getYear()).append("\n")
+        sb.append("*Кинопремьера этого месяца*\n")
+                .append("Фильм: \"").append(dto.getNameRu()).append("\"\n")
                 .append("Продолжительность: ").append(dto.getDuration()).append(" мин\n")
                 .append("Жанр: ");
 
         for (Genres genre : genres) {
             sb.append(genre.getGenre());
-            if (genre != genres.get(genres.size()-1)) {
+            if (genre != genres.get(genres.size() - 1)) {
                 sb.append(", ");
             }
         }
@@ -49,10 +50,8 @@ public class FilmAdapter implements Adapter {
             }
         }
 
-        String premiereRu = dto.getPremiereRu();
-        LocalDate date = LocalDate.parse(premiereRu, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         sb.append("\nДата выхода: ")
-                .append(date.format(DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("ru"))));
+                .append(DateGetter.getFormattedDate(dto.getPremiereRu(), "yyyy-MM-dd"));
 
         return sb.toString();
     }

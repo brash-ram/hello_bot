@@ -11,7 +11,7 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponentsBuilder;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.Random;
 
 
 @Service
@@ -31,15 +31,16 @@ public class FilmAPI {
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-API-KEY", filmConfig.getToken());
         headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        List<PremiereResponseItem> items = webService.<BaseFilmResponseDTO>makeGetRequest(this.getUrl(), BaseFilmResponseDTO.class, headers)
-                .getItems();
-        PremiereResponseItem result = null;
-        for (PremiereResponseItem item : items) {
-            if (item.getYear() == LocalDate.now().getYear()) {
-                result = item;
-                break;
-            }
-        }
-        return result;
+        BaseFilmResponseDTO responseDTO = webService.<BaseFilmResponseDTO>makeGetRequest(this.getUrl(), BaseFilmResponseDTO.class, headers);
+        return getCurrentYearFilm(responseDTO);
+    }
+
+    private PremiereResponseItem getCurrentYearFilm(BaseFilmResponseDTO dto) {
+        return dto.getItems()
+                .stream()
+                .filter(item -> item.getYear() == LocalDate.now().getYear())
+                .skip(new Random().nextInt(dto.getItems().size()))
+                .findFirst()
+                .get();
     }
 }

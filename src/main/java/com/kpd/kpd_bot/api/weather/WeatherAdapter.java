@@ -26,8 +26,8 @@ public class WeatherAdapter implements Adapter {
         Weather weather = dto.getWeather().get(0);
         WeatherMain weatherMain = dto.getMain();
         Wind wind = dto.getWind();
-        sb.append("\nПогода в ")
-                .append(dto.getName()).append("\n")
+        sb.append("\n*Погода в ")
+                .append(dto.getName()).append(" сейчас*\n")
                 .append("Температура ").append((int)weatherMain.getTemp()).append(" °C, ")
                 .append(weather.getDescription()).append("\n")
                 .append("Ощущается как ").append((int)weatherMain.getFeels_like()).append(" °C\n")

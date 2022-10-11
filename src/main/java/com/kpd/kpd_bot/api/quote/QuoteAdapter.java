@@ -1,13 +1,14 @@
 package com.kpd.kpd_bot.api.quote;
 
-import com.kpd.kpd_bot.api.quote.model.BaseQuoteResponseDTO;
 import com.kpd.kpd_bot.api.Adapter;
+import com.kpd.kpd_bot.api.quote.model.BaseQuoteResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class QuoteAdapter implements Adapter {
+	public static final String DAY_QUOTE = "\n*Цитата дня*\n";
 	private final QuoteAPI quoteAPI;
 
 	@Override
@@ -17,11 +18,21 @@ public class QuoteAdapter implements Adapter {
 	}
 
 	private String formatFromObjectToText(BaseQuoteResponseDTO dto) {
-		StringBuilder sb = new StringBuilder();
-		sb.append("\nЦитата дня\n")
-				.append(dto.getA()).append("\n")
-				.append(dto.getQ());
+		StringBuilder result = new StringBuilder()
+				.append(DAY_QUOTE)
+				.append(dto.getQuote());
 
-		return sb.toString();
+		if (dto.getAuthor() != null) {
+			result.append("\n**")
+					.append(dto.getAuthor())
+					.append("**");
+		}
+
+		return result.toString();
 	}
 }
+//	@EventListener(ApplicationReadyEvent.class)
+//	void test(){
+//		System.out.println(this.getTextFromMessageService());
+//	}
+

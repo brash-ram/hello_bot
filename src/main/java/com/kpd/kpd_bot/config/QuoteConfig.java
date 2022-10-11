@@ -9,4 +9,5 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @RequiredArgsConstructor
 public class QuoteConfig {
 	private String url;
+	private String token;
 }

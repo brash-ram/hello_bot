@@ -4,10 +4,15 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class DateGetter {
+
+	public static final String DATE_PATTERN = "dd MMMM yyyy";
 	public static final String DEFAULT_HOUR = "no date";
 	public static Date getSqlDate() {
 		return new Date(System.currentTimeMillis());
@@ -32,9 +37,14 @@ public class DateGetter {
 			result = "Добрый день, ";
 		} else if ((now.getHour() >= 17) && (now.getHour() < 22)) {
 			result = "Добрый вечер, ";
-		} else if (((now.getHour() >= 22) && (now.getHour() < 23)) || (now.getHour() >= 0) && (now.getHour() < 5)) {
+		} else {
 			result = "Доброй ночи, ";
 		}
 		return result;
+	}
+
+	public static String getFormattedDate(String date, String inputFormat) {
+		LocalDate inputDate = LocalDate.parse(date, DateTimeFormatter.ofPattern(inputFormat));
+		return inputDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN, new Locale("ru"))).toString();
 	}
 }
