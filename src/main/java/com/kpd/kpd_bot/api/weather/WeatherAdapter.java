@@ -1,5 +1,6 @@
 package com.kpd.kpd_bot.api.weather;
 
+import com.kpd.kpd_bot.api.quote.model.BaseQuoteResponseDTO;
 import com.kpd.kpd_bot.api.weather.model.Weather;
 import com.kpd.kpd_bot.api.weather.model.WeatherMain;
 import com.kpd.kpd_bot.api.weather.model.Wind;
@@ -15,13 +16,20 @@ import org.springframework.stereotype.Service;
 public class WeatherAdapter implements Adapter {
 
     private final WeatherAPI weatherAPI;
+    private final String ERROR_MESSAGE = "Сегодня хорошая погода)";
     @Override
     public String getTextFromMessageService(String... args) {
-        BaseWeatherResponseDTO responseDTO = weatherAPI.getWeather(args[0]);
+        BaseWeatherResponseDTO responseDTO;
+        try {
+            responseDTO = weatherAPI.getWeather(args[0]);
+        } catch (RuntimeException ex) {
+            return ERROR_MESSAGE;
+        }
         return this.formatFromObjectToText(responseDTO);
     }
 
     private String formatFromObjectToText(BaseWeatherResponseDTO dto) {
+        if (dto == null) return ERROR_MESSAGE;
         StringBuilder sb = new StringBuilder();
         Weather weather = dto.getWeather().get(0);
         WeatherMain weatherMain = dto.getMain();

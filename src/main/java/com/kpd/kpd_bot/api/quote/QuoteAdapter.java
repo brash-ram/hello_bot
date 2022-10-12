@@ -10,14 +10,22 @@ import org.springframework.stereotype.Service;
 public class QuoteAdapter implements Adapter {
 	public static final String DAY_QUOTE = "\n*Цитата дня*\n";
 	private final QuoteAPI quoteAPI;
+	private final String ERROR_MESSAGE = "Сегодня без цитат)";
 
 	@Override
 	public String getTextFromMessageService(String... args) {
-		BaseQuoteResponseDTO responseDTO = quoteAPI.getQuote();
+		BaseQuoteResponseDTO responseDTO;
+		try {
+			responseDTO = quoteAPI.getQuote();
+		} catch (RuntimeException ex) {
+			return ERROR_MESSAGE;
+		}
+
 		return this.formatFromObjectToText(responseDTO);
 	}
 
 	private String formatFromObjectToText(BaseQuoteResponseDTO dto) {
+		if (dto == null) return ERROR_MESSAGE;
 		StringBuilder result = new StringBuilder()
 				.append(DAY_QUOTE)
 				.append(dto.getQuote());

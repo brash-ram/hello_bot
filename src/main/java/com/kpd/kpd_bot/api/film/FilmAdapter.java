@@ -4,6 +4,7 @@ import com.kpd.kpd_bot.api.Adapter;
 import com.kpd.kpd_bot.api.film.model.Countries;
 import com.kpd.kpd_bot.api.film.model.Genres;
 import com.kpd.kpd_bot.api.film.model.PremiereResponseItem;
+import com.kpd.kpd_bot.api.quote.model.BaseQuoteResponseDTO;
 import com.kpd.kpd_bot.util.DateGetter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -13,16 +14,22 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FilmAdapter implements Adapter {
     private final FilmAPI filmAPI;
+    private final String ERROR_MESSAGE = "Кинопремьер не ожидается";
 
     @Override
     public String getTextFromMessageService(String... args) {
-        PremiereResponseItem responseDTO = filmAPI.getFilm();
+        PremiereResponseItem responseDTO;
+        try {
+            responseDTO = filmAPI.getFilm();
+        } catch (RuntimeException ex) {
+            return ERROR_MESSAGE;
+        }
         return this.formatFromObjectToText(responseDTO);
     }
 
     private String formatFromObjectToText(PremiereResponseItem dto) {
         if (dto == null) {
-            return "Кинопремьер не ожидается";
+            return ERROR_MESSAGE;
         }
 
         StringBuilder sb = new StringBuilder();
