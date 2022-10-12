@@ -2,6 +2,7 @@ package com.kpd.kpd_bot.service;
 
 import com.kpd.kpd_bot.api.Adapter;
 import com.kpd.kpd_bot.api.film.FilmAdapter;
+import com.kpd.kpd_bot.api.news.NewsAdapter;
 import com.kpd.kpd_bot.api.weather.WeatherAdapter;
 import com.kpd.kpd_bot.entity.Subscription;
 import com.kpd.kpd_bot.entity.UserInfo;
@@ -19,6 +20,8 @@ public class MainMessageConstructor {
 
 	private final FilmAdapter filmAdapter;
 	private final UserService userService;
+
+	private final NewsAdapter newsAdapter;
 
 	public String getMessage(Long userId) throws UnsupportedEncodingException {
 		StringBuilder sb = new StringBuilder();
@@ -38,6 +41,10 @@ public class MainMessageConstructor {
 
 		if (subscription.getFilm()) {
 			sb.append(filmAdapter.getTextFromMessageService()).append("\n");
+		}
+
+		if (subscription.getNews()) {
+			sb.append(newsAdapter.getTextFromMessageService()).append("\n");
 		}
 
 		return sb.toString();

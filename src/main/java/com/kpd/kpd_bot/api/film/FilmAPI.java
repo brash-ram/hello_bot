@@ -41,6 +41,6 @@ public class FilmAPI {
                 .filter(item -> item.getYear() == LocalDate.now().getYear())
                 .skip(new Random().nextInt(dto.getItems().size()))
                 .findFirst()
-                .get();
+                .orElse(null);
     }
 }

@@ -17,7 +17,7 @@ public class QuoteAPI {
 
 	private String getUrl() {
 		return UriComponentsBuilder.newInstance()
-				.scheme("https").host(quoteConfig.getUrl()).path("?lang={lang}")
+				.scheme("https").host(quoteConfig.getUrl()).path("?lang={lang}&curated=2")
 				.buildAndExpand("ru").toUriString();
 	}
 
