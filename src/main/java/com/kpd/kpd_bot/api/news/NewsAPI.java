@@ -1,7 +1,5 @@
 package com.kpd.kpd_bot.api.news;
 
-import com.kpd.kpd_bot.api.film.model.BaseFilmResponseDTO;
-import com.kpd.kpd_bot.api.film.model.PremiereResponseItem;
 import com.kpd.kpd_bot.api.news.model.BaseNewsResponseDTO;
 import com.kpd.kpd_bot.api.news.model.News;
 import com.kpd.kpd_bot.config.NewsConfig;
