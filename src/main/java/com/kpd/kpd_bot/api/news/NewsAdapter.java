@@ -2,7 +2,6 @@ package com.kpd.kpd_bot.api.news;
 
 import com.kpd.kpd_bot.api.Adapter;
 import com.kpd.kpd_bot.api.news.model.News;
-import com.kpd.kpd_bot.api.weather.model.BaseWeatherResponseDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +27,10 @@ public class NewsAdapter implements Adapter {
 	}
 
 	private String formatFromObjectToText(News dto) {
-		if (dto == null) return ERROR_MESSAGE;
+		if (dto == null) {
+			return ERROR_MESSAGE;
+		}
+
 		return new StringBuilder()
 				.append(DAY_NEWS)
 				.append(dto.getTitle())

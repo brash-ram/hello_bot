@@ -1,6 +1,5 @@
 package com.kpd.kpd_bot.api.weather;
 
-import com.kpd.kpd_bot.api.quote.model.BaseQuoteResponseDTO;
 import com.kpd.kpd_bot.api.weather.model.Weather;
 import com.kpd.kpd_bot.api.weather.model.WeatherMain;
 import com.kpd.kpd_bot.api.weather.model.Wind;

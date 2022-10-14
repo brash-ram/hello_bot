@@ -4,7 +4,6 @@ import com.kpd.kpd_bot.api.Adapter;
 import com.kpd.kpd_bot.api.film.model.Countries;
 import com.kpd.kpd_bot.api.film.model.Genres;
 import com.kpd.kpd_bot.api.film.model.PremiereResponseItem;
-import com.kpd.kpd_bot.api.quote.model.BaseQuoteResponseDTO;
 import com.kpd.kpd_bot.util.DateGetter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

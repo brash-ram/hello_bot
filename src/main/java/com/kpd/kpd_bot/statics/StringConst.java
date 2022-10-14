@@ -34,4 +34,6 @@ public class StringConst {
 
 	public static final String GOOD_INPUT_NAME_FOR_USER = "Вы успешно изменили обращение к себе!";
 	public static final String INPUT_NAME_FOR_USER = "Напишите, как вы хотите, чтобы к вам обращались в сообщении.";
+	public static final String INPUT_CITY_FOR_USER = "Укажите город, по которому вы хотели бы получить прогноз погоды.";
+	public static final String GOOD_INPUT_CITY_FOR_USER = "Вы успешно изменили город!";
 }

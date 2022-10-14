@@ -1,46 +1,50 @@
 package com.kpd.kpd_bot.api.quote;
 
-import com.kpd.kpd_bot.api.Adapter;
-import com.kpd.kpd_bot.api.quote.model.BaseQuoteResponseDTO;
 import lombok.RequiredArgsConstructor;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
 import org.springframework.stereotype.Service;
+
+import java.io.IOException;
 
 @Service
 @RequiredArgsConstructor
-public class QuoteAdapter implements Adapter {
-	public static final String DAY_QUOTE = "\n*Цитата дня*\n";
-	private final QuoteAPI quoteAPI;
-	private final String ERROR_MESSAGE = "Сегодня без цитат)";
+public class QuoteAdapter {
+    public static final String QUOTE_URL = "https://time365.info/aforizmi/drugoye/random.php?";
+    public static final String ERROR_MESSAGE = "Цитаты сегодня нет.";
+    public static final String DAY_QUOTE = "\n*Цитата дня*\n";
+    public static final String CLASS_NAME = "mg-b-5 tx-inverse";
+    public static final String TAG = "cite";
 
-	@Override
-	public String getTextFromMessageService(String... args) {
-		BaseQuoteResponseDTO responseDTO;
-		try {
-			responseDTO = quoteAPI.getQuote();
-		} catch (RuntimeException ex) {
-			return ERROR_MESSAGE;
-		}
+    private Document getQuotePage() {
+        Document quotePage;
+        try {
+            quotePage = Jsoup.connect(QUOTE_URL).get();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return quotePage;
+    }
 
-		return this.formatFromObjectToText(responseDTO);
-	}
+    public String getTextFromQuotePage() {
 
-	private String formatFromObjectToText(BaseQuoteResponseDTO dto) {
-		if (dto == null) return ERROR_MESSAGE;
-		StringBuilder result = new StringBuilder()
-				.append(DAY_QUOTE)
-				.append(dto.getQuote());
+        Document quotePage = this.getQuotePage();
 
-		if (dto.getAuthor() != null) {
-			result.append("\n**")
-					.append(dto.getAuthor())
-					.append("**");
-		}
+        if (quotePage == null) {
+            return ERROR_MESSAGE;
+        }
 
-		return result.toString();
-	}
+        Quote quote = new Quote();
+        quote.setQuote(quotePage.getElementsByClass(CLASS_NAME).text());
+        quote.setAuthor(quotePage.getElementsByTag(TAG).text());
+
+        return new StringBuilder()
+                .append(DAY_QUOTE)
+                .append(quote.getQuote())
+                .append("\n_")
+                .append(quote.getAuthor())
+                .append("_")
+                .toString();
+    }
+
 }
-//	@EventListener(ApplicationReadyEvent.class)
-//	void test(){
-//		System.out.println(this.getTextFromMessageService());
-//	}
-

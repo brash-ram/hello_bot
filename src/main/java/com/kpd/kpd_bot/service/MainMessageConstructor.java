@@ -1,11 +1,11 @@
 package com.kpd.kpd_bot.service;
 
-import com.kpd.kpd_bot.api.Adapter;
 import com.kpd.kpd_bot.api.film.FilmAdapter;
 import com.kpd.kpd_bot.api.news.NewsAdapter;
 import com.kpd.kpd_bot.api.weather.WeatherAdapter;
 import com.kpd.kpd_bot.entity.Subscription;
 import com.kpd.kpd_bot.entity.UserInfo;
+import com.kpd.kpd_bot.api.quote.QuoteAdapter;
 import com.kpd.kpd_bot.util.DateGetter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -16,12 +16,10 @@ import java.io.UnsupportedEncodingException;
 @RequiredArgsConstructor
 public class MainMessageConstructor {
 	private final WeatherAdapter weatherAdapter;
-	private final Adapter quoteAdapter;
-
+	private final QuoteAdapter quoteAdapter;
+	private final NewsAdapter newsAdapter;
 	private final FilmAdapter filmAdapter;
 	private final UserService userService;
-
-	private final NewsAdapter newsAdapter;
 
 	public String getMessage(Long userId) throws UnsupportedEncodingException {
 		StringBuilder sb = new StringBuilder();
@@ -32,7 +30,7 @@ public class MainMessageConstructor {
 		Subscription subscription = userInfo.getSubscription();
 
 		if (subscription.getQuote()) {
-			sb.append(quoteAdapter.getTextFromMessageService()).append("\n");
+			sb.append(quoteAdapter.getTextFromQuotePage()).append("\n");
 		}
 
 		if (subscription.getWeather()) {

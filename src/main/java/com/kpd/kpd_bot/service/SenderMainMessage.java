@@ -2,7 +2,6 @@ package com.kpd.kpd_bot.service;
 
 import com.kpd.kpd_bot.bot.Bot;
 import com.kpd.kpd_bot.bot.MessageAdapter;
-import com.kpd.kpd_bot.entity.UserInfo;
 import com.kpd.kpd_bot.util.DateGetter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;

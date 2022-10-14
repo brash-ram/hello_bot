@@ -74,6 +74,12 @@ public class InlineKeyboardHandler {
 				editMessage = null;
 			}
 
+			case "setUserCity" -> {
+				userStateService.saveUserState(userId, UserStateEnum.WAIT_CITY);
+				newMessage = new MessageAdapter().setChatId(chatId).setText(StringConst.INPUT_CITY_FOR_USER);
+				editMessage = null;
+			}
+
 
 			default -> this.handleSettingSubscription(callData, userId, editMessage);
 	}
