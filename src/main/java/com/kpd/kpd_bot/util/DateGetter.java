@@ -1,12 +1,13 @@
 package com.kpd.kpd_bot.util;
 
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalTime;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalUnit;
 import java.util.Locale;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -30,7 +31,7 @@ public class DateGetter {
 
 	public static String getMessageWithTime() {
 		LocalTime now = LocalTime.now();
-		String result = "";
+		String result;
 		if ((now.getHour() >= 5) && (now.getHour() < 12)) {
 			result = "Доброе утро, ";
 		} else if ((now.getHour() >= 12) && (now.getHour() < 17)) {
@@ -46,5 +47,9 @@ public class DateGetter {
 	public static String getFormattedDate(String date, String inputFormat) {
 		LocalDate inputDate = LocalDate.parse(date, DateTimeFormatter.ofPattern(inputFormat));
 		return inputDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN, new Locale("ru"))).toString();
+	}
+
+	public static int getDifferanceDay(Date date) {
+		return Period.between(LocalDate.parse(date.toString()), LocalDate.now()).getDays();
 	}
 }
