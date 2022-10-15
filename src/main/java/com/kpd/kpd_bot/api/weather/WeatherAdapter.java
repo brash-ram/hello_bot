@@ -21,6 +21,8 @@ public class WeatherAdapter implements Adapter {
         BaseWeatherResponseDTO responseDTO;
         try {
             responseDTO = weatherAPI.getWeather(args[0]);
+        } catch (Error error) {
+            return "Неверно указан город";
         } catch (RuntimeException ex) {
             return ERROR_MESSAGE;
         }

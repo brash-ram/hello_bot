@@ -1,8 +1,7 @@
 package com.kpd.kpd_bot.api.film;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kpd.kpd_bot.api.film.model.BaseFilmResponseDTO;
-import com.kpd.kpd_bot.api.film.model.PremiereResponseItem;
+import com.kpd.kpd_bot.entity.cache.Film;
 import com.kpd.kpd_bot.config.FilmConfig;
 import com.kpd.kpd_bot.service.WebService;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +26,7 @@ public class FilmAPI {
                 .toUriString();
     }
 
-    public PremiereResponseItem getFilm() {
+    public Film getFilm() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("X-API-KEY", filmConfig.getToken());
         headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
@@ -35,12 +34,13 @@ public class FilmAPI {
         return getCurrentYearFilm(responseDTO);
     }
 
-    private PremiereResponseItem getCurrentYearFilm(BaseFilmResponseDTO dto) {
-        return dto.getItems()
+    private Film getCurrentYearFilm(BaseFilmResponseDTO dto) {
+        Film film = dto.getItems()
                 .stream()
                 .filter(item -> item.getYear() == LocalDate.now().getYear())
-                .skip(new Random().nextInt(dto.getItems().size()))
+                .skip(new Random().nextInt(dto.getItems().size()-1))
                 .findFirst()
-                .orElse(null);
+                .get();
+        return film;
     }
 }

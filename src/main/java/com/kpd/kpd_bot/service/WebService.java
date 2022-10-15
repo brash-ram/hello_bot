@@ -54,7 +54,7 @@ public class WebService {
                 .onStatus(HttpStatus::isError, clientResponse -> Mono.error(RuntimeException::new))
                 .bodyToMono(typeResponse)
                 .blockOptional()
-                .orElseGet(() -> null);
+                .orElseThrow(RuntimeException::new);
     }
 
     public <T> T makePostRequest(String url, Object requestDto, Class<T> typeResponse) {

@@ -10,12 +10,12 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Accessors(chain = true)
-@Table(name = "genres")
-public class Genres {
+@Table(name = "countries")
+public class Country {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    private String genre;
+    private String country;
 }

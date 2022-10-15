@@ -1,39 +1,39 @@
 package com.kpd.kpd_bot.api.film;
 
 import com.kpd.kpd_bot.api.Adapter;
-import com.kpd.kpd_bot.api.film.model.Countries;
+import com.kpd.kpd_bot.api.film.model.Country;
 import com.kpd.kpd_bot.api.film.model.Genres;
-import com.kpd.kpd_bot.api.film.model.PremiereResponseItem;
+import com.kpd.kpd_bot.entity.cache.Film;
 import com.kpd.kpd_bot.util.DateGetter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
 public class FilmAdapter implements Adapter {
-    private final FilmAPI filmAPI;
+    private final FilmService filmService;
     private final String ERROR_MESSAGE = "Кинопремьер не ожидается";
 
     @Override
     public String getTextFromMessageService(String... args) {
-        PremiereResponseItem responseDTO;
+        Film responseDTO;
         try {
-            responseDTO = filmAPI.getFilm();
+            responseDTO = filmService.getFilm();
         } catch (RuntimeException ex) {
+            ex.printStackTrace();
             return ERROR_MESSAGE;
         }
         return this.formatFromObjectToText(responseDTO);
     }
 
-    private String formatFromObjectToText(PremiereResponseItem dto) {
-        if (dto == null) {
-            return ERROR_MESSAGE;
-        }
-
+    private String formatFromObjectToText(Film dto) {
         StringBuilder sb = new StringBuilder();
-        List<Genres> genres = dto.getGenres();
-        List<Countries> countries = dto.getCountries();
+        List<Genres> genres = new ArrayList<>(dto.getGenres());
+        List<Country> countries = new ArrayList<>(dto.getCountries());
 
         sb.append("*Кинопремьера этого месяца*\n")
                 .append("Фильм: \"").append(dto.getNameRu()).append("\"\n")
@@ -49,7 +49,7 @@ public class FilmAdapter implements Adapter {
 
         sb.append("\nСтрана: ");
 
-        for (Countries country : countries) {
+        for (Country country : countries) {
             sb.append(country.getCountry());
             if (country != countries.get(countries.size()-1)) {
                 sb.append(", ");
