@@ -8,7 +8,4 @@ import java.sql.Date;
 public interface FilmRepository extends JpaRepository<Film, Long> {
 
 	Film findByDateUpdateLessThanEqual(Date dateUpdate);
-
-	@Override
-	<S extends Film> S save(S entity);
 }
