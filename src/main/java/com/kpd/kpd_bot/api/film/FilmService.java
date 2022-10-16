@@ -29,7 +29,6 @@ public class FilmService {
 		return film;
 	}
 
-
 	private Film getFilm(Date dateUpdate) {
 		Film film = filmRepository.findByDateUpdateLessThanEqual(dateUpdate);
 		Hibernate.initialize(film);

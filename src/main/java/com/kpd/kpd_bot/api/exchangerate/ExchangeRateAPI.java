@@ -1,7 +1,7 @@
 package com.kpd.kpd_bot.api.exchangerate;
 
-import com.kpd.kpd_bot.api.film.model.BaseFilmResponseDTO;
 import com.kpd.kpd_bot.config.ExchangeRateConfig;
+import com.kpd.kpd_bot.entity.cache.ExchangeRate;
 import com.kpd.kpd_bot.service.WebService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
@@ -22,10 +22,10 @@ public class ExchangeRateAPI {
                 .toUriString();
     }
 
-    public BaseExchangeRateResponseDTO getExchangeRate() {
+    public ExchangeRate getExchangeRate() {
         HttpHeaders headers = new HttpHeaders();
         headers.add("apikey", exchangeRateConfig.getToken());
         headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE);
-        return webService.<BaseExchangeRateResponseDTO>makeGetRequest(this.getUrl(), BaseExchangeRateResponseDTO.class, headers);
+        return webService.<ExchangeRate>makeGetRequest(this.getUrl(), ExchangeRate.class, headers);
     }
 }

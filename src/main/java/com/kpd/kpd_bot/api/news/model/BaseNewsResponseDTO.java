@@ -1,5 +1,6 @@
 package com.kpd.kpd_bot.api.news.model;
 
+import com.kpd.kpd_bot.entity.cache.News;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

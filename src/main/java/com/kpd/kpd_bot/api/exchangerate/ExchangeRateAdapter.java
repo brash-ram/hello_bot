@@ -1,7 +1,7 @@
 package com.kpd.kpd_bot.api.exchangerate;
 
 import com.kpd.kpd_bot.api.Adapter;
-import com.kpd.kpd_bot.api.weather.model.BaseWeatherResponseDTO;
+import com.kpd.kpd_bot.entity.cache.ExchangeRate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
@@ -12,23 +12,22 @@ import java.util.concurrent.Future;
 @RequiredArgsConstructor
 public class ExchangeRateAdapter implements Adapter {
 
-    public final ExchangeRateAPI exchangeRateAPI;
+    public final ExchangeRatesService exchangeRatesService;
     private static final String ERROR_MESSAGE = "К сожалению, в данный момент невозможно получить курс валют.";
     private static final String EXCHANGE_RATE = "\n*Курс валют*\n";
 
     @Override
     public Future<String> getTextFromMessageService(String... args) {
-//        BaseExchangeRateResponseDTO responseDTO;
-//        try {
-//            responseDTO = exchangeRateAPI.getExchangeRate();
-//        } catch (RuntimeException e) {
-//            return ERROR_MESSAGE;
-//        }
-        BaseExchangeRateResponseDTO responseDTO = exchangeRateAPI.getExchangeRate();
-        return new AsyncResult<>(this.formatFromObjectToText(responseDTO));
+       String result = ERROR_MESSAGE;
+		try {
+			result = this.formatFromObjectToText(exchangeRatesService.getExchangeRates());
+		} catch (RuntimeException ex) {
+			ex.printStackTrace();
+		}
+		return new AsyncResult<>(result);
     }
 
-    private String formatFromObjectToText(BaseExchangeRateResponseDTO dto) {
+    private String formatFromObjectToText(ExchangeRate dto) {
         if (dto == null) {
             return ERROR_MESSAGE;
         }

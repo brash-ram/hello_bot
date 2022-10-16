@@ -1,14 +1,11 @@
 package com.kpd.kpd_bot.service;
 
-import com.kpd.kpd_bot.api.exchangerate.BaseExchangeRateResponseDTO;
-import com.kpd.kpd_bot.api.news.model.BaseNewsResponseDTO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientException;
 import reactor.core.publisher.Mono;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON;

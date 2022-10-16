@@ -1,7 +1,7 @@
 package com.kpd.kpd_bot.api.news;
 
 import com.kpd.kpd_bot.api.news.model.BaseNewsResponseDTO;
-import com.kpd.kpd_bot.api.news.model.News;
+import com.kpd.kpd_bot.entity.cache.News;
 import com.kpd.kpd_bot.config.NewsConfig;
 import com.kpd.kpd_bot.service.WebService;
 import lombok.RequiredArgsConstructor;
