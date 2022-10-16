@@ -1,5 +1,6 @@
 package com.kpd.kpd_bot.service;
 
+import com.kpd.kpd_bot.api.exchangerate.ExchangeRateAdapter;
 import com.kpd.kpd_bot.api.film.FilmAdapter;
 import com.kpd.kpd_bot.api.news.NewsAdapter;
 import com.kpd.kpd_bot.api.weather.WeatherAdapter;
@@ -23,6 +24,7 @@ public class MainMessageConstructor {
 	private final QuoteAdapter quoteAdapter;
 	private final NewsAdapter newsAdapter;
 	private final FilmAdapter filmAdapter;
+	private final ExchangeRateAdapter exchangeRateAdapter;
 	private final UserService userService;
 
 	public String getMessage(Long userId) throws UnsupportedEncodingException {
@@ -43,6 +45,10 @@ public class MainMessageConstructor {
 		}
 		if (subscription.getFilm()) {
 			futures.add(filmAdapter.getTextFromMessageService());
+		}
+
+		if (subscription.getExchangeRates()) {
+			futures.add(exchangeRateAdapter.getTextFromMessageService());
 		}
 
 		if (subscription.getNews()) {

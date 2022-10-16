@@ -18,7 +18,7 @@ import java.util.concurrent.Future;
 public class WeatherAdapter implements Adapter {
 
     private final WeatherAPI weatherAPI;
-    private final String ERROR_MESSAGE = "Сегодня хорошая погода)";
+    private final String ERROR_MESSAGE = "К сожалению, в данный момент невозможно получить прогноз погоды.";
     @Override
     public Future<String> getTextFromMessageService(String... args) {
         String result = ERROR_MESSAGE;

@@ -11,14 +11,14 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 import java.util.concurrent.Future;
 
 @Service
 @RequiredArgsConstructor
 public class FilmAdapter implements Adapter {
     private final FilmService filmService;
-    private final String ERROR_MESSAGE = "Кинопремьер не ожидается";
+    private final String ERROR_MESSAGE = "К сожалению, в данный момент невозможно получить " +
+            "кинопремьеру этого месяца.";
 
     @Override
     public Future<String> getTextFromMessageService(String... args) {

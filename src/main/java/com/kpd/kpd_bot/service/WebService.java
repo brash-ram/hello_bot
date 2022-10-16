@@ -1,5 +1,7 @@
 package com.kpd.kpd_bot.service;
 
+import com.kpd.kpd_bot.api.exchangerate.BaseExchangeRateResponseDTO;
+import com.kpd.kpd_bot.api.news.model.BaseNewsResponseDTO;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

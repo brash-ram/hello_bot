@@ -13,9 +13,9 @@ import java.util.concurrent.Future;
 public class NewsAdapter implements Adapter {
 
 	private final NewsAPI newsAPI;
-	private final String ERROR_MESSAGE = "Новостей сегодня нет.";
+	private final String ERROR_MESSAGE = "К сожалению, в данный момент невозможно получить новости.";
 
-	public static final String DAY_NEWS = "\n*Новость дня из мира технологий*\n";
+	public static final String DAY_NEWS = "\n*Последняя новость из мира технологий*\n";
 
 	@Override
 	public Future<String> getTextFromMessageService(String... args) {
@@ -31,7 +31,7 @@ public class NewsAdapter implements Adapter {
 	private String formatFromObjectToText(News dto) {
 		return new StringBuilder()
 				.append(DAY_NEWS)
-				.append(dto.getTitle())
+				.append(dto.getDescription())
 				.append("\nСсылка на официальный источник:\n")
 				.append(dto.getLink())
 				.toString();
