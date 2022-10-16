@@ -10,7 +10,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @SpringBootApplication
 @ConfigurationPropertiesScan
 @EnableScheduling
-@EnableAsync
+@EnableAsync(proxyTargetClass=true)
 public class KpdBotApplication {
 
 	public static void main(String[] args) {

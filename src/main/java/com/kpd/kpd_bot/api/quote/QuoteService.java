@@ -1,5 +1,6 @@
 package com.kpd.kpd_bot.api.quote;
 
+import com.kpd.kpd_bot.entity.cache.Film;
 import com.kpd.kpd_bot.entity.cache.Quote;
 import com.kpd.kpd_bot.jpa.cache.QuoteRepository;
 import com.kpd.kpd_bot.util.DateGetter;
@@ -18,11 +19,11 @@ public class QuoteService {
 	public Quote getQuote() {
 		Quote quote = this.getQuote(DateGetter.getSqlDate());
 		if (quote == null) {
-			quote = this.getQuoteFromApiAndSave();
+			quote = this.getFilmFromApiAndSave();
 		} else {
 			if (DateGetter.getDifferanceDay(quote.getDateUpdate()) > 0) {
 				Long id = quote.getId();
-				quote = this.getQuoteFromApiAndSave();
+				quote = this.getFilmFromApiAndSave();
 				quoteRepository.deleteById(id);
 			}
 		}
@@ -36,7 +37,7 @@ public class QuoteService {
 		return quote;
 	}
 
-	private Quote getQuoteFromApiAndSave() {
+	private Quote getFilmFromApiAndSave() {
 		return quoteRepository.save(quoteAPI.getQuote().setDateUpdate(DateGetter.getSqlDate()));
 	}
 }

@@ -8,7 +8,10 @@ import com.kpd.kpd_bot.api.Adapter;
 import com.kpd.kpd_bot.util.PressureConverter;
 import com.kpd.kpd_bot.util.WindDegreesConverter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.Future;
 
 @Service
 @RequiredArgsConstructor
@@ -17,16 +20,14 @@ public class WeatherAdapter implements Adapter {
     private final WeatherAPI weatherAPI;
     private final String ERROR_MESSAGE = "Сегодня хорошая погода)";
     @Override
-    public String getTextFromMessageService(String... args) {
-        BaseWeatherResponseDTO responseDTO;
+    public Future<String> getTextFromMessageService(String... args) {
+        String result = ERROR_MESSAGE;
         try {
-            responseDTO = weatherAPI.getWeather(args[0]);
-        } catch (Error error) {
-            return "Неверно указан город";
+            result = this.formatFromObjectToText(weatherAPI.getWeather(args[0]));
         } catch (RuntimeException ex) {
-            return ERROR_MESSAGE;
+            ex.printStackTrace();
         }
-        return this.formatFromObjectToText(responseDTO);
+        return new AsyncResult<>(result);
     }
 
     private String formatFromObjectToText(BaseWeatherResponseDTO dto) {

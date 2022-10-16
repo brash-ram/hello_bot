@@ -3,7 +3,10 @@ package com.kpd.kpd_bot.api.news;
 import com.kpd.kpd_bot.api.Adapter;
 import com.kpd.kpd_bot.api.news.model.News;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
+
+import java.util.concurrent.Future;
 
 @Service
 @RequiredArgsConstructor
@@ -15,22 +18,17 @@ public class NewsAdapter implements Adapter {
 	public static final String DAY_NEWS = "\n*Новость дня из мира технологий*\n";
 
 	@Override
-	public String getTextFromMessageService(String... args) {
-		News responseDTO;
+	public Future<String> getTextFromMessageService(String... args) {
+		String result = ERROR_MESSAGE;
 		try {
-			responseDTO = newsAPI.getNews();
+			result = this.formatFromObjectToText(newsAPI.getNews());
 		} catch (RuntimeException ex) {
-			return ERROR_MESSAGE;
+			ex.printStackTrace();
 		}
-
-		return this.formatFromObjectToText(responseDTO);
+		return new AsyncResult<>(result);
 	}
 
 	private String formatFromObjectToText(News dto) {
-		if (dto == null) {
-			return ERROR_MESSAGE;
-		}
-
 		return new StringBuilder()
 				.append(DAY_NEWS)
 				.append(dto.getTitle())

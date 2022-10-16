@@ -11,6 +11,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 
 @Service
 @RequiredArgsConstructor
@@ -28,22 +32,41 @@ public class MainMessageConstructor {
 
 		sb.append(DateGetter.getMessageWithTime()).append(userInfo.getName()).append("!\n");
 		Subscription subscription = userInfo.getSubscription();
+		List<Future<String>> futures = new ArrayList<>();
 
 		if (subscription.getQuote()) {
-			sb.append(quoteAdapter.getTextFromQuotePage()).append("\n");
+			futures.add(quoteAdapter.getTextFromMessageService());
 		}
 
 		if (subscription.getWeather()) {
-			sb.append(weatherAdapter.getTextFromMessageService(userInfo.getUserSetting().getCity())).append("\n");
+			futures.add(weatherAdapter.getTextFromMessageService(userInfo.getUserSetting().getCity()));
 		}
-
 		if (subscription.getFilm()) {
-			sb.append(filmAdapter.getTextFromMessageService()).append("\n");
+			futures.add(filmAdapter.getTextFromMessageService());
 		}
 
 		if (subscription.getNews()) {
-			sb.append(newsAdapter.getTextFromMessageService()).append("\n");
+			futures.add(newsAdapter.getTextFromMessageService());
 		}
+		long i = System.currentTimeMillis();
+		boolean flag = true;
+		while (flag) {
+			flag = false;
+			for (Future<String> stringFuture : futures) {
+				if (!stringFuture.isDone()) {
+					flag = true;
+				}
+			}
+		}
+		System.out.println(System.currentTimeMillis() - i);
+
+		futures.forEach(stringFuture -> {
+			try {
+				sb.append(stringFuture.get()).append("\n");
+			} catch (InterruptedException | ExecutionException e) {
+				e.printStackTrace();
+			}
+		});
 
 		return sb.toString();
 	}

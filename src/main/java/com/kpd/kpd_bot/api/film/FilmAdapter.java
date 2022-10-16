@@ -6,11 +6,13 @@ import com.kpd.kpd_bot.api.film.model.Genres;
 import com.kpd.kpd_bot.entity.cache.Film;
 import com.kpd.kpd_bot.util.DateGetter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Future;
 
 @Service
 @RequiredArgsConstructor
@@ -19,15 +21,14 @@ public class FilmAdapter implements Adapter {
     private final String ERROR_MESSAGE = "Кинопремьер не ожидается";
 
     @Override
-    public String getTextFromMessageService(String... args) {
-        Film responseDTO;
+    public Future<String> getTextFromMessageService(String... args) {
+        String result = ERROR_MESSAGE;
         try {
-            responseDTO = filmService.getFilm();
+            result = this.formatFromObjectToText(filmService.getFilm());
         } catch (RuntimeException ex) {
             ex.printStackTrace();
-            return ERROR_MESSAGE;
         }
-        return this.formatFromObjectToText(responseDTO);
+        return new AsyncResult<>(result);
     }
 
     private String formatFromObjectToText(Film dto) {
