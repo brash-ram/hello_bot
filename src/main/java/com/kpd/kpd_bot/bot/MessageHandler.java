@@ -46,7 +46,7 @@ public class MessageHandler {
 							.addInlineButtonInRow("Настроить время отправки сообщения", "setSendingMessageTime")
 							.addNewInlineRow().addInlineButtonInRow("Настроить информационные параметры сообщения", "setMessageInfoParameters")
 							.addNewInlineRow().addInlineButtonInRow("Настроить форму обращения в приветствии", "setUserForm")
-							.addNewInlineRow().addInlineButtonInRow("Настроить город для получения прогноза погоды", "setUserCity")
+//							.addNewInlineRow().addInlineButtonInRow("Настроить город для получения прогноза погоды", "setUserCity")
 							.getInlineKeyboard());
 
 			case "Справка" -> newMessage.setText(StringConst.HELP_MESSAGE);

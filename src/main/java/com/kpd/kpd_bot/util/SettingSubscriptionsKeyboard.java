@@ -1,6 +1,7 @@
 package com.kpd.kpd_bot.util;
 
 
+import com.kpd.kpd_bot.bot.MessageAdapter;
 import com.kpd.kpd_bot.entity.Subscription;
 import com.kpd.kpd_bot.statics.StringConst;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -17,6 +18,15 @@ public class SettingSubscriptionsKeyboard {
 		constructor.addInlineButtonInRow(StringConst.FILM + " " + (subscription.getFilm() ? yes : no), "film").addNewInlineRow();
 		constructor.addInlineButtonInRow(StringConst.EXCHANGE_RATES + " " + (subscription.getExchangeRates() ? yes : no), "exchangeRates").addNewInlineRow();
 		constructor.addInlineButtonInRow(StringConst.NEWS + " " + (subscription.getNews() ? yes : no), "news").addNewInlineRow();
+
+		if (subscription.getWeather()) {
+			constructor.addInlineButtonInRow("Настроить город для прогноза погоды", "setUserCity");
+
+		}
+
+//		if (subscription.getExchangeRates()) {
+//			constructor.addInlineButtonInRow("Выбрать необходимые курсы валют")
+//		}
 		return constructor.getInlineKeyboard();
 	}
 }

@@ -35,9 +35,9 @@ public class ExchangeRateAdapter implements Adapter {
         StringBuilder sb = new StringBuilder();
         sb.append(EXCHANGE_RATE);
         dto.getRates().forEach((key, value) -> {
-            sb.append(dto.getBase())
+            sb.append(key)
                     .append("/")
-                    .append(key)
+                    .append(dto.getBase())
                     .append(": ")
                     .append(String.format("%.2f", 1 / value))
                     .append("\n");

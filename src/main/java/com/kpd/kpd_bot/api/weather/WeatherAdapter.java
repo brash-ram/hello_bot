@@ -18,7 +18,7 @@ import java.util.concurrent.Future;
 public class WeatherAdapter implements Adapter {
 
     private final WeatherAPI weatherAPI;
-    private final String ERROR_MESSAGE = "К сожалению, в данный момент невозможно получить прогноз погоды.";
+    private final String ERROR_MESSAGE = "\nК сожалению, в данный момент невозможно получить прогноз погоды.\n";
     @Override
     public Future<String> getTextFromMessageService(String... args) {
         String result = ERROR_MESSAGE;
@@ -37,10 +37,21 @@ public class WeatherAdapter implements Adapter {
         WeatherMain weatherMain = dto.getMain();
         Wind wind = dto.getWind();
         sb.append("\n*Погода в ")
-                .append(dto.getName()).append(" сейчас*\n")
-                .append("Температура ").append((int)weatherMain.getTemp()).append(" °C, ")
+                .append(dto.getName()).append(" сейчас*\n");
+
+        if (weatherMain.getTemp() > 0) {
+            sb.append("+");
+        }
+
+        sb.append((int)weatherMain.getTemp()).append(" °C, ")
                 .append(weather.getDescription()).append("\n")
-                .append("Ощущается как ").append((int)weatherMain.getFeels_like()).append(" °C\n")
+                .append("Ощущается как ");
+
+        if (weatherMain.getFeels_like() > 0) {
+            sb.append("+");
+        }
+
+        sb.append((int)weatherMain.getFeels_like()).append(" °C\n")
                 .append("Давление: ").append(PressureConverter.convertPressure(weatherMain.getPressure()))
                 .append(" мм рт. ст.\n").append("Влажность: ").append(weatherMain.getHumidity()).append(" %\n")
                 .append("Ветер: ").append((int)wind.getSpeed()).append(" м/c, ")

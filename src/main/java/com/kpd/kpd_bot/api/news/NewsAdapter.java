@@ -15,7 +15,7 @@ public class NewsAdapter implements Adapter {
 	private final NewsService newsService;
 	private final String ERROR_MESSAGE = "К сожалению, в данный момент невозможно получить новости.";
 
-	public static final String DAY_NEWS = "\n*Последняя новость из мира технологий*\n";
+	public static final String DAY_NEWS = "*Последняя новость из мира технологий*\n";
 
 	@Override
 	public Future<String> getTextFromMessageService(String... args) {
