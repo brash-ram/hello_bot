@@ -36,4 +36,14 @@ public class StringConst {
 	public static final String INPUT_NAME_FOR_USER = "Напишите, как вы хотите, чтобы к вам обращались в сообщении.";
 	public static final String INPUT_CITY_FOR_USER = "Укажите город, по которому вы хотели бы получить прогноз погоды.";
 	public static final String GOOD_INPUT_CITY_FOR_USER = "Вы успешно изменили город!";
+
+	public static final String CHF_RUB = "CHF/RUB";
+
+	public static final String JPY_RUB = "JPY/RUB";
+
+	public static final String EUR_RUB = "EUR/RUB";
+
+	public static final String GBP_RUB = "GBP/RUB";
+
+	public static final String USD_RUB = "USD/RUB";
 }

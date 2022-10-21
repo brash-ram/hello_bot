@@ -26,7 +26,6 @@ public class WeatherAdapter implements Adapter {
         try {
             result = this.formatFromObjectToText(weatherAPI.getWeather(args[0]));
         }   catch (ArrayIndexOutOfBoundsException ex) {
-            ex.printStackTrace();
             result = CITY_ERROR;
         }
         catch (RuntimeException ex) {

@@ -1,11 +1,9 @@
 package com.kpd.kpd_bot.bot;
 
+import com.kpd.kpd_bot.entity.ExchangeRatesSetting;
 import com.kpd.kpd_bot.entity.Subscription;
 import com.kpd.kpd_bot.myenum.UserStateEnum;
-import com.kpd.kpd_bot.service.SettingService;
-import com.kpd.kpd_bot.service.SubscriptionService;
-import com.kpd.kpd_bot.service.UserService;
-import com.kpd.kpd_bot.service.UserStateService;
+import com.kpd.kpd_bot.service.*;
 import com.kpd.kpd_bot.statics.StringConst;
 import com.kpd.kpd_bot.util.InlineKeyboardConstructor;
 import com.kpd.kpd_bot.util.SettingSubscriptionsKeyboard;
@@ -22,6 +20,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 public class InlineKeyboardHandler {
 	private final TimeSendInlineKeyboardHandler timeSendInlineKeyboardHandler;
 	private final SubscriptionService subscriptionService;
+	private final ExchangeRatesSettingService exchangeRatesSettingService;
 	private final UserService userService;
 	private final SettingService settingService;
 	private final UserStateService userStateService;
@@ -83,6 +82,7 @@ public class InlineKeyboardHandler {
 				editMessage = null;
 			}
 
+			case "setCurrencies" -> editMessage = this.handleExchangeRatesSetting(callData, userId, editMessage);
 
 			default -> this.handleSettingSubscription(callData, userId, editMessage);
 	}
@@ -107,6 +107,20 @@ public class InlineKeyboardHandler {
 		}
 		subscriptionService.saveSubscription(subscription);
 		editMessage.setReplyMarkup(SettingSubscriptionsKeyboard.createInlineKeyboardSettingSubscription(subscription));
+		return editMessage;
+	}
+
+	private EditMessageText handleExchangeRatesSetting(String field, Long userId, EditMessageText editMessage) {
+		ExchangeRatesSetting exchangeRatesSetting = userService.findById(userId).getExchangeRatesSetting();
+		switch (field) {
+			case "CHF/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setCHF_RUB(!exchangeRatesSetting.getCHF_RUB());
+			case "JPY/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setJPY_RUB(!exchangeRatesSetting.getJPY_RUB());
+			case "EUR/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setEUR_RUB(!exchangeRatesSetting.getEUR_RUB());
+			case "GBP/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setGBP_RUB(!exchangeRatesSetting.getGBP_RUB());
+			case "USD/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setUSD_RUB(!exchangeRatesSetting.getUSD_RUB());
+		}
+		exchangeRatesSettingService.saveExchangeRatesSetting(exchangeRatesSetting);
+		editMessage.setReplyMarkup(SettingSubscriptionsKeyboard.createInlineKeyboardExchangeRatesSetting(exchangeRatesSetting));
 		return editMessage;
 	}
 
