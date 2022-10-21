@@ -15,6 +15,11 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class InlineKeyboardHandler {
@@ -24,6 +29,7 @@ public class InlineKeyboardHandler {
 	private final UserService userService;
 	private final SettingService settingService;
 	private final UserStateService userStateService;
+	private final List<String> listSubscriptions = new ArrayList<String>(Arrays.asList("weather", "quote", "film", "exchangeRates", "news"));
 
 	public void handleMessage(Update update, Bot bot) throws TelegramApiException {
 		String callData = update.getCallbackQuery().getData();
@@ -84,7 +90,13 @@ public class InlineKeyboardHandler {
 
 			case "setCurrencies" -> editMessage = this.handleExchangeRatesSetting(callData, userId, editMessage);
 
-			default -> this.handleSettingSubscription(callData, userId, editMessage);
+			default ->{
+				if (listSubscriptions.contains(callData)) {
+					this.handleSettingSubscription(callData, userId, editMessage);
+				} else {
+					this.handleExchangeRatesSetting(callData, userId, editMessage);
+				}
+			}
 	}
 
 		if (newMessage != null) {
