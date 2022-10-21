@@ -29,9 +29,15 @@ public class WeatherAPI {
     }
 
     public BaseWeatherResponseDTO getWeather(String city) {
-        GeoCoordinate coordinate = geocodingAPI.getGeoCoordinate(city);
-        if (coordinate == null) {
-            throw new Error("City is not valid");
+        GeoCoordinate coordinate = null;
+        try {
+            coordinate = geocodingAPI.getGeoCoordinate(city);
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            ex.printStackTrace();
+            throw new ArrayIndexOutOfBoundsException();
+
+        } catch (RuntimeException ex) {
+            ex.printStackTrace();
         }
         Object responseApi = webService.<Object>makePostRequest(this.getUrl(coordinate.getLat(), coordinate.getLon()), Object.class);
         return mapper.convertValue(responseApi, BaseWeatherResponseDTO.class);

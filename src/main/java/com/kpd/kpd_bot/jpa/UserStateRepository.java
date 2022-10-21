@@ -9,4 +9,6 @@ public interface UserStateRepository extends JpaRepository<UserState, Long> {
 	UserState findByUserId(Long userId);
 	@Transactional
 	void deleteByUserId(Long userId);
+
+	boolean existsByUserId(Long userId);
 }

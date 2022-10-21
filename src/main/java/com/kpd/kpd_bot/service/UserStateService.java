@@ -22,4 +22,6 @@ public class UserStateService {
 	public void deleteUserState(Long userId) {
 		userStateRepository.deleteByUserId(userId);
 	}
+
+	public boolean existByUserId(Long userId) { return userStateRepository.existsByUserId(userId); }
 }

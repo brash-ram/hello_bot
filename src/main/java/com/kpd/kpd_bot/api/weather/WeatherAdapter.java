@@ -19,12 +19,17 @@ public class WeatherAdapter implements Adapter {
 
     private final WeatherAPI weatherAPI;
     private final String ERROR_MESSAGE = "\nК сожалению, в данный момент невозможно получить прогноз погоды.\n";
+    private final String CITY_ERROR = "\nГород не найден.\n";
     @Override
     public Future<String> getTextFromMessageService(String... args) {
         String result = ERROR_MESSAGE;
         try {
             result = this.formatFromObjectToText(weatherAPI.getWeather(args[0]));
-        } catch (RuntimeException ex) {
+        }   catch (ArrayIndexOutOfBoundsException ex) {
+            ex.printStackTrace();
+            result = CITY_ERROR;
+        }
+        catch (RuntimeException ex) {
             ex.printStackTrace();
         }
         return new AsyncResult<>(result);
