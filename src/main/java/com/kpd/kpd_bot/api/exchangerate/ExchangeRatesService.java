@@ -16,17 +16,17 @@ public class ExchangeRatesService {
 	private final ExchangeRateRepository exchangeRateRepository;
 
 	public ExchangeRate getExchangeRates() {
-		ExchangeRate ExchangeRate = this.getExchangeRates(DateGetter.getSqlDate());
-		if (ExchangeRate == null) {
-			ExchangeRate = this.getExchangeRatesFromApiAndSave();
+		ExchangeRate exchangeRate = this.getExchangeRates(DateGetter.getSqlDate());
+		if (exchangeRate == null) {
+			exchangeRate = this.getExchangeRatesFromApiAndSave();
 		} else {
-			if (DateGetter.getDifferanceDay(ExchangeRate.getDateUpdate()) > 0) {
-				Long id = ExchangeRate.getId();
-				ExchangeRate = this.getExchangeRatesFromApiAndSave();
+			if (DateGetter.getDifferanceDay(exchangeRate.getDateUpdate()) > 0) {
+				Long id = exchangeRate.getId();
+				exchangeRate = this.getExchangeRatesFromApiAndSave();
 				exchangeRateRepository.deleteById(id);
 			}
 		}
-		return ExchangeRate;
+		return exchangeRate;
 	}
 
 

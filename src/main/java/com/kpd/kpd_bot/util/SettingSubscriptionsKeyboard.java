@@ -13,7 +13,7 @@ public class SettingSubscriptionsKeyboard {
 
 	public static InlineKeyboardMarkup createInlineKeyboardSettingSubscription(Subscription subscription) {
 		InlineKeyboardConstructor constructor = new InlineKeyboardConstructor();
-		constructor.addInlineButtonInRow(StringConst.BACK, "backSubscription").addNewInlineRow();
+		constructor.addInlineButtonInRow(StringConst.BACK, "backSetting").addNewInlineRow();
 		constructor.addInlineButtonInRow(StringConst.WEATHER + " " + (subscription.getWeather() ? yes : no), "weather").addNewInlineRow();
 		constructor.addInlineButtonInRow(StringConst.QUOTE + " " + (subscription.getQuote() ? yes : no), "quote").addNewInlineRow();
 		constructor.addInlineButtonInRow(StringConst.FILM + " " + (subscription.getFilm() ? yes : no), "film").addNewInlineRow();
@@ -33,6 +33,7 @@ public class SettingSubscriptionsKeyboard {
 
 	public static InlineKeyboardMarkup createInlineKeyboardExchangeRatesSetting(ExchangeRatesSetting exchangeRatesSetting) {
 		InlineKeyboardConstructor constructor = new InlineKeyboardConstructor();
+		constructor.addInlineButtonInRow(StringConst.BACK, "backSubscription").addNewInlineRow();
 		constructor.addInlineButtonInRow(StringConst.CHF_RUB + " " + (exchangeRatesSetting.getCHF_RUB() ? yes : no), "CHF/RUB").addNewInlineRow();
 		constructor.addInlineButtonInRow(StringConst.JPY_RUB + " " + (exchangeRatesSetting.getJPY_RUB() ? yes : no), "JPY/RUB").addNewInlineRow();
 		constructor.addInlineButtonInRow(StringConst.EUR_RUB + " " + (exchangeRatesSetting.getEUR_RUB()? yes : no), "EUR/RUB").addNewInlineRow();

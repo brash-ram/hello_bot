@@ -46,4 +46,6 @@ public class StringConst {
 	public static final String GBP_RUB = "GBP/RUB";
 
 	public static final String USD_RUB = "USD/RUB";
+	public static final String SUCCESSFULLY_SET_TIME_SEND = "Вы успешно изменили время отправки сообщения";
+	public static final String SET_CURRENCIES = "Выберите необходимые валюты.";
 }

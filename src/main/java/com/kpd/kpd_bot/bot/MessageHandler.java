@@ -6,9 +6,8 @@ import com.kpd.kpd_bot.service.MainMessageConstructor;
 import com.kpd.kpd_bot.service.SettingService;
 import com.kpd.kpd_bot.service.UserService;
 import com.kpd.kpd_bot.service.UserStateService;
-import com.kpd.kpd_bot.statics.ReplyButtons;
+import com.kpd.kpd_bot.statics.Buttons;
 import com.kpd.kpd_bot.statics.StringConst;
-import com.kpd.kpd_bot.util.InlineKeyboardConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -37,16 +36,12 @@ public class MessageHandler {
 
 		switch (messageText) {
 			case "/start" -> newMessage.setText(StringConst.START_MESSAGE)
-					.addReplyButtons(ReplyButtons.startButtons);
+					.setReplyButtons(Buttons.startButtons);
 
 			case "Получить новости этого дня прямо сейчас" -> newMessage.setText(mainMessageConstructor.getMessage(userId));
 
-			case "Настройки" -> newMessage.setText(StringConst.SETTINGS_MESSAGE)
-					.setInlineKeyboard(new InlineKeyboardConstructor()
-							.addInlineButtonInRow("Настроить время отправки сообщения", "setSendingMessageTime")
-							.addNewInlineRow().addInlineButtonInRow("Настроить информационные параметры сообщения", "setMessageInfoParameters")
-							.addNewInlineRow().addInlineButtonInRow("Настроить форму обращения в приветствии", "setUserForm")
-							.getInlineKeyboard());
+			case "Настройки", "Вернуться к основным настройкам" -> newMessage.setText(StringConst.SETTINGS_MESSAGE)
+					.setInlineKeyboard(Buttons.getSettingButtons());
 
 			case "Справка" -> newMessage.setText(StringConst.HELP_MESSAGE);
 
@@ -56,6 +51,10 @@ public class MessageHandler {
 					newMessage = this.handleMessageByUserState(update, userState.getUserState());
 				}
 			}
+		}
+		UserState userState = userStateService.findUserState(userId);
+		if (userState != null) {
+			userStateService.deleteUserState(userId);
 		}
 		bot.execute(newMessage.getSendMessage());
 	}

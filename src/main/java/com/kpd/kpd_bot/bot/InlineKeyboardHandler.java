@@ -2,20 +2,23 @@ package com.kpd.kpd_bot.bot;
 
 import com.kpd.kpd_bot.entity.ExchangeRatesSetting;
 import com.kpd.kpd_bot.entity.Subscription;
+import com.kpd.kpd_bot.entity.UserInfo;
+import com.kpd.kpd_bot.entity.UserState;
 import com.kpd.kpd_bot.myenum.UserStateEnum;
 import com.kpd.kpd_bot.service.*;
+import com.kpd.kpd_bot.statics.Buttons;
 import com.kpd.kpd_bot.statics.StringConst;
 import com.kpd.kpd_bot.util.InlineKeyboardConstructor;
 import com.kpd.kpd_bot.util.SettingSubscriptionsKeyboard;
 import com.kpd.kpd_bot.util.TimeSendInlineKeyboardHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -37,7 +40,9 @@ public class InlineKeyboardHandler {
 		long chatId = update.getCallbackQuery().getMessage().getChatId();
 		String messageText = update.getCallbackQuery().getMessage().getText();
 		Long userId = update.getCallbackQuery().getFrom().getId();
+		UserInfo userInfo = userService.findById(userId);
 		MessageAdapter newMessage = null;
+		DeleteMessage deleteMessage = null;
 		EditMessageText editMessage = this.editMessage(chatId, messageId, messageText, update.getCallbackQuery().getMessage().getReplyMarkup());
 
 		switch (callData) {
@@ -48,53 +53,57 @@ public class InlineKeyboardHandler {
 				editMessage = this.editMessage(chatId, messageId,
 						timeSendInlineKeyboardHandler.addHour(messageText), update.getCallbackQuery().getMessage().getReplyMarkup());
 
-			case "backSubscription" -> newMessage = new MessageAdapter().setChatId(chatId).setText(StringConst.SETTINGS_MESSAGE)
-					.setInlineKeyboard(new InlineKeyboardConstructor()
-							.addInlineButtonInRow("Настроить время отправки сообщения", "setSendingMessageTime")
-							.addNewInlineRow().addInlineButtonInRow("Настроить информационные параметры сообщения", "setMessageInfoParameters")
-							.addNewInlineRow().addInlineButtonInRow("Настроить форму обращения к пользователю", "setUserForm")
-							.getInlineKeyboard());
-
-			case "setTimeSend" -> {
-				settingService.saveSetting(userService.findById(userId).getUserSetting().setTimeSend(messageText));
-				editMessage = null;
+			case "backSetting" -> {
+				editMessage = this.editMessage(chatId, messageId, StringConst.SETTINGS_MESSAGE, Buttons.getSettingButtons());
+				this.clearUserState(chatId);
 			}
 
-			case "setSendingMessageTime" -> editMessage = this.editMessage(chatId, messageId, StringConst.START_TIME_SEND,
-					new InlineKeyboardConstructor()
-						.addInlineButtonInRow("<<", "<<")
-						.addInlineButtonInRow(">>", ">>")
-						.addNewInlineRow().addInlineButtonInRow("Подтвердить", "setTimeSend")
-						.getInlineKeyboard()
-						);
+			case "backSubscription", "setMessageInfoParameters" -> editMessage = this.editMessage(chatId, messageId, StringConst.NEWS_PARAMETERS_MESSAGE,
+					SettingSubscriptionsKeyboard.createInlineKeyboardSettingSubscription(userInfo.getSubscription()));
 
-			case "setMessageInfoParameters" -> newMessage = new MessageAdapter().setChatId(chatId).
-					setText(StringConst.NEWS_PARAMETERS_MESSAGE)
-					.setInlineKeyboard(SettingSubscriptionsKeyboard
-					.createInlineKeyboardSettingSubscription(userService.findById(userId).getSubscription()));
+			case "setTimeSend" -> {
+				settingService.saveSetting(userInfo.getUserSetting().setTimeSend(messageText));
+				editMessage = this.editMessage(chatId, messageId, StringConst.SETTINGS_MESSAGE, Buttons.getSettingButtons());
+				newMessage = new MessageAdapter().setChatId(chatId).setText(StringConst.SUCCESSFULLY_SET_TIME_SEND);
+			}
+
+			case "setSendingMessageTime" -> {
+				String currentTimeSend = userInfo.getUserSetting().getTimeSend();
+				editMessage = this.editMessage(chatId, messageId, currentTimeSend,
+						new InlineKeyboardConstructor()
+								.addInlineButtonInRow("<<", "<<")
+								.addInlineButtonInRow(">>", ">>")
+								.addNewInlineRow().addInlineButtonInRow("Подтвердить", "setTimeSend")
+								.getInlineKeyboard()
+				);
+			}
 
 			case "setUserForm" -> {
 				userStateService.saveUserState(userId, UserStateEnum.WAIT_NAME);
-				newMessage = new MessageAdapter().setChatId(chatId).setText(StringConst.INPUT_NAME_FOR_USER);
-				editMessage = null;
+				editMessage = this.editMessage(chatId, messageId, StringConst.INPUT_NAME_FOR_USER,
+						new InlineKeyboardConstructor().addInlineButtonInRow(StringConst.BACK, "backSetting")
+								.getInlineKeyboard());
 			}
 
 			case "setUserCity" -> {
-				newMessage = new MessageAdapter().setChatId(chatId).setText(StringConst.INPUT_CITY_FOR_USER);
+				editMessage = this.editMessage(chatId, messageId, StringConst.INPUT_CITY_FOR_USER,
+						new InlineKeyboardConstructor().addInlineButtonInRow(StringConst.BACK, "backSubscription")
+						.getInlineKeyboard());
 				if (!userStateService.existByUserId(userId)) {
 					userStateService.saveUserState(userId, UserStateEnum.WAIT_CITY);
 				}
-
-				editMessage = null;
 			}
 
-			case "setCurrencies" -> editMessage = this.handleExchangeRatesSetting(callData, userId, editMessage);
+			case "setCurrencies" -> {
+				editMessage.setText(StringConst.SET_CURRENCIES);
+				this.handleExchangeRatesSetting(callData, userId, editMessage, userInfo.getExchangeRatesSetting());
+			}
 
 			default ->{
 				if (listSubscriptions.contains(callData)) {
-					this.handleSettingSubscription(callData, userId, editMessage);
+					this.handleSettingSubscription(callData, userId, editMessage, userInfo.getSubscription());
 				} else {
-					this.handleExchangeRatesSetting(callData, userId, editMessage);
+					this.handleExchangeRatesSetting(callData, userId, editMessage, userInfo.getExchangeRatesSetting());
 				}
 			}
 	}
@@ -105,11 +114,13 @@ public class InlineKeyboardHandler {
 		if (editMessage != null) {
 			bot.execute(editMessage);
 		}
+		if (deleteMessage != null) {
+			bot.execute(deleteMessage);
+		}
 
 	}
 
-	private EditMessageText handleSettingSubscription(String field, Long userId, EditMessageText editMessage) {
-		Subscription subscription = userService.findById(userId).getSubscription();
+	private EditMessageText handleSettingSubscription(String field, Long userId, EditMessageText editMessage, Subscription subscription) {
 		switch (field) {
 			case "weather" -> subscription = subscription.setWeather(!subscription.getWeather());
 			case "quote" -> subscription = subscription.setQuote(!subscription.getQuote());
@@ -122,8 +133,7 @@ public class InlineKeyboardHandler {
 		return editMessage;
 	}
 
-	private EditMessageText handleExchangeRatesSetting(String field, Long userId, EditMessageText editMessage) {
-		ExchangeRatesSetting exchangeRatesSetting = userService.findById(userId).getExchangeRatesSetting();
+	private EditMessageText handleExchangeRatesSetting(String field, Long userId, EditMessageText editMessage, ExchangeRatesSetting exchangeRatesSetting) {
 		switch (field) {
 			case "CHF/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setCHF_RUB(!exchangeRatesSetting.getCHF_RUB());
 			case "JPY/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setJPY_RUB(!exchangeRatesSetting.getJPY_RUB());
@@ -143,5 +153,19 @@ public class InlineKeyboardHandler {
 		editMessage.setText(text);
 		editMessage.setReplyMarkup(keyboardMarkup);
 		return editMessage;
+	}
+
+	private DeleteMessage deleteMessage(long chatId, int messageId) {
+		DeleteMessage deleteMessage = new DeleteMessage();
+		deleteMessage.setChatId(chatId);
+		deleteMessage.setMessageId(messageId);
+		return deleteMessage;
+	}
+
+	private void clearUserState(Long userId) {
+		UserState userState = userStateService.findUserState(userId);
+		if (userState != null) {
+			userStateService.deleteUserState(userId);
+		}
 	}
 }

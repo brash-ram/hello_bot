@@ -34,7 +34,7 @@ public class MessageAdapter {
 		return this;
 	}
 
-	public MessageAdapter addReplyButtons(String... buttons) {
+	public MessageAdapter setReplyButtons(String... buttons) {
 		ReplyKeyboardMarkup replyKeyboardMarkup = new ReplyKeyboardMarkup();
 		sendMessage.setReplyMarkup(replyKeyboardMarkup);
 		replyKeyboardMarkup.setSelective(true);
