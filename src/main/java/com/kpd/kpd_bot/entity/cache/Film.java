@@ -19,7 +19,7 @@ import java.util.Set;
 @Table(name = "films")
 public class Film {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 

@@ -55,8 +55,11 @@ public class InlineKeyboardHandler {
 				this.clearUserState(chatId);
 			}
 
-			case "backSubscription", "setMessageInfoParameters" -> editMessage = this.editMessage(chatId, messageId, StringConst.NEWS_PARAMETERS_MESSAGE,
-					SettingSubscriptionsKeyboard.createInlineKeyboardSettingSubscription(userInfo.getSubscription()));
+			case "backSubscription", "setMessageInfoParameters" -> {
+				editMessage = this.editMessage(chatId, messageId, StringConst.NEWS_PARAMETERS_MESSAGE,
+						SettingSubscriptionsKeyboard.createInlineKeyboardSettingSubscription(userInfo.getSubscription()));
+				this.clearUserState(chatId);
+			}
 
 			case "setTimeSend" -> {
 				settingService.saveSetting(userInfo.getUserSetting().setTimeSend(messageText));
@@ -93,22 +96,22 @@ public class InlineKeyboardHandler {
 
 			case "setCurrencies" -> {
 				editMessage.setText(StringConst.SET_CURRENCIES);
-				this.handleExchangeRatesSetting(callData, userId, editMessage, userInfo.getExchangeRatesSetting());
+				this.handleExchangeRatesSetting(callData, editMessage, userInfo.getExchangeRatesSetting());
 			}
 
 			case "setNewscategory" -> {
 				editMessage.setText(StringConst.SET_NEWS_CATEGORY);
-				this.handleNewsCategorySetting(callData, userId, editMessage, userInfo.getUserSetting());
+				this.handleNewsCategorySetting(callData, editMessage, userInfo.getUserSetting());
 			}
 
 
 			default ->{
 				if (listSubscriptions.contains(callData)) {
-					this.handleSettingSubscription(callData, userId, editMessage, userInfo.getSubscription());
+					this.handleSettingSubscription(callData, editMessage, userInfo.getSubscription());
 				} else if (StringConst.NEWS_CATEGORIES.containsKey(callData)) {
-					this.handleNewsCategorySetting(callData, userId, editMessage, userInfo.getUserSetting());
+					this.handleNewsCategorySetting(callData, editMessage, userInfo.getUserSetting());
 				} else {
-					this.handleExchangeRatesSetting(callData, userId, editMessage, userInfo.getExchangeRatesSetting());
+					this.handleExchangeRatesSetting(callData, editMessage, userInfo.getExchangeRatesSetting());
 				}
 			}
 	}
@@ -127,7 +130,7 @@ public class InlineKeyboardHandler {
 
 	}
 
-	private EditMessageText handleSettingSubscription(String field, Long userId, EditMessageText editMessage, Subscription subscription) {
+	private EditMessageText handleSettingSubscription(String field, EditMessageText editMessage, Subscription subscription) {
 		switch (field) {
 			case "weather" -> subscription = subscription.setWeather(!subscription.getWeather());
 			case "quote" -> subscription = subscription.setQuote(!subscription.getQuote());
@@ -140,7 +143,7 @@ public class InlineKeyboardHandler {
 		return editMessage;
 	}
 
-	private EditMessageText handleExchangeRatesSetting(String field, Long userId, EditMessageText editMessage, ExchangeRatesSetting exchangeRatesSetting) {
+	private EditMessageText handleExchangeRatesSetting(String field, EditMessageText editMessage, ExchangeRatesSetting exchangeRatesSetting) {
 		switch (field) {
 			case "CHF/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setCHF_RUB(!exchangeRatesSetting.getCHF_RUB());
 			case "JPY/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setJPY_RUB(!exchangeRatesSetting.getJPY_RUB());
@@ -153,7 +156,7 @@ public class InlineKeyboardHandler {
 		return editMessage;
 	}
 
-	private EditMessageText handleNewsCategorySetting(String field, Long userId, EditMessageText editMessage, UserSetting setting) {
+	private EditMessageText handleNewsCategorySetting(String field, EditMessageText editMessage, UserSetting setting) {
 		StringConst.NEWS_CATEGORIES.keySet().forEach(key -> {
 			if (key.equals(field)) {
 				setting.setNewsCategory(key);

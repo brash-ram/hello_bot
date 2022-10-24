@@ -50,6 +50,7 @@ public class MessageHandler {
 				if (userState != null) {
 					newMessage = this.handleMessageByUserState(update, userState.getUserState());
 				}
+				newMessage.setText(StringConst.DEFAULT_MESSAGE);
 			}
 		}
 		UserState userState = userStateService.findUserState(userId);
