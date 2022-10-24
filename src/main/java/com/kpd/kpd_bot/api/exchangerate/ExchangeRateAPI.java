@@ -18,7 +18,7 @@ public class ExchangeRateAPI {
     private String getUrl() {
         return UriComponentsBuilder.newInstance()
                 .scheme("https").host(exchangeRateConfig.getUrl()).path("latest?base={base}&symbols={symbols}")
-                .buildAndExpand( "RUB", "USD,EUR,GBP,CHF,JPY")
+                .buildAndExpand( "RUB", "USD,EUR,CNY,CHF,JPY")
                 .toUriString();
     }
 

@@ -145,7 +145,7 @@ public class InlineKeyboardHandler {
 			case "CHF/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setCHF_RUB(!exchangeRatesSetting.getCHF_RUB());
 			case "JPY/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setJPY_RUB(!exchangeRatesSetting.getJPY_RUB());
 			case "EUR/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setEUR_RUB(!exchangeRatesSetting.getEUR_RUB());
-			case "GBP/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setGBP_RUB(!exchangeRatesSetting.getGBP_RUB());
+			case "GBP/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setCNY_RUB(!exchangeRatesSetting.getCNY_RUB());
 			case "USD/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setUSD_RUB(!exchangeRatesSetting.getUSD_RUB());
 		}
 		exchangeRatesSettingService.saveExchangeRatesSetting(exchangeRatesSetting);

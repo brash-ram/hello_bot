@@ -48,7 +48,7 @@ public class MainMessageConstructor {
 		}
 
 		if (subscription.getExchangeRates()) {
-			futures.add(exchangeRateAdapter.getTextFromMessageService());
+			futures.add(exchangeRateAdapter.getTextFromMessageService(userId.toString()));
 		}
 
 		if (subscription.getNews()) {
