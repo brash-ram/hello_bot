@@ -31,7 +31,7 @@ public class SettingSubscriptionsKeyboard {
 		}
 
 		if (subscription.getNews()) {
-			constructor.addNewInlineRow().addInlineButtonInRow("выбрать категорию новостей", "setNewscategory");
+			constructor.addNewInlineRow().addInlineButtonInRow("Выбрать категорию новостей", "setNewscategory");
 		}
 
 		return constructor.getInlineKeyboard();
