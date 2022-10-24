@@ -52,7 +52,7 @@ public class MainMessageConstructor {
 		}
 
 		if (subscription.getNews()) {
-			futures.add(newsAdapter.getTextFromMessageService());
+			futures.add(newsAdapter.getTextFromMessageService(userInfo.getUserSetting().getNewsCategory()));
 		}
 		long i = System.currentTimeMillis();
 		boolean flag = true;

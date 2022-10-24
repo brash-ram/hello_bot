@@ -16,16 +16,16 @@ public class NewsAPI {
     private final WebService webService;
     private final NewsConfig newsConfig;
 
-    private String getUrl() {
+    private String getUrl(String category) {
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
                 .scheme("https").host(newsConfig.getUrl()).path("news?apikey={API_KEY}&country={country}&" +
                         "language={language}&category={category}")
-                .buildAndExpand(newsConfig.getToken(), "ru", "ru", "technology");
+                .buildAndExpand(newsConfig.getToken(), "ru", "ru", category);
         return uriComponents.toUriString();
     }
 
-    public News getNews() {
-        BaseNewsResponseDTO responseDTO = webService.<BaseNewsResponseDTO>makeGetRequest(this.getUrl(), BaseNewsResponseDTO.class);
+    public News getNews(String category) {
+        BaseNewsResponseDTO responseDTO = webService.<BaseNewsResponseDTO>makeGetRequest(this.getUrl(category), BaseNewsResponseDTO.class);
         return getLatestTechnologyNews(responseDTO);
     }
 

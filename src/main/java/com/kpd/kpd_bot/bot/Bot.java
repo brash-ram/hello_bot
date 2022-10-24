@@ -32,10 +32,8 @@ public class Bot extends TelegramLongPollingBot {
 		if (update.hasMessage() && update.getMessage().hasText()) {
 			try {
 				messageHandler.handleMessage(update, this);
-			} catch (TelegramApiException e) {
-				throw new RuntimeException(e);
-			} catch (UnsupportedEncodingException e) {
-				throw new RuntimeException(e);
+			} catch (TelegramApiException | UnsupportedEncodingException e) {
+				e.printStackTrace();
 			}
 		}
 		else if (update.hasCallbackQuery()) {

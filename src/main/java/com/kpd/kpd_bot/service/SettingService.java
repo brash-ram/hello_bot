@@ -15,10 +15,13 @@ public class SettingService {
 	@Value("${user.city.default}")
 	private String cityDefault;
 
+	@Value("${user.newsCategory.default}")
+	private String newsCategoryDefault;
+
 	private final SettingRepository settingRepository;
 
 	public UserSetting saveNewSetting() {
-		return settingRepository.save(new UserSetting(null, timeSendDefault, cityDefault));
+		return settingRepository.save(new UserSetting(null, timeSendDefault, cityDefault, newsCategoryDefault));
 	}
 
 	public UserSetting saveSetting(UserSetting userSetting) {

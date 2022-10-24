@@ -1,9 +1,6 @@
 package com.kpd.kpd_bot.bot;
 
-import com.kpd.kpd_bot.entity.ExchangeRatesSetting;
-import com.kpd.kpd_bot.entity.Subscription;
-import com.kpd.kpd_bot.entity.UserInfo;
-import com.kpd.kpd_bot.entity.UserState;
+import com.kpd.kpd_bot.entity.*;
 import com.kpd.kpd_bot.myenum.UserStateEnum;
 import com.kpd.kpd_bot.service.*;
 import com.kpd.kpd_bot.statics.Buttons;
@@ -99,9 +96,17 @@ public class InlineKeyboardHandler {
 				this.handleExchangeRatesSetting(callData, userId, editMessage, userInfo.getExchangeRatesSetting());
 			}
 
+			case "setNewscategory" -> {
+				editMessage.setText(StringConst.SET_NEWS_CATEGORY);
+				this.handleNewsCategorySetting(callData, userId, editMessage, userInfo.getUserSetting());
+			}
+
+
 			default ->{
 				if (listSubscriptions.contains(callData)) {
 					this.handleSettingSubscription(callData, userId, editMessage, userInfo.getSubscription());
+				} else if (StringConst.NEWS_CATEGORIES.containsKey(callData)) {
+					this.handleNewsCategorySetting(callData, userId, editMessage, userInfo.getUserSetting());
 				} else {
 					this.handleExchangeRatesSetting(callData, userId, editMessage, userInfo.getExchangeRatesSetting());
 				}
@@ -111,9 +116,11 @@ public class InlineKeyboardHandler {
 		if (newMessage != null) {
 			bot.execute(newMessage.getSendMessage());
 		}
+
 		if (editMessage != null) {
 			bot.execute(editMessage);
 		}
+
 		if (deleteMessage != null) {
 			bot.execute(deleteMessage);
 		}
@@ -145,6 +152,18 @@ public class InlineKeyboardHandler {
 		editMessage.setReplyMarkup(SettingSubscriptionsKeyboard.createInlineKeyboardExchangeRatesSetting(exchangeRatesSetting));
 		return editMessage;
 	}
+
+	private EditMessageText handleNewsCategorySetting(String field, Long userId, EditMessageText editMessage, UserSetting setting) {
+		StringConst.NEWS_CATEGORIES.keySet().forEach(key -> {
+			if (key.equals(field)) {
+				setting.setNewsCategory(key);
+			}
+		});
+		settingService.saveSetting(setting);
+		editMessage.setReplyMarkup(SettingSubscriptionsKeyboard.createInlineKeyboardNewsCategorySetting(setting));
+		return editMessage;
+	}
+
 
 	private EditMessageText editMessage(long chatId, int messageId, String text, InlineKeyboardMarkup keyboardMarkup) {
 		EditMessageText editMessage = new EditMessageText();

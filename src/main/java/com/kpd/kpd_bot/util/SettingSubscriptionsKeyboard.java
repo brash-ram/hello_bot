@@ -4,6 +4,8 @@ package com.kpd.kpd_bot.util;
 import com.kpd.kpd_bot.bot.MessageAdapter;
 import com.kpd.kpd_bot.entity.ExchangeRatesSetting;
 import com.kpd.kpd_bot.entity.Subscription;
+import com.kpd.kpd_bot.entity.UserSetting;
+import com.kpd.kpd_bot.statics.Buttons;
 import com.kpd.kpd_bot.statics.StringConst;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
@@ -28,6 +30,10 @@ public class SettingSubscriptionsKeyboard {
 			constructor.addNewInlineRow().addInlineButtonInRow("Выбрать необходимые курсы валют", "setCurrencies");
 		}
 
+		if (subscription.getNews()) {
+			constructor.addNewInlineRow().addInlineButtonInRow("выбрать категорию новостей", "setNewscategory");
+		}
+
 		return constructor.getInlineKeyboard();
 	}
 
@@ -39,6 +45,15 @@ public class SettingSubscriptionsKeyboard {
 		constructor.addInlineButtonInRow(StringConst.EUR_RUB + " " + (exchangeRatesSetting.getEUR_RUB()? yes : no), "EUR/RUB").addNewInlineRow();
 		constructor.addInlineButtonInRow(StringConst.GBP_RUB + " " + (exchangeRatesSetting.getGBP_RUB() ? yes : no), "GBP/RUB").addNewInlineRow();
 		constructor.addInlineButtonInRow(StringConst.USD_RUB + " " + (exchangeRatesSetting.getUSD_RUB() ? yes : no), "USD/RUB").addNewInlineRow();
+		return constructor.getInlineKeyboard();
+	}
+
+	public static InlineKeyboardMarkup createInlineKeyboardNewsCategorySetting(UserSetting setting) {
+		InlineKeyboardConstructor constructor = new InlineKeyboardConstructor();
+		constructor.addInlineButtonInRow(StringConst.BACK, "backSubscription").addNewInlineRow();
+		StringConst.NEWS_CATEGORIES.forEach((key, value) -> {
+			constructor.addInlineButtonInRow(value + " " + (setting.getNewsCategory().equals(key) ? yes : no), key).addNewInlineRow();
+		});
 		return constructor.getInlineKeyboard();
 	}
 
