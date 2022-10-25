@@ -4,6 +4,7 @@ import com.kpd.kpd_bot.bot.Bot;
 import com.kpd.kpd_bot.bot.MessageAdapter;
 import com.kpd.kpd_bot.util.DateGetter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -18,6 +19,7 @@ public class SenderMainMessage {
 	private final MainMessageConstructor mainMessageConstructor;
 
 	@Scheduled(initialDelay = 60000, fixedRate = 60000)
+	@Async
 	public void sendMessage() throws TelegramApiException {
 		String currentTime = DateGetter.getCurrentTimeInNeededFormatted();
 		userService.findByHour(currentTime).forEach(
