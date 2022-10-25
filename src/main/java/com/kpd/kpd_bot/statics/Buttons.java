@@ -8,13 +8,14 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class Buttons {
 	public static final String[] startButtons = {"Получить новости этого дня прямо сейчас", "Настройки", "Справка"};
-	public static final String[] backButtonSetName = {"Вернуться к основным настройкам"};
 
 	public static InlineKeyboardMarkup getSettingButtons() {
 		return new InlineKeyboardConstructor()
 				.addInlineButtonInRow("Настроить время отправки сообщения", "setSendingMessageTime")
-				.addNewInlineRow().addInlineButtonInRow("Настроить параметры сообщения", "setMessageInfoParameters")
-				.addNewInlineRow().addInlineButtonInRow("Настроить форму обращения в приветствии", "setUserForm")
+				.addNewInlineRow()
+				.addInlineButtonInRow("Настроить параметры сообщения", "setMessageInfoParameters")
+				.addNewInlineRow()
+				.addInlineButtonInRow("Настроить форму обращения в приветствии", "setUserForm")
 				.getInlineKeyboard();
 	}
 }

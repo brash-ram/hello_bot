@@ -18,9 +18,11 @@ public class NewsAPI {
 
     private String getUrl(String category) {
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
-                .scheme("https").host(newsConfig.getUrl()).path("news?apikey={API_KEY}&country={country}&" +
-                        "language={language}&category={category}")
+                .scheme("https")
+                .host(newsConfig.getUrl())
+                .path("news?apikey={API_KEY}&country={country}&language={language}&category={category}")
                 .buildAndExpand(newsConfig.getToken(), "ru", "ru", category);
+
         return uriComponents.toUriString();
     }
 

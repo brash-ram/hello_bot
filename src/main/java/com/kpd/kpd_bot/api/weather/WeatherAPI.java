@@ -22,14 +22,17 @@ public class WeatherAPI {
 
     private String getUrl(Double lat, Double lon) {
         UriComponents uriComponents = UriComponentsBuilder.newInstance()
-                .scheme("https").host(weatherConfig.getUrl()).path("?lat={lat}&lon={lon}&exclude=current&units=metric" +
-                        "&lang=ru&appid={API key}")
+                .scheme("https")
+                .host(weatherConfig.getUrl())
+                .path("?lat={lat}&lon={lon}&exclude=current&units=metric&lang=ru&appid={API key}")
                 .buildAndExpand(lat.toString(), lon.toString(), weatherConfig.getToken());
+
         return uriComponents.toUriString();
     }
 
     public BaseWeatherResponseDTO getWeather(String city) {
         GeoCoordinate coordinate = null;
+
         try {
             coordinate = geocodingAPI.getGeoCoordinate(city);
         } catch (ArrayIndexOutOfBoundsException ex) {
@@ -39,6 +42,7 @@ public class WeatherAPI {
         } catch (RuntimeException ex) {
             ex.printStackTrace();
         }
+
         Object responseApi = webService.<Object>makePostRequest(this.getUrl(coordinate.getLat(), coordinate.getLon()), Object.class);
         return mapper.convertValue(responseApi, BaseWeatherResponseDTO.class);
     }

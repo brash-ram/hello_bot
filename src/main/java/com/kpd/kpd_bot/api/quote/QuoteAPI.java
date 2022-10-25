@@ -19,11 +19,13 @@ public class QuoteAPI {
 
 	public Quote getQuote() {
 		Document quotePage;
+
 		try {
 			quotePage = Jsoup.connect(quoteConfig.getUrl()).get();
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
+
 		Quote quote = new Quote();
 		quote.setQuote(quotePage.getElementsByClass(CLASS_NAME).text());
 		quote.setAuthor(quotePage.getElementsByTag(TAG).text());

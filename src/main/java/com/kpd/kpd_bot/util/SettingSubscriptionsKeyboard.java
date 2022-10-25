@@ -23,6 +23,8 @@ public class SettingSubscriptionsKeyboard {
 
 		if (subscription.getWeather()) {
 			constructor.addInlineButtonInRow("Настроить город для прогноза погоды", "setUserCity");
+//			constructor.addInlineButtonInRow("Выбрать тип прогноза погоды", "setForecastType");
+
 		}
 
 		if (subscription.getExchangeRates()) {
@@ -57,4 +59,9 @@ public class SettingSubscriptionsKeyboard {
 		return constructor.getInlineKeyboard();
 	}
 
+//	public static InlineKeyboardMarkup createInlineKeyboardForecastTypeSetting(ExchangeRatesSetting exchangeRatesSetting) {
+//		InlineKeyboardConstructor constructor = new InlineKeyboardConstructor();
+//		constructor.addInlineButtonInRow(StringConst.BACK, "backSubscription").addNewInlineRow();
+//		return constructor.getInlineKeyboard();
+//	}
 }

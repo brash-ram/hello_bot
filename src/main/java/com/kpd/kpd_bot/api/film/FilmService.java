@@ -17,6 +17,7 @@ public class FilmService {
 
 	public Film getFilm() {
 		Film film = this.getFilm(DateGetter.getSqlDate());
+
 		if (film == null) {
 			film = this.getFilmFromApiAndSave();
 		} else {

@@ -17,6 +17,7 @@ public class ExchangeRatesService {
 
 	public ExchangeRate getExchangeRates() {
 		ExchangeRate exchangeRate = this.getExchangeRates(DateGetter.getSqlDate());
+
 		if (exchangeRate == null) {
 			exchangeRate = this.getExchangeRatesFromApiAndSave();
 		} else {
@@ -37,6 +38,7 @@ public class ExchangeRatesService {
 	}
 
 	private ExchangeRate getExchangeRatesFromApiAndSave() {
-		return exchangeRateRepository.save(exchangeRateAPI.getExchangeRate().setDateUpdate(DateGetter.getSqlDate()));
+		return exchangeRateRepository.save(exchangeRateAPI.getExchangeRate()
+				.setDateUpdate(DateGetter.getSqlDate()));
 	}
 }

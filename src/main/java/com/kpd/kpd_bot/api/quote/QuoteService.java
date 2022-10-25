@@ -18,6 +18,7 @@ public class QuoteService {
 
 	public Quote getQuote() {
 		Quote quote = this.getQuote(DateGetter.getSqlDate());
+
 		if (quote == null) {
 			quote = this.getFilmFromApiAndSave();
 		} else {
@@ -27,6 +28,7 @@ public class QuoteService {
 				quoteRepository.deleteById(id);
 			}
 		}
+
 		return quote;
 	}
 

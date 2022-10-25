@@ -23,5 +23,6 @@ public class UserStateService {
 		userStateRepository.deleteByUserId(userId);
 	}
 
-	public boolean existByUserId(Long userId) { return userStateRepository.existsByUserId(userId); }
+	public boolean existByUserId(Long userId) {
+		return userStateRepository.existsByUserId(userId); }
 }

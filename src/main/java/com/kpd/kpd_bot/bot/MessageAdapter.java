@@ -47,6 +47,7 @@ public class MessageAdapter {
 			row.add(button);
 			keyboard.add(row);
 		}
+
 		replyKeyboardMarkup.setKeyboard(keyboard);
 		return this;
 	}

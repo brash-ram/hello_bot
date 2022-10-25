@@ -22,11 +22,13 @@ public class ExchangeRatesAdapter implements Adapter {
     @Override
     public Future<String> getTextFromMessageService(String... args) {
        String result = ERROR_MESSAGE;
+
 		try {
 			result = this.formatFromObjectToText(exchangeRatesService.getExchangeRates(), Long.parseLong(args[0]));
-		} catch (RuntimeException ex) {
-			ex.printStackTrace();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
 		}
+
 		return new AsyncResult<>(result);
     }
 
@@ -34,53 +36,64 @@ public class ExchangeRatesAdapter implements Adapter {
         if (dto == null) {
             return ERROR_MESSAGE;
         }
-		ExchangeRatesSetting ratesSetting = userService.findById(userId).getExchangeRatesSetting();
 
+		ExchangeRatesSetting ratesSetting = userService.findById(userId).getExchangeRatesSetting();
 		String base = dto.getBase();
 
-        StringBuilder sb = new StringBuilder();
-        sb.append("\n").append(EXCHANGE_RATES);
-        dto.getRates().forEach((key, value) -> {
-			String valueString = String.format("%.2f", 1 / value);
-            switch (key) {
-				case "USD" -> {
-					if (ratesSetting.getUSD_RUB()) {
-						sb.append("\uD83C\uDDFA\uD83C\uDDF8 ");
-						this.addNewCurrency(sb, key, base, valueString);
+        StringBuilder sb = new StringBuilder().
+				append("\n")
+				.append(EXCHANGE_RATES);
+
+        dto.getRates()
+				.forEach((key, value) -> {
+					String valueString = String.format("%.2f", 1 / value);
+
+					switch (key) {
+
+						case "USD" -> {
+							if (ratesSetting.getUSD_RUB()) {
+								sb.append("\uD83C\uDDFA\uD83C\uDDF8 ");
+								this.addNewCurrency(sb, key, base, valueString);
+							}
+						}
+
+						case "EUR" -> {
+							if (ratesSetting.getEUR_RUB()) {
+								sb.append("\uD83C\uDDEA\uD83C\uDDFA ");
+								this.addNewCurrency(sb, key, base, valueString);
+							}
+						}
+
+						case "GBP" -> {
+							if (ratesSetting.getGBP_RUB()) {
+								sb.append("\uD83C\uDDEC\uD83C\uDDE7 ");
+								this.addNewCurrency(sb, key, base, valueString);
+							}
+						}
+
+						case "CHF" -> {
+							if (ratesSetting.getCHF_RUB()) {
+								sb.append("\uD83C\uDDE8\uD83C\uDDED ");
+								this.addNewCurrency(sb, key, base, valueString);
+							}
+						}
+
+						case "CNY" -> {
+							if (ratesSetting.getCNY_RUB()) {
+								sb.append("\uD83C\uDDE8\uD83C\uDDF3 ");
+								this.addNewCurrency(sb, key, base, valueString);
+							}
+						}
+
+						case "JPY" -> {
+							if (ratesSetting.getJPY_RUB()) {
+								sb.append("\uD83C\uDDEF\uD83C\uDDF5 ");
+								this.addNewCurrency(sb, key, base, valueString);
+							}
+						}
 					}
-				}
-				case "EUR" -> {
-					if (ratesSetting.getEUR_RUB()) {
-						sb.append("\uD83C\uDDEA\uD83C\uDDFA ");
-						this.addNewCurrency(sb, key, base, valueString);
-					}
-				}
-				case "GBP" -> {
-					if (ratesSetting.getGBP_RUB()) {
-						sb.append("\uD83C\uDDEC\uD83C\uDDE7 ");
-						this.addNewCurrency(sb, key, base, valueString);
-					}
-				}
-				case "CHF" -> {
-					if (ratesSetting.getCHF_RUB()) {
-						sb.append("\uD83C\uDDE8\uD83C\uDDED ");
-						this.addNewCurrency(sb, key, base, valueString);
-					}
-				}
-				case "CNY" -> {
-					if (ratesSetting.getCNY_RUB()) {
-						sb.append("\uD83C\uDDE8\uD83C\uDDF3 ");
-						this.addNewCurrency(sb, key, base, valueString);
-					}
-				}
-				case "JPY" -> {
-					if (ratesSetting.getJPY_RUB()) {
-						sb.append("\uD83C\uDDEF\uD83C\uDDF5 ");
-						this.addNewCurrency(sb, key, base, valueString);
-					}
-				}
-			}
-        });
+        		});
+
         return sb.toString();
     }
 	private void addNewCurrency(StringBuilder sb, String key, String base, String value) {

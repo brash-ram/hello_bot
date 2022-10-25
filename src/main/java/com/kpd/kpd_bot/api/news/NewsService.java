@@ -33,12 +33,14 @@ public class NewsService {
 
 	private News getNews(Date dateUpdate, String category) {
 		List<News> news = newsRepository.findByDateUpdateLessThanEqual(dateUpdate);
+
 		for (News item : news) {
 			if (item.getCategories().contains(category)) {
 				Hibernate.initialize(item);
 				return item;
 			}
-		};
+		}
+
 		return null;
 	}
 

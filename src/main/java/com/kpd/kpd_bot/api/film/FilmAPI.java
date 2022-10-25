@@ -21,7 +21,9 @@ public class FilmAPI {
 
     private String getUrl() {
         return UriComponentsBuilder.newInstance()
-                .scheme("https").host(filmConfig.getUrl()).path("?year={year}&month={month}")
+                .scheme("https")
+                .host(filmConfig.getUrl())
+                .path("?year={year}&month={month}")
                 .buildAndExpand(LocalDate.now().getYear(), String.valueOf(LocalDate.now().getMonth()))
                 .toUriString();
     }
@@ -41,6 +43,7 @@ public class FilmAPI {
                 .skip(new Random().nextInt(dto.getItems().size()-1))
                 .findFirst()
                 .get();
+
         return film;
     }
 }

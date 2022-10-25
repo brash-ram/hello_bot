@@ -32,23 +32,43 @@ public class InlineKeyboardHandler {
 	private final List<String> listSubscriptions = new ArrayList<String>(Arrays.asList("weather", "quote", "film", "exchangeRates", "news"));
 
 	public void handleMessage(Update update, Bot bot) throws TelegramApiException {
-		String callData = update.getCallbackQuery().getData();
-		int messageId = update.getCallbackQuery().getMessage().getMessageId();
-		long chatId = update.getCallbackQuery().getMessage().getChatId();
-		String messageText = update.getCallbackQuery().getMessage().getText();
-		Long userId = update.getCallbackQuery().getFrom().getId();
+		String callData = update.getCallbackQuery()
+				.getData();
+
+		int messageId = update.getCallbackQuery()
+				.getMessage()
+				.getMessageId();
+
+		long chatId = update.getCallbackQuery().
+				getMessage()
+				.getChatId();
+
+		String messageText = update.getCallbackQuery()
+				.getMessage()
+				.getText();
+
+		Long userId = update.getCallbackQuery()
+				.getFrom()
+				.getId();
+
 		UserInfo userInfo = userService.findById(userId);
 		MessageAdapter newMessage = null;
 		DeleteMessage deleteMessage = null;
-		EditMessageText editMessage = this.editMessage(chatId, messageId, messageText, update.getCallbackQuery().getMessage().getReplyMarkup());
+		EditMessageText editMessage = this.editMessage(chatId, messageId, messageText, update.getCallbackQuery()
+				.getMessage()
+				.getReplyMarkup());
 
 		switch (callData) {
 			case "<<" ->
 				editMessage = this.editMessage(chatId, messageId,
-						timeSendInlineKeyboardHandler.subHour(messageText), update.getCallbackQuery().getMessage().getReplyMarkup());
+						timeSendInlineKeyboardHandler.subHour(messageText), update.getCallbackQuery()
+								.getMessage()
+								.getReplyMarkup());
 			case ">>" ->
 				editMessage = this.editMessage(chatId, messageId,
-						timeSendInlineKeyboardHandler.addHour(messageText), update.getCallbackQuery().getMessage().getReplyMarkup());
+						timeSendInlineKeyboardHandler.addHour(messageText), update.getCallbackQuery()
+								.getMessage()
+								.getReplyMarkup());
 
 			case "backSetting" -> {
 				editMessage = this.editMessage(chatId, messageId, StringConst.SETTINGS_MESSAGE, Buttons.getSettingButtons());
@@ -64,12 +84,15 @@ public class InlineKeyboardHandler {
 			case "setTimeSend" -> {
 				settingService.saveSetting(userInfo.getUserSetting().setTimeSend(messageText));
 				editMessage = this.editMessage(chatId, messageId, StringConst.SETTINGS_MESSAGE, Buttons.getSettingButtons());
-				newMessage = new MessageAdapter().setChatId(chatId).setText(StringConst.SUCCESSFULLY_SET_TIME_SEND);
+				newMessage = new MessageAdapter()
+						.setChatId(chatId)
+						.setText(StringConst.SUCCESSFULLY_SET_TIME_SEND);
 			}
 
 			case "setSendingMessageTime" -> {
 				editMessage.setText("Укажите час отправки сообщения");
-				String currentTimeSend = userInfo.getUserSetting().getTimeSend();
+				String currentTimeSend = userInfo.getUserSetting()
+						.getTimeSend();
 				editMessage = this.editMessage(chatId, messageId, currentTimeSend,
 						new InlineKeyboardConstructor()
 								.addInlineButtonInRow("<<", "<<")
@@ -105,8 +128,12 @@ public class InlineKeyboardHandler {
 				this.handleNewsCategorySetting(callData, editMessage, userInfo.getUserSetting());
 			}
 
+//			case "setForecastType" -> {
+//				editMessage.setText(StringConst.SET_FORECAST_TYPE);
+//			}
 
-			default ->{
+
+			default -> {
 				if (listSubscriptions.contains(callData)) {
 					this.handleSettingSubscription(callData, editMessage, userInfo.getSubscription());
 				} else if (StringConst.NEWS_CATEGORIES.containsKey(callData)) {
@@ -139,6 +166,7 @@ public class InlineKeyboardHandler {
 			case "exchangeRates" -> subscription = subscription.setExchangeRates(!subscription.getExchangeRates());
 			case "news" -> subscription = subscription.setNews(!subscription.getNews());
 		}
+
 		subscriptionService.saveSubscription(subscription);
 		editMessage.setReplyMarkup(SettingSubscriptionsKeyboard.createInlineKeyboardSettingSubscription(subscription));
 		return editMessage;
@@ -153,6 +181,7 @@ public class InlineKeyboardHandler {
 			case "USD/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setUSD_RUB(!exchangeRatesSetting.getUSD_RUB());
 			case "GBP/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setGBP_RUB(!exchangeRatesSetting.getGBP_RUB());
 		}
+
 		exchangeRatesSettingService.saveExchangeRatesSetting(exchangeRatesSetting);
 		editMessage.setReplyMarkup(SettingSubscriptionsKeyboard.createInlineKeyboardExchangeRatesSetting(exchangeRatesSetting));
 		return editMessage;

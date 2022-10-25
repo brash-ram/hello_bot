@@ -18,11 +18,13 @@ public class QuoteAdapter implements Adapter {
     @Override
     public Future<String> getTextFromMessageService(String... args) {
         String result = ERROR_MESSAGE;
+
         try {
             result = this.formatFromObjectToText(quoteService.getQuote());
-        } catch (RuntimeException ex) {
-            ex.printStackTrace();
+        } catch (RuntimeException e) {
+            e.printStackTrace();
         }
+
         return new AsyncResult<>(result);
     }
     private String formatFromObjectToText(Quote quote) {

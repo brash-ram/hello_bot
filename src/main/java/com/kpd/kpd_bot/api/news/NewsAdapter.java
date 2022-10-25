@@ -14,17 +14,20 @@ public class NewsAdapter implements Adapter {
 
 	private final NewsService newsService;
 	private final String ERROR_MESSAGE = "\nК сожалению, в данный момент невозможно получить новости по этой категории.\n";
+	private static final String DAY_NEWS = "\n*Новость дня*\n";
+	private static final String LINK = "\n[Ссылка на официальный источник](";
 
-	public static final String DAY_NEWS = "\n*Новость дня*\n";
 
 	@Override
 	public Future<String> getTextFromMessageService(String... args) {
 		String result = ERROR_MESSAGE;
+
 		try {
 			result = this.formatFromObjectToText(newsService.getNews(args[0]));
-		} catch (RuntimeException ex) {
-			ex.printStackTrace();
+		} catch (RuntimeException e) {
+			e.printStackTrace();
 		}
+
 		return new AsyncResult<>(result);
 	}
 
@@ -36,7 +39,7 @@ public class NewsAdapter implements Adapter {
 			sb.append(dto.getDescription());
 		}
 
-		sb.append("\n[Ссылка на официальный источник]("+dto.getLink()+")");
+		sb.append(LINK + dto.getLink() + ")");
 		return sb.toString();
 	}
 }
