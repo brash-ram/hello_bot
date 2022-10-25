@@ -14,7 +14,6 @@ import java.io.UnsupportedEncodingException;
 @RequiredArgsConstructor
 public class Bot extends TelegramLongPollingBot {
 
-
 	private final BotConfig botConfig;
 	private final MessageHandler messageHandler;
 	private final InlineKeyboardHandler inlineKeyboardHandler;
@@ -30,7 +29,7 @@ public class Bot extends TelegramLongPollingBot {
 
 			try {
 				messageHandler.handleMessage(update, this);
-			} catch (TelegramApiException | UnsupportedEncodingException e) {
+			} catch (RuntimeException | TelegramApiException | UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
 
@@ -39,8 +38,8 @@ public class Bot extends TelegramLongPollingBot {
 
 			try {
 				inlineKeyboardHandler.handleMessage(update, this);
-			} catch (TelegramApiException e) {
-				throw new RuntimeException(e);
+			} catch (RuntimeException | TelegramApiException e) {
+				e.printStackTrace();
 			}
 
 		}
