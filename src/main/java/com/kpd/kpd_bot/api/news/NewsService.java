@@ -18,17 +18,17 @@ public class NewsService {
 	private final NewsAPI newsAPI;
 	
 	public News getNews(String category) {
-		News News = this.getNews(DateGetter.getSqlDate(), category);
-		if (News == null) {
-			News = this.getNewsFromApiAndSave(category);
+		News news = this.getNews(DateGetter.getSqlDate(), category);
+		if (news == null) {
+			news = this.getNewsFromApiAndSave(category);
 		} else {
-			if (DateGetter.getDifferanceDay(News.getDateUpdate()) > 0) {
-				Long id = News.getId();
-				News = this.getNewsFromApiAndSave(category);
+			if (DateGetter.getDifferanceDay(news.getDateUpdate()) > 0) {
+				Long id = news.getId();
+				news = this.getNewsFromApiAndSave(category);
 				newsRepository.deleteById(id);
 			}
 		}
-		return News;
+		return news;
 	}
 
 	private News getNews(Date dateUpdate, String category) {

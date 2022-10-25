@@ -36,12 +36,12 @@ public class WeatherAdapter implements Adapter {
 
     @Override
     public Future<String> getTextFromMessageService(String... args) {
-        String result;
+        String result = ERROR_MESSAGE;
 
         try {
             result = this.formatFromObjectToText(weatherAPI.getWeather(args[0]));
-        }   catch (ArrayIndexOutOfBoundsException ex) {
-            result = CITY_ERROR;
+        }   catch (RuntimeException ex) {
+            ex.printStackTrace();
         }
 
         return new AsyncResult<>(result);
@@ -49,7 +49,7 @@ public class WeatherAdapter implements Adapter {
 
     private String formatFromObjectToText(BaseWeatherResponseDTO dto) {
         if (dto == null) {
-            return ERROR_MESSAGE;
+            return CITY_ERROR;
         }
 
         Weather weather = dto.getWeather().get(0);

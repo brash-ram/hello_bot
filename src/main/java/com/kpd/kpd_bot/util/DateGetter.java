@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 import java.sql.Date;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.TemporalUnit;
 import java.util.Locale;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -19,14 +18,9 @@ public class DateGetter {
 		return new Date(System.currentTimeMillis());
 	}
 
-	public static String getCurrentHourIfNewHour() {
+	public static String getCurrentTimeInNeededFormatted() {
 		LocalTime now = LocalTime.now();
-		String result = DateGetter.DEFAULT_HOUR;
-		int nowMinute = now.getMinute();
-		if (nowMinute >= 55 || nowMinute <= 5) {
-			result = String.valueOf(now.getHour());
-		}
-		return result;
+		return now.getHour() + ":" + now.getMinute();
 	}
 
 	public static String getMessageWithTime() {

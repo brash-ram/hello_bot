@@ -17,15 +17,9 @@ import javax.persistence.*;
 @Table(name = "exchange_rates_setting")
 public class ExchangeRatesSetting {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false)
 	private Long id;
-
-	@Column(name = "source_currency", nullable = false)
-	private String sourceCurrency;
-
-	@Column(name = "target_currency", nullable = false)
-	private String targetCurrency;
 
 	@Column(name = "CHF_RUB", nullable = false)
 	private Boolean CHF_RUB;

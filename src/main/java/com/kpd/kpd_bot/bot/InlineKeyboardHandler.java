@@ -30,6 +30,7 @@ public class InlineKeyboardHandler {
 	private final SettingService settingService;
 	private final UserStateService userStateService;
 	private final List<String> listSubscriptions = new ArrayList<String>(Arrays.asList("weather", "quote", "film", "exchangeRates", "news"));
+	private final List<String> listCurrencies = new ArrayList<String>(Arrays.asList("CHF/RUB", "JPY/RUB", "EUR/RUB", "CNY/RUB", "USD/RUB", "GBP/RUB"));
 
 	public void handleMessage(Update update, Bot bot) throws TelegramApiException {
 		String callData = update.getCallbackQuery()
@@ -59,17 +60,6 @@ public class InlineKeyboardHandler {
 				.getReplyMarkup());
 
 		switch (callData) {
-			case "<<" ->
-				editMessage = this.editMessage(chatId, messageId,
-						timeSendInlineKeyboardHandler.subHour(messageText), update.getCallbackQuery()
-								.getMessage()
-								.getReplyMarkup());
-			case ">>" ->
-				editMessage = this.editMessage(chatId, messageId,
-						timeSendInlineKeyboardHandler.addHour(messageText), update.getCallbackQuery()
-								.getMessage()
-								.getReplyMarkup());
-
 			case "backSetting" -> {
 				editMessage = this.editMessage(chatId, messageId, StringConst.SETTINGS_MESSAGE, Buttons.getSettingButtons());
 				this.clearUserState(chatId);
@@ -90,16 +80,11 @@ public class InlineKeyboardHandler {
 			}
 
 			case "setSendingMessageTime" -> {
-				editMessage.setText("Укажите час отправки сообщения");
+//				newMessage = new MessageAdapter().setChatId(chatId).setText("Укажите час отправки сообщения");
 				String currentTimeSend = userInfo.getUserSetting()
 						.getTimeSend();
 				editMessage = this.editMessage(chatId, messageId, currentTimeSend,
-						new InlineKeyboardConstructor()
-								.addInlineButtonInRow("<<", "<<")
-								.addInlineButtonInRow(">>", ">>")
-								.addNewInlineRow().addInlineButtonInRow("Подтвердить", "setTimeSend")
-								.getInlineKeyboard()
-				);
+						Buttons.getSetTimeKeyboard());
 			}
 
 			case "setUserForm" -> {
@@ -128,18 +113,17 @@ public class InlineKeyboardHandler {
 				this.handleNewsCategorySetting(callData, editMessage, userInfo.getUserSetting());
 			}
 
-//			case "setForecastType" -> {
-//				editMessage.setText(StringConst.SET_FORECAST_TYPE);
-//			}
-
-
 			default -> {
 				if (listSubscriptions.contains(callData)) {
 					this.handleSettingSubscription(callData, editMessage, userInfo.getSubscription());
 				} else if (StringConst.NEWS_CATEGORIES.containsKey(callData)) {
 					this.handleNewsCategorySetting(callData, editMessage, userInfo.getUserSetting());
-				} else {
+				} else if (listCurrencies.contains(callData)) {
 					this.handleExchangeRatesSetting(callData, editMessage, userInfo.getExchangeRatesSetting());
+				} else if (TimeSendInlineKeyboardHandler.listTimeButtons.contains(callData)) {
+					editMessage.setText(timeSendInlineKeyboardHandler.getNewTime(messageText, callData));
+				} else {
+					editMessage = null;
 				}
 			}
 	}

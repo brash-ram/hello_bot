@@ -38,8 +38,8 @@ public class UserService {
 	}
 
 	public UserInfo findById(Long userId) {return userRepository.findById(userId).get();}
-	public List<UserInfo> findByHour(String hour) {
-		return userRepository.findByUserSettingIn(settingRepository.findByTimeSend(hour));
+	public List<UserInfo> findByHour(String time) {
+		return userRepository.findByUserSettingIn(settingRepository.findByTimeSend(time));
 	}
 
 

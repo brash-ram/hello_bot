@@ -18,4 +18,24 @@ public class Buttons {
 				.addInlineButtonInRow("Настроить форму обращения в приветствии", "setUserForm")
 				.getInlineKeyboard();
 	}
+
+	public static InlineKeyboardMarkup getSetTimeKeyboard() {
+		return new InlineKeyboardConstructor()
+				.addInlineButtonInRow("Назад", "backSetting")
+				.addNewInlineRow()
+				.addInlineButtonInRow("-3", "-3hour")
+				.addInlineButtonInRow("-1", "-hour")
+				.addInlineButtonInRow("Часы", "no")
+				.addInlineButtonInRow("+1", "+hour")
+				.addInlineButtonInRow("+3", "+3hour")
+				.addNewInlineRow()
+				.addInlineButtonInRow("-10", "-10min")
+				.addInlineButtonInRow("-1", "-min")
+				.addInlineButtonInRow("Минуты", "no")
+				.addInlineButtonInRow("+1", "+min")
+				.addInlineButtonInRow("+10", "+10min")
+				.addNewInlineRow()
+				.addInlineButtonInRow("Подтвердить", "setTimeSend")
+				.getInlineKeyboard();
+	}
 }
