@@ -1,6 +1,6 @@
 package com.kpd.kpd_bot.statics;
 
-import java.util.HashMap;
+
 import java.util.Map;
 
 import static java.util.Map.entry;
@@ -30,39 +30,25 @@ public class StringConst {
 	public static final String EXCHANGE_RATES = "Курс валют";
 	public static final String NEWS = "Новости ";
 	public static final String BACK = "Назад";
-
-	public static final String CURRENT_WEATHER = "Текущая погода";
-
-	public static final String DAY_WEATHER = "Почасовой прогноз на 24 часа";
-
-	public static final String WEEK_WEATHER = "Прогноз на неделю";
-
 	public static final String GOOD_INPUT_NAME_FOR_USER = "Вы успешно изменили обращение к себе!";
 	public static final String INPUT_NAME_FOR_USER = "Напишите, как вы хотите, чтобы к вам обращались в сообщении.";
 	public static final String INPUT_CITY_FOR_USER = "Укажите город, по которому вы хотели бы получить прогноз погоды.";
 	public static final String GOOD_INPUT_CITY_FOR_USER = "Вы успешно изменили город!";
-
 	public static final String CHF_RUB = "CHF/RUB";
-
 	public static final String JPY_RUB = "JPY/RUB";
-
 	public static final String EUR_RUB = "EUR/RUB";
-
 	public static final String CNY_RUB = "CNY/RUB";
-
 	public static final String GBP_RUB = "GBP/RUB";
 	public static final String USD_RUB = "USD/RUB";
 	public static final String SUCCESSFULLY_SET_TIME_SEND = "Вы успешно изменили время отправки сообщения";
 	public static final String SET_CURRENCIES = "Выберите необходимые валюты";
-
 	public static final String SET_NEWS_CATEGORY = "Выберите категорию новостей";
-
 	public static final Map<String, String> NEWS_CATEGORIES = Map.ofEntries(
 			entry("business", "Бизнес"),
 			entry("politics", "Политика"),
 			entry("science", "Наука"),
 			entry("sports", "Спорт"),
 			entry("technology", "Технологии"),
-			entry("top", "Топ новости")
+			entry("top", "Случайная новость")
 	);
 }

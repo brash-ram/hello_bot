@@ -46,44 +46,44 @@ public class ExchangeRatesAdapter implements Adapter {
 				case "USD" -> {
 					if (ratesSetting.getUSD_RUB()) {
 						sb.append("\uD83C\uDDFA\uD83C\uDDF8 ");
-						this.addNewCurrencies(sb, key, base, valueString);
+						this.addNewCurrency(sb, key, base, valueString);
 					}
 				}
 				case "EUR" -> {
 					if (ratesSetting.getEUR_RUB()) {
 						sb.append("\uD83C\uDDEA\uD83C\uDDFA ");
-						this.addNewCurrencies(sb, key, base, valueString);
+						this.addNewCurrency(sb, key, base, valueString);
 					}
 				}
 				case "GBP" -> {
 					if (ratesSetting.getGBP_RUB()) {
 						sb.append("\uD83C\uDDEC\uD83C\uDDE7 ");
-						this.addNewCurrencies(sb, key, base, valueString);
+						this.addNewCurrency(sb, key, base, valueString);
 					}
 				}
 				case "CHF" -> {
 					if (ratesSetting.getCHF_RUB()) {
 						sb.append("\uD83C\uDDE8\uD83C\uDDED ");
-						this.addNewCurrencies(sb, key, base, valueString);
+						this.addNewCurrency(sb, key, base, valueString);
 					}
 				}
 				case "CNY" -> {
 					if (ratesSetting.getCNY_RUB()) {
 						sb.append("\uD83C\uDDE8\uD83C\uDDF3 ");
-						this.addNewCurrencies(sb, key, base, valueString);
+						this.addNewCurrency(sb, key, base, valueString);
 					}
 				}
 				case "JPY" -> {
 					if (ratesSetting.getJPY_RUB()) {
 						sb.append("\uD83C\uDDEF\uD83C\uDDF5 ");
-						this.addNewCurrencies(sb, key, base, valueString);
+						this.addNewCurrency(sb, key, base, valueString);
 					}
 				}
 			}
         });
         return sb.toString();
     }
-	private void addNewCurrencies(StringBuilder sb, String key, String base, String value) {
+	private void addNewCurrency(StringBuilder sb, String key, String base, String value) {
 		sb.append(key)
 				.append("/")
 				.append(base)
