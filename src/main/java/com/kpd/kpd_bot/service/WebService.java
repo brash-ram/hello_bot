@@ -8,6 +8,8 @@ import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+import java.time.Duration;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 
 @Service
@@ -27,6 +29,7 @@ public class WebService {
                 .retrieve()
                 .onStatus(HttpStatus::isError, clientResponse -> Mono.error(RuntimeException::new))
                 .bodyToMono(typeResponse)
+                .timeout(Duration.ofSeconds(5))
                 .onErrorResume(throwable -> null)
                 .blockOptional()
                 .orElseGet(() -> null);
@@ -40,6 +43,7 @@ public class WebService {
                 .retrieve()
                 .onStatus(HttpStatus::isError, clientResponse -> Mono.error(RuntimeException::new))
                 .bodyToMono(typeResponse)
+                .timeout(Duration.ofSeconds(5))
                 .blockOptional()
                 .orElseGet(() -> null);
     }
@@ -52,6 +56,7 @@ public class WebService {
                 .retrieve()
                 .onStatus(HttpStatus::isError, clientResponse -> Mono.error(RuntimeException::new))
                 .bodyToMono(typeResponse)
+                .timeout(Duration.ofSeconds(5))
                 .blockOptional()
                 .orElseThrow(RuntimeException::new);
     }
@@ -65,6 +70,7 @@ public class WebService {
                 .retrieve()
                 .onStatus(HttpStatus::isError, clientResponse -> Mono.error(RuntimeException::new))
                 .bodyToMono(typeResponse)
+                .timeout(Duration.ofSeconds(5))
                 .blockOptional()
                 .orElseGet(() -> null);
     }
