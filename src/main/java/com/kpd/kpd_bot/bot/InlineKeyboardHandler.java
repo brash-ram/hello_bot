@@ -68,6 +68,7 @@ public class InlineKeyboardHandler {
 			}
 
 			case "setSendingMessageTime" -> {
+				editMessage.setText("Укажите час отправки сообщения");
 				String currentTimeSend = userInfo.getUserSetting().getTimeSend();
 				editMessage = this.editMessage(chatId, messageId, currentTimeSend,
 						new InlineKeyboardConstructor()
@@ -99,7 +100,7 @@ public class InlineKeyboardHandler {
 				this.handleExchangeRatesSetting(callData, editMessage, userInfo.getExchangeRatesSetting());
 			}
 
-			case "setNewscategory" -> {
+			case "setNewsCategory" -> {
 				editMessage.setText(StringConst.SET_NEWS_CATEGORY);
 				this.handleNewsCategorySetting(callData, editMessage, userInfo.getUserSetting());
 			}
@@ -148,8 +149,9 @@ public class InlineKeyboardHandler {
 			case "CHF/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setCHF_RUB(!exchangeRatesSetting.getCHF_RUB());
 			case "JPY/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setJPY_RUB(!exchangeRatesSetting.getJPY_RUB());
 			case "EUR/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setEUR_RUB(!exchangeRatesSetting.getEUR_RUB());
-			case "GBP/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setCNY_RUB(!exchangeRatesSetting.getCNY_RUB());
+			case "CNY/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setCNY_RUB(!exchangeRatesSetting.getCNY_RUB());
 			case "USD/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setUSD_RUB(!exchangeRatesSetting.getUSD_RUB());
+			case "GBP/RUB" -> exchangeRatesSetting = exchangeRatesSetting.setGBP_RUB(!exchangeRatesSetting.getGBP_RUB());
 		}
 		exchangeRatesSettingService.saveExchangeRatesSetting(exchangeRatesSetting);
 		editMessage.setReplyMarkup(SettingSubscriptionsKeyboard.createInlineKeyboardExchangeRatesSetting(exchangeRatesSetting));

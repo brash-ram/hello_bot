@@ -13,9 +13,9 @@ import java.util.concurrent.Future;
 public class NewsAdapter implements Adapter {
 
 	private final NewsService newsService;
-	private final String ERROR_MESSAGE = "К сожалению, в данный момент невозможно получить новости.";
+	private final String ERROR_MESSAGE = "\nК сожалению, в данный момент невозможно получить новости по этой категории.\n";
 
-	public static final String DAY_NEWS = "*Новость дня*\n";
+	public static final String DAY_NEWS = "\n*Новость дня*\n";
 
 	@Override
 	public Future<String> getTextFromMessageService(String... args) {
@@ -29,10 +29,14 @@ public class NewsAdapter implements Adapter {
 	}
 
 	private String formatFromObjectToText(News dto) {
-		return new StringBuilder()
-				.append(DAY_NEWS)
-				.append(dto.getDescription())
-				.append("\n[Ссылка на официальный источник]("+dto.getLink()+")")
-				.toString();
+		StringBuilder sb = new StringBuilder();
+		sb.append(DAY_NEWS);
+
+		if (dto.getDescription() != null) {
+			sb.append(dto.getDescription());
+		}
+
+		sb.append("\n[Ссылка на официальный источник]("+dto.getLink()+")");
+		return sb.toString();
 	}
 }

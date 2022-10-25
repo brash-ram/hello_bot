@@ -11,7 +11,7 @@ import java.util.concurrent.Future;
 @Service
 @RequiredArgsConstructor
 public class QuoteAdapter implements Adapter {
-    public static final String ERROR_MESSAGE = "К сожалению, в данный момент невозможно получить цитату дня.";
+    public static final String ERROR_MESSAGE = "\nК сожалению, в данный момент невозможно получить цитату дня.\n";
     public static final String DAY_QUOTE = "\n*Цитата дня*\n";
     private final QuoteService quoteService;
 

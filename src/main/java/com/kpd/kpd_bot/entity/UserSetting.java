@@ -24,5 +24,6 @@ public class UserSetting {
 	@Column(nullable = false)
 	private String city;
 
+	@Column(nullable = false)
 	private String newsCategory;
 }

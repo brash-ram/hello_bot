@@ -48,8 +48,9 @@ public class StringConst {
 
 	public static final String EUR_RUB = "EUR/RUB";
 
-	public static final String GBP_RUB = "GBP/RUB";
+	public static final String CNY_RUB = "CNY/RUB";
 
+	public static final String GBP_RUB = "GBP/RUB";
 	public static final String USD_RUB = "USD/RUB";
 	public static final String SUCCESSFULLY_SET_TIME_SEND = "Вы успешно изменили время отправки сообщения";
 	public static final String SET_CURRENCIES = "Выберите необходимые валюты";
@@ -58,15 +59,10 @@ public class StringConst {
 
 	public static final Map<String, String> NEWS_CATEGORIES = Map.ofEntries(
 			entry("business", "Бизнес"),
-			entry("entertainment", "Развлечения"),
-			entry("environment", "Окружающая среда"),
-			entry("food", "Еда"),
-			entry("health", "Здоровье"),
 			entry("politics", "Политика"),
 			entry("science", "Наука"),
 			entry("sports", "Спорт"),
 			entry("technology", "Технологии"),
-			entry("top", "Топ новости"),
-			entry("world", "Мировые новости")
+			entry("top", "Топ новости")
 	);
 }

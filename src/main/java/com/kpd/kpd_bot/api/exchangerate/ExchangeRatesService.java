@@ -12,7 +12,7 @@ import java.sql.Date;
 @Service
 @RequiredArgsConstructor
 public class ExchangeRatesService {
-	private final ExchangeRateAPI exchangeRateAPI;
+	private final ExchangeRatesAPI exchangeRateAPI;
 	private final ExchangeRateRepository exchangeRateRepository;
 
 	public ExchangeRate getExchangeRates() {

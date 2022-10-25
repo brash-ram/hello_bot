@@ -11,7 +11,7 @@ public class ExchangeRatesSettingService {
 	private final ExchangeRatesSettingRepository ratesSettingRepository;
 
 	public ExchangeRatesSetting saveNewExchangeRatesSetting() {
-		return ratesSettingRepository.save(new ExchangeRatesSetting(null, "usd", "rub", true, true, true, true, true));
+		return ratesSettingRepository.save(new ExchangeRatesSetting(null, "usd", "rub", true, true, true, true, true, true));
 	}
 	public ExchangeRatesSetting saveExchangeRatesSetting(ExchangeRatesSetting ratesSetting) {
 		return ratesSettingRepository.save(ratesSetting);

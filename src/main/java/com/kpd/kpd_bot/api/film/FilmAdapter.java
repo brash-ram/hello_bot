@@ -17,8 +17,8 @@ import java.util.concurrent.Future;
 @RequiredArgsConstructor
 public class FilmAdapter implements Adapter {
     private final FilmService filmService;
-    private final String ERROR_MESSAGE = "К сожалению, в данный момент невозможно получить " +
-            "кинопремьеру этого месяца.";
+    private final String ERROR_MESSAGE = "\nК сожалению, в данный момент невозможно получить " +
+            "кинопремьеру этого месяца.\n";
 
     @Override
     public Future<String> getTextFromMessageService(String... args) {
@@ -36,7 +36,7 @@ public class FilmAdapter implements Adapter {
         List<Genres> genres = new ArrayList<>(dto.getGenres());
         List<Country> countries = new ArrayList<>(dto.getCountries());
 
-        sb.append("*Кинопремьера этого месяца*\n")
+        sb.append("\n*Кинопремьера этого месяца*\n")
                 .append("Фильм: \"").append(dto.getNameRu()).append("\"\n")
                 .append("Продолжительность: ").append(dto.getDuration()).append(" мин\n")
                 .append("Жанр: ");

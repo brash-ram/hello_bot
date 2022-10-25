@@ -42,4 +42,6 @@ public class ExchangeRatesSetting {
 	@Column(name = "USD_RUB", nullable = false)
 	private Boolean USD_RUB;
 
+	@Column(name = "GBP_RUB", nullable = false)
+	private Boolean GBP_RUB;
 }

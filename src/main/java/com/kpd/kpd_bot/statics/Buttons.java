@@ -13,7 +13,7 @@ public class Buttons {
 	public static InlineKeyboardMarkup getSettingButtons() {
 		return new InlineKeyboardConstructor()
 				.addInlineButtonInRow("Настроить время отправки сообщения", "setSendingMessageTime")
-				.addNewInlineRow().addInlineButtonInRow("Настроить информационные параметры сообщения", "setMessageInfoParameters")
+				.addNewInlineRow().addInlineButtonInRow("Настроить параметры сообщения", "setMessageInfoParameters")
 				.addNewInlineRow().addInlineButtonInRow("Настроить форму обращения в приветствии", "setUserForm")
 				.getInlineKeyboard();
 	}

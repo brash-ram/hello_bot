@@ -30,7 +30,7 @@ public class SettingSubscriptionsKeyboard {
 		}
 
 		if (subscription.getNews()) {
-			constructor.addNewInlineRow().addInlineButtonInRow("Выбрать категорию новостей", "setNewscategory");
+			constructor.addNewInlineRow().addInlineButtonInRow("Выбрать категорию новостей", "setNewsCategory");
 		}
 
 		return constructor.getInlineKeyboard();
@@ -39,11 +39,12 @@ public class SettingSubscriptionsKeyboard {
 	public static InlineKeyboardMarkup createInlineKeyboardExchangeRatesSetting(ExchangeRatesSetting exchangeRatesSetting) {
 		InlineKeyboardConstructor constructor = new InlineKeyboardConstructor();
 		constructor.addInlineButtonInRow(StringConst.BACK, "backSubscription").addNewInlineRow();
-		constructor.addInlineButtonInRow(StringConst.CHF_RUB + " " + (exchangeRatesSetting.getCHF_RUB() ? yes : no), "CHF/RUB").addNewInlineRow();
-		constructor.addInlineButtonInRow(StringConst.JPY_RUB + " " + (exchangeRatesSetting.getJPY_RUB() ? yes : no), "JPY/RUB").addNewInlineRow();
-		constructor.addInlineButtonInRow(StringConst.EUR_RUB + " " + (exchangeRatesSetting.getEUR_RUB()? yes : no), "EUR/RUB").addNewInlineRow();
-		constructor.addInlineButtonInRow(StringConst.GBP_RUB + " " + (exchangeRatesSetting.getCNY_RUB() ? yes : no), "GBP/RUB").addNewInlineRow();
-		constructor.addInlineButtonInRow(StringConst.USD_RUB + " " + (exchangeRatesSetting.getUSD_RUB() ? yes : no), "USD/RUB").addNewInlineRow();
+		constructor.addInlineButtonInRow("\uD83C\uDDFA\uD83C\uDDF8" + " " + StringConst.USD_RUB + " " + (exchangeRatesSetting.getUSD_RUB() ? yes : no), "USD/RUB").addNewInlineRow();
+		constructor.addInlineButtonInRow("\uD83C\uDDEA\uD83C\uDDFA" + " " + StringConst.EUR_RUB + " " + (exchangeRatesSetting.getEUR_RUB()? yes : no), "EUR/RUB").addNewInlineRow();
+		constructor.addInlineButtonInRow("\uD83C\uDDEC\uD83C\uDDE7" + " " + StringConst.GBP_RUB + " " + (exchangeRatesSetting.getGBP_RUB() ? yes : no), "GBP/RUB").addNewInlineRow();
+		constructor.addInlineButtonInRow("\uD83C\uDDE8\uD83C\uDDED" + " " + StringConst.CHF_RUB + " " + (exchangeRatesSetting.getCHF_RUB() ? yes : no), "CHF/RUB").addNewInlineRow();
+		constructor.addInlineButtonInRow("\uD83C\uDDE8\uD83C\uDDF3" + " " + StringConst.CNY_RUB + " " + (exchangeRatesSetting.getCNY_RUB() ? yes : no), "CNY/RUB").addNewInlineRow();
+		constructor.addInlineButtonInRow("\uD83C\uDDEF\uD83C\uDDF5" + " " + StringConst.JPY_RUB + " " + (exchangeRatesSetting.getJPY_RUB() ? yes : no), "JPY/RUB").addNewInlineRow();
 		return constructor.getInlineKeyboard();
 	}
 

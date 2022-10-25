@@ -43,19 +43,19 @@ public class WeatherAdapter implements Adapter {
         sb.append("\n*Погода в ")
                 .append(dto.getName()).append(" сейчас*\n");
 
-        if (weatherMain.getTemp() > 0) {
+        if ((int)weatherMain.getTemp() > 0) {
             sb.append("+");
         }
 
-        sb.append((int)weatherMain.getTemp()).append(" °C, ")
+        sb.append((int)weatherMain.getTemp()).append("°, ")
                 .append(weather.getDescription()).append("\n")
                 .append("Ощущается как ");
 
-        if (weatherMain.getFeels_like() > 0) {
+        if ((int)weatherMain.getFeels_like() > 0) {
             sb.append("+");
         }
 
-        sb.append((int)weatherMain.getFeels_like()).append(" °C\n")
+        sb.append((int)weatherMain.getFeels_like()).append("°\n")
                 .append("Давление: ").append(PressureConverter.convertPressure(weatherMain.getPressure()))
                 .append(" мм рт. ст.\n").append("Влажность: ").append(weatherMain.getHumidity()).append(" %\n")
                 .append("Ветер: ").append((int)wind.getSpeed()).append(" м/c, ")

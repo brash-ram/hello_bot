@@ -12,12 +12,12 @@ import java.util.concurrent.Future;
 
 @Service
 @RequiredArgsConstructor
-public class ExchangeRateAdapter implements Adapter {
+public class ExchangeRatesAdapter implements Adapter {
 
     public final ExchangeRatesService exchangeRatesService;
 	public final UserService userService;
-    private static final String ERROR_MESSAGE = "К сожалению, в данный момент невозможно получить курс валют.";
-    private static final String EXCHANGE_RATE = "\n*Курс валют*\n";
+    private static final String ERROR_MESSAGE = "\nК сожалению, в данный момент невозможно получить курс валют.\n";
+    private static final String EXCHANGE_RATES = "\n*Курс валют*\n";
 
     @Override
     public Future<String> getTextFromMessageService(String... args) {
@@ -39,15 +39,46 @@ public class ExchangeRateAdapter implements Adapter {
 		String base = dto.getBase();
 
         StringBuilder sb = new StringBuilder();
-        sb.append(EXCHANGE_RATE);
+        sb.append("\n").append(EXCHANGE_RATES);
         dto.getRates().forEach((key, value) -> {
 			String valueString = String.format("%.2f", 1 / value);
             switch (key) {
-				case "USD" -> {if (ratesSetting.getUSD_RUB()) this.addNewCurrencies(sb, key, base, valueString);}
-				case "EUR" -> {if (ratesSetting.getEUR_RUB()) this.addNewCurrencies(sb, key, base, valueString);}
-				case "CNY" -> {if (ratesSetting.getCNY_RUB()) this.addNewCurrencies(sb, key, base, valueString);}
-				case "CHF" -> {if (ratesSetting.getCHF_RUB()) this.addNewCurrencies(sb, key, base, valueString);}
-				case "JPY" -> {if (ratesSetting.getJPY_RUB()) this.addNewCurrencies(sb, key, base, valueString);}
+				case "USD" -> {
+					if (ratesSetting.getUSD_RUB()) {
+						sb.append("\uD83C\uDDFA\uD83C\uDDF8 ");
+						this.addNewCurrencies(sb, key, base, valueString);
+					}
+				}
+				case "EUR" -> {
+					if (ratesSetting.getEUR_RUB()) {
+						sb.append("\uD83C\uDDEA\uD83C\uDDFA ");
+						this.addNewCurrencies(sb, key, base, valueString);
+					}
+				}
+				case "GBP" -> {
+					if (ratesSetting.getGBP_RUB()) {
+						sb.append("\uD83C\uDDEC\uD83C\uDDE7 ");
+						this.addNewCurrencies(sb, key, base, valueString);
+					}
+				}
+				case "CHF" -> {
+					if (ratesSetting.getCHF_RUB()) {
+						sb.append("\uD83C\uDDE8\uD83C\uDDED ");
+						this.addNewCurrencies(sb, key, base, valueString);
+					}
+				}
+				case "CNY" -> {
+					if (ratesSetting.getCNY_RUB()) {
+						sb.append("\uD83C\uDDE8\uD83C\uDDF3 ");
+						this.addNewCurrencies(sb, key, base, valueString);
+					}
+				}
+				case "JPY" -> {
+					if (ratesSetting.getJPY_RUB()) {
+						sb.append("\uD83C\uDDEF\uD83C\uDDF5 ");
+						this.addNewCurrencies(sb, key, base, valueString);
+					}
+				}
 			}
         });
         return sb.toString();
