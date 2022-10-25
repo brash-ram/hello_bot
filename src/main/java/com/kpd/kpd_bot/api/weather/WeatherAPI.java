@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kpd.kpd_bot.api.weather.model.GeoCoordinate;
 import com.kpd.kpd_bot.service.WebService;
 import com.kpd.kpd_bot.config.WeatherConfig;
-import com.kpd.kpd_bot.api.weather.model.BaseWeatherResponseDTO;
+import com.kpd.kpd_bot.entity.cache.weather.BaseWeather;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.UriComponents;
@@ -30,7 +30,7 @@ public class WeatherAPI {
         return uriComponents.toUriString();
     }
 
-    public BaseWeatherResponseDTO getWeather(String city) {
+    public BaseWeather getWeather(String city) {
         GeoCoordinate coordinate = null;
 
         try {
@@ -44,6 +44,6 @@ public class WeatherAPI {
         }
 
         Object responseApi = webService.<Object>makePostRequest(this.getUrl(coordinate.getLat(), coordinate.getLon()), Object.class);
-        return mapper.convertValue(responseApi, BaseWeatherResponseDTO.class);
+        return mapper.convertValue(responseApi, BaseWeather.class);
     }
 }

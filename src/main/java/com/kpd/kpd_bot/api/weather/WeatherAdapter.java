@@ -1,9 +1,9 @@
 package com.kpd.kpd_bot.api.weather;
 
-import com.kpd.kpd_bot.api.weather.model.Weather;
-import com.kpd.kpd_bot.api.weather.model.WeatherMain;
-import com.kpd.kpd_bot.api.weather.model.Wind;
-import com.kpd.kpd_bot.api.weather.model.BaseWeatherResponseDTO;
+import com.kpd.kpd_bot.entity.cache.weather.Weather;
+import com.kpd.kpd_bot.entity.cache.weather.WeatherMain;
+import com.kpd.kpd_bot.entity.cache.weather.Wind;
+import com.kpd.kpd_bot.entity.cache.weather.BaseWeather;
 import com.kpd.kpd_bot.api.Adapter;
 import com.kpd.kpd_bot.util.PressureConverter;
 import com.kpd.kpd_bot.util.WindDegreesConverter;
@@ -17,7 +17,7 @@ import java.util.concurrent.Future;
 @RequiredArgsConstructor
 public class WeatherAdapter implements Adapter {
 
-    private final WeatherAPI weatherAPI;
+    private final WeatherService weatherService;
     private final String ERROR_MESSAGE = "\nК сожалению, в данный момент невозможно получить прогноз погоды.\n";
     private final String CITY_ERROR = "\nГород не найден.\n";
     private final String WEATHER = "\n*Погода в ";
@@ -39,7 +39,7 @@ public class WeatherAdapter implements Adapter {
         String result = ERROR_MESSAGE;
 
         try {
-            result = this.formatFromObjectToText(weatherAPI.getWeather(args[0]));
+            result = this.formatFromObjectToText(weatherService.getWeather(args[0]));
         }   catch (RuntimeException ex) {
             ex.printStackTrace();
         }
@@ -47,7 +47,7 @@ public class WeatherAdapter implements Adapter {
         return new AsyncResult<>(result);
     }
 
-    private String formatFromObjectToText(BaseWeatherResponseDTO dto) {
+    private String formatFromObjectToText(BaseWeather dto) {
         if (dto == null) {
             return CITY_ERROR;
         }

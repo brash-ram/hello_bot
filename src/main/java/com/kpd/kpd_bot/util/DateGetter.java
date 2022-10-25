@@ -5,6 +5,7 @@ import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -16,6 +17,9 @@ public class DateGetter {
 	public static final String DEFAULT_HOUR = "no date";
 	public static Date getSqlDate() {
 		return new Date(System.currentTimeMillis());
+	}
+	public static Timestamp getTimestamp() {
+		return new Timestamp(System.currentTimeMillis());
 	}
 
 	public static String getCurrentTimeInNeededFormatted() {
@@ -45,5 +49,11 @@ public class DateGetter {
 
 	public static int getDifferanceDay(Date date) {
 		return Period.between(LocalDate.parse(date.toString()), LocalDate.now()).getDays();
+	}
+
+	public static int getDifferanceHour(Timestamp time) {
+		LocalDateTime now = LocalDateTime.now();
+		return now.getDayOfMonth() - time.toLocalDateTime().getDayOfMonth() == 0 ?
+		now.getHour() - time.toLocalDateTime().getHour() : 1;
 	}
 }
