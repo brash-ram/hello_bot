@@ -24,7 +24,7 @@ public class DateGetter {
 
 	public static String getCurrentTimeInNeededFormatted() {
 		LocalTime now = LocalTime.now();
-		return now.getHour() + ":" + now.getMinute();
+		return (now.getHour()+3) + ":" + now.getMinute();
 	}
 
 	public static String getMessageWithTime() {
