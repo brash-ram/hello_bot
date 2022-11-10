@@ -1,4 +1,4 @@
-package com.kpd.kpd_bot.jpa.cache;
+package com.kpd.kpd_bot.jpa.cache.weather;
 
 import com.kpd.kpd_bot.entity.cache.ExchangeRate;
 import com.kpd.kpd_bot.entity.cache.weather.BaseWeather;

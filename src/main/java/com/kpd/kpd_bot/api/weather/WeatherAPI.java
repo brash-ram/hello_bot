@@ -42,8 +42,6 @@ public class WeatherAPI {
         } catch (RuntimeException ex) {
             ex.printStackTrace();
         }
-
-        Object responseApi = webService.<Object>makePostRequest(this.getUrl(coordinate.getLat(), coordinate.getLon()), Object.class);
-        return mapper.convertValue(responseApi, BaseWeather.class);
+        return webService.<BaseWeather>makePostRequest(this.getUrl(coordinate.getLat(), coordinate.getLon()), BaseWeather.class);
     }
 }
