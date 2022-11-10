@@ -26,4 +26,7 @@ public class UserSetting {
 
 	@Column(nullable = false)
 	private String newsCategory;
+
+	@Column(nullable = false)
+	private Boolean sendMainMessage;
 }

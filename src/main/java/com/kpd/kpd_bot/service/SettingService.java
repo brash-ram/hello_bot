@@ -21,7 +21,7 @@ public class SettingService {
 	private final SettingRepository settingRepository;
 
 	public UserSetting saveNewSetting() {
-		return settingRepository.save(new UserSetting(null, timeSendDefault, cityDefault, newsCategoryDefault));
+		return settingRepository.save(new UserSetting(null, timeSendDefault, cityDefault, newsCategoryDefault, true));
 	}
 
 	public UserSetting saveSetting(UserSetting userSetting) {

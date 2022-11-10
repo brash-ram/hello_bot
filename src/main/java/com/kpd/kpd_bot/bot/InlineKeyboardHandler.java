@@ -6,7 +6,7 @@ import com.kpd.kpd_bot.service.*;
 import com.kpd.kpd_bot.statics.Buttons;
 import com.kpd.kpd_bot.statics.StringConst;
 import com.kpd.kpd_bot.util.InlineKeyboardConstructor;
-import com.kpd.kpd_bot.util.SettingSubscriptionsKeyboard;
+import com.kpd.kpd_bot.util.SettingKeyboard;
 import com.kpd.kpd_bot.util.TimeSendInlineKeyboardHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -60,27 +60,33 @@ public class InlineKeyboardHandler {
 				.getReplyMarkup());
 
 		switch (callData) {
+			case "setSendMessage" -> {
+				UserSetting userSetting = userInfo.getUserSetting();
+				settingService.saveSetting(userSetting.setSendMainMessage(!userSetting.getSendMainMessage()));
+				editMessage.setReplyMarkup(SettingKeyboard.createBasicSettingKeyboard(userSetting));
+			}
 			case "backSetting" -> {
-				editMessage = this.editMessage(chatId, messageId, StringConst.SETTINGS_MESSAGE, Buttons.getSettingButtons());
+				editMessage = this.editMessage(chatId, messageId, StringConst.SETTINGS_MESSAGE,
+						SettingKeyboard.createBasicSettingKeyboard(userInfo.getUserSetting()));
 				this.clearUserState(chatId);
 			}
 
 			case "backSubscription", "setMessageInfoParameters" -> {
 				editMessage = this.editMessage(chatId, messageId, StringConst.NEWS_PARAMETERS_MESSAGE,
-						SettingSubscriptionsKeyboard.createInlineKeyboardSettingSubscription(userInfo.getSubscription()));
+						SettingKeyboard.createInlineKeyboardSettingSubscription(userInfo.getSubscription()));
 				this.clearUserState(chatId);
 			}
 
 			case "setTimeSend" -> {
 				settingService.saveSetting(userInfo.getUserSetting().setTimeSend(messageText));
-				editMessage = this.editMessage(chatId, messageId, StringConst.SETTINGS_MESSAGE, Buttons.getSettingButtons());
+				editMessage = this.editMessage(chatId, messageId, StringConst.SETTINGS_MESSAGE,
+						SettingKeyboard.createBasicSettingKeyboard(userInfo.getUserSetting()));
 				newMessage = new MessageAdapter()
 						.setChatId(chatId)
 						.setText(StringConst.SUCCESSFULLY_SET_TIME_SEND);
 			}
 
 			case "setSendingMessageTime" -> {
-//				newMessage = new MessageAdapter().setChatId(chatId).setText("Укажите час отправки сообщения");
 				String currentTimeSend = userInfo.getUserSetting()
 						.getTimeSend();
 				editMessage = this.editMessage(chatId, messageId, currentTimeSend,
@@ -152,7 +158,7 @@ public class InlineKeyboardHandler {
 		}
 
 		subscriptionService.saveSubscription(subscription);
-		editMessage.setReplyMarkup(SettingSubscriptionsKeyboard.createInlineKeyboardSettingSubscription(subscription));
+		editMessage.setReplyMarkup(SettingKeyboard.createInlineKeyboardSettingSubscription(subscription));
 		return editMessage;
 	}
 
@@ -167,7 +173,7 @@ public class InlineKeyboardHandler {
 		}
 
 		exchangeRatesSettingService.saveExchangeRatesSetting(exchangeRatesSetting);
-		editMessage.setReplyMarkup(SettingSubscriptionsKeyboard.createInlineKeyboardExchangeRatesSetting(exchangeRatesSetting));
+		editMessage.setReplyMarkup(SettingKeyboard.createInlineKeyboardExchangeRatesSetting(exchangeRatesSetting));
 		return editMessage;
 	}
 
@@ -178,7 +184,7 @@ public class InlineKeyboardHandler {
 			}
 		});
 		settingService.saveSetting(setting);
-		editMessage.setReplyMarkup(SettingSubscriptionsKeyboard.createInlineKeyboardNewsCategorySetting(setting));
+		editMessage.setReplyMarkup(SettingKeyboard.createInlineKeyboardNewsCategorySetting(setting));
 		return editMessage;
 	}
 

@@ -2,6 +2,7 @@ package com.kpd.kpd_bot.service;
 
 import com.kpd.kpd_bot.bot.Bot;
 import com.kpd.kpd_bot.bot.MessageAdapter;
+import com.kpd.kpd_bot.entity.UserInfo;
 import com.kpd.kpd_bot.util.DateGetter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
@@ -10,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.UnsupportedEncodingException;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -22,7 +25,7 @@ public class SenderMainMessage {
 	@Async
 	public void sendMessage() throws TelegramApiException {
 		String currentTime = DateGetter.getCurrentTimeInNeededFormatted();
-		userService.findByHour(currentTime).forEach(
+		userService.findByHour(currentTime).stream().filter(userInfo -> userInfo.getUserSetting().getSendMainMessage()).forEach(
 				userInfo -> {
 					MessageAdapter newMessage = new MessageAdapter();
 					try {

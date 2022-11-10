@@ -9,16 +9,6 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 public class Buttons {
 	public static final String[] startButtons = {"Получить новости этого дня прямо сейчас", "Настройки", "Справка"};
 
-	public static InlineKeyboardMarkup getSettingButtons() {
-		return new InlineKeyboardConstructor()
-				.addInlineButtonInRow("Настроить время отправки сообщения", "setSendingMessageTime")
-				.addNewInlineRow()
-				.addInlineButtonInRow("Настроить параметры сообщения", "setMessageInfoParameters")
-				.addNewInlineRow()
-				.addInlineButtonInRow("Настроить форму обращения в приветствии", "setUserForm")
-				.getInlineKeyboard();
-	}
-
 	public static InlineKeyboardMarkup getSetTimeKeyboard() {
 		return new InlineKeyboardConstructor()
 				.addInlineButtonInRow("Назад", "backSetting")

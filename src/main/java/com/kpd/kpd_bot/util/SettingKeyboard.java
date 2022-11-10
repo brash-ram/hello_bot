@@ -4,11 +4,10 @@ package com.kpd.kpd_bot.util;
 import com.kpd.kpd_bot.entity.ExchangeRatesSetting;
 import com.kpd.kpd_bot.entity.Subscription;
 import com.kpd.kpd_bot.entity.UserSetting;
-import com.kpd.kpd_bot.statics.Buttons;
 import com.kpd.kpd_bot.statics.StringConst;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
-public class SettingSubscriptionsKeyboard {
+public class SettingKeyboard {
 	private static final String yes = "✅";
 	private static final String no = "❌";
 
@@ -59,9 +58,15 @@ public class SettingSubscriptionsKeyboard {
 		return constructor.getInlineKeyboard();
 	}
 
-//	public static InlineKeyboardMarkup createInlineKeyboardForecastTypeSetting(ExchangeRatesSetting exchangeRatesSetting) {
-//		InlineKeyboardConstructor constructor = new InlineKeyboardConstructor();
-//		constructor.addInlineButtonInRow(StringConst.BACK, "backSubscription").addNewInlineRow();
-//		return constructor.getInlineKeyboard();
-//	}
+	public static InlineKeyboardMarkup createBasicSettingKeyboard(UserSetting setting) {
+		return new InlineKeyboardConstructor()
+				.addInlineButtonInRow("Настроить время отправки сообщения", "setSendingMessageTime")
+				.addNewInlineRow()
+				.addInlineButtonInRow("Настроить параметры сообщения", "setMessageInfoParameters")
+				.addNewInlineRow()
+				.addInlineButtonInRow("Настроить форму обращения в приветствии", "setUserForm")
+				.addNewInlineRow()
+				.addInlineButtonInRow("Отправлять сообщения " + (setting.getSendMainMessage() ? yes : no), "setSendMessage")
+				.getInlineKeyboard();
+	}
 }

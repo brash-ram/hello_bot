@@ -8,6 +8,7 @@ import com.kpd.kpd_bot.service.UserService;
 import com.kpd.kpd_bot.service.UserStateService;
 import com.kpd.kpd_bot.statics.Buttons;
 import com.kpd.kpd_bot.statics.StringConst;
+import com.kpd.kpd_bot.util.SettingKeyboard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Message;
@@ -41,7 +42,7 @@ public class MessageHandler {
 			case "Получить новости этого дня прямо сейчас" -> newMessage.setText(mainMessageConstructor.getMessage(userId));
 
 			case "Настройки", "Вернуться к основным настройкам" -> newMessage.setText(StringConst.SETTINGS_MESSAGE)
-					.setInlineKeyboard(Buttons.getSettingButtons());
+					.setInlineKeyboard(SettingKeyboard.createBasicSettingKeyboard(userService.findById(userId).getUserSetting()));
 
 			case "Справка" -> newMessage.setText(StringConst.HELP_MESSAGE);
 

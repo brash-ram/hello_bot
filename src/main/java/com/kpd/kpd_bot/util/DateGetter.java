@@ -28,13 +28,13 @@ public class DateGetter {
 	}
 
 	public static String getMessageWithTime() {
-		LocalTime now = LocalTime.now();
+		int hour = LocalDateTime.now().getHour()+3;
 		String result;
-		if ((now.getHour() >= 5) && (now.getHour() < 12)) {
+		if ((hour >= 5) && (hour < 12)) {
 			result = "Доброе утро, ";
-		} else if ((now.getHour() >= 12) && (now.getHour() < 17)) {
+		} else if ((hour >= 12) && (hour < 17)) {
 			result = "Добрый день, ";
-		} else if ((now.getHour() >= 17) && (now.getHour() < 22)) {
+		} else if ((hour >= 17) && (hour < 22)) {
 			result = "Добрый вечер, ";
 		} else {
 			result = "Доброй ночи, ";
