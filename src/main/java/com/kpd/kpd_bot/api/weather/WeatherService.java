@@ -5,6 +5,7 @@ import com.kpd.kpd_bot.jpa.cache.weather.BaseWeatherRepository;
 import com.kpd.kpd_bot.jpa.cache.weather.WeatherMainRepository;
 import com.kpd.kpd_bot.jpa.cache.weather.WeatherRepository;
 import com.kpd.kpd_bot.jpa.cache.weather.WindRepository;
+import com.kpd.kpd_bot.service.UserService;
 import com.kpd.kpd_bot.util.DateGetter;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Hibernate;
@@ -21,7 +22,7 @@ public class WeatherService {
 	private final WeatherMainRepository weatherMainRepository;
 	private final WindRepository windRepository;
 
-	public BaseWeather getWeather(String city) {
+	public BaseWeather getWeather(String city, String userId) {
 		BaseWeather baseWeather = this.getWeather(DateGetter.getTimestamp());
 
 		if (baseWeather == null) {

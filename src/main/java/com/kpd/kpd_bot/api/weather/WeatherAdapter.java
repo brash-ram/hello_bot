@@ -39,7 +39,7 @@ public class WeatherAdapter implements Adapter {
         String result = ERROR_MESSAGE;
 
         try {
-            result = this.formatFromObjectToText(weatherService.getWeather(args[0]));
+            result = this.formatFromObjectToText(weatherService.getWeather(args[0], args[1]));
         }   catch (RuntimeException ex) {
             ex.printStackTrace();
         }

@@ -41,7 +41,7 @@ public class MainMessageConstructor {
 		}
 
 		if (subscription.getWeather()) {
-			futures.add(weatherAdapter.getTextFromMessageService(userInfo.getUserSetting().getCity()));
+			futures.add(weatherAdapter.getTextFromMessageService(userInfo.getUserSetting().getCity(), String.valueOf(userId)));
 		}
 		if (subscription.getFilm()) {
 			futures.add(filmAdapter.getTextFromMessageService());
