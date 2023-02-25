@@ -10,12 +10,12 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class SettingService {
 
-	@Value("${user.time.send.default}")
+	@Value("${user.default.timeSend}")
 	private String timeSendDefault;
-	@Value("${user.city.default}")
+	@Value("${user.default.city}")
 	private String cityDefault;
 
-	@Value("${user.newsCategory.default}")
+	@Value("${user.default.newsCategory}")
 	private String newsCategoryDefault;
 
 	private final SettingRepository settingRepository;

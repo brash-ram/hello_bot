@@ -1,0 +1,86 @@
+web:
+    timeWait: 5
+
+server:
+    port: 8090
+
+user:
+    default:
+        timeSend: 10:00
+        city: Ryazan
+        newsCategory: technology
+
+spring:
+    application:
+        name: hello-bot
+    jpa:
+        properties:
+            hibernate:
+                format_sql: true
+
+weather:
+    url: api.openweathermap.org/data/2.5/weather
+    geoUrl: api.openweathermap.org/geo/1.0/
+
+quote:
+    url: https://time365.info/aforizmi/drugoye/random.php
+
+film:
+    url: kinopoiskapiunofficial.tech/api/v2.2/films/premieres
+
+news:
+    url: newsdata.io/api/1
+
+exchange-rate:
+    url: api.apilayer.com/exchangerates_data
+
+
+---
+spring:
+    config:
+        activate:
+            on-profile: dev
+        import: [
+            "file:${user.home}/.spring/${spring.application.name}-config.yaml",
+        ]
+
+    jpa:
+        open-in-view: true
+        show-sql: true
+        properties:
+            hibernate:
+                format_sql: true
+        hibernate:
+            ddl-auto: update
+
+---
+spring:
+    config:
+        activate:
+            on-profile: prod
+    jpa:
+        open-in-view: false
+        show-sql: false
+        hibernate:
+            ddl-auto: update
+    datasource:
+        url: jdbc:postgresql://${PGHOST}:${PGPORT}/${PGDATABASE}
+        username: ${PGUSER}
+        password: ${PGPASSWORD}
+        driver-class-name: org.postgresql.Driver
+
+bot:
+    token: ${BOT_TOKEN}
+    usernameBot: ${BOT_NAME}
+
+weather:
+    token: ${WEATHER_TOKEN}
+
+film:
+    token: ${FILM_TOKEN}
+
+news:
+    token:  ${NEWS_TOKEN}
+
+exchange-rate:
+    token:  ${EXC_TOKEN}

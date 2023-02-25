@@ -1,5 +1,6 @@
 package com.kpd.kpd_bot.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,6 +18,9 @@ public class WebService {
 
     private final WebClient client;
 
+    @Value("${web.timeWait}")
+    private Integer defaultTimeWait;
+
     public WebService() {
         this.client = WebClient.create();
     }
@@ -29,7 +33,7 @@ public class WebService {
                 .retrieve()
                 .onStatus(HttpStatus::isError, clientResponse -> Mono.error(RuntimeException::new))
                 .bodyToMono(typeResponse)
-                .timeout(Duration.ofSeconds(5))
+                .timeout(Duration.ofSeconds(defaultTimeWait))
                 .onErrorResume(throwable -> null)
                 .blockOptional()
                 .orElseGet(() -> null);
@@ -43,7 +47,7 @@ public class WebService {
                 .retrieve()
                 .onStatus(HttpStatus::isError, clientResponse -> Mono.error(RuntimeException::new))
                 .bodyToMono(typeResponse)
-                .timeout(Duration.ofSeconds(5))
+                .timeout(Duration.ofSeconds(defaultTimeWait))
                 .blockOptional()
                 .orElseGet(() -> null);
     }
@@ -56,7 +60,7 @@ public class WebService {
                 .retrieve()
                 .onStatus(HttpStatus::isError, clientResponse -> Mono.error(RuntimeException::new))
                 .bodyToMono(typeResponse)
-                .timeout(Duration.ofSeconds(5))
+                .timeout(Duration.ofSeconds(defaultTimeWait))
                 .blockOptional()
                 .orElseThrow(RuntimeException::new);
     }
@@ -70,7 +74,7 @@ public class WebService {
                 .retrieve()
                 .onStatus(HttpStatus::isError, clientResponse -> Mono.error(RuntimeException::new))
                 .bodyToMono(typeResponse)
-                .timeout(Duration.ofSeconds(5))
+                .timeout(Duration.ofSeconds(defaultTimeWait))
                 .blockOptional()
                 .orElseGet(() -> null);
     }
