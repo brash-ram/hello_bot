@@ -13,7 +13,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 public class GeocodingAPI {
 
     private final WebService webService;
-
     private final WeatherConfig weatherConfig;
 
     private String getUrl(String city) {

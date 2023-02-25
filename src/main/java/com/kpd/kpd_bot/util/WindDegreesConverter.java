@@ -7,7 +7,6 @@ public class WindDegreesConverter {
 
     public static String convertWindDegreesToDirection(int degrees) {
        int windDirectionIndex = (int)((degrees + 22.5) / 45 % 8);
-       String direction = windDirections[windDirectionIndex];
-       return direction;
+        return windDirections[windDirectionIndex];
     }
 }

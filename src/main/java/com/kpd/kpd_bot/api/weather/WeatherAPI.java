@@ -1,6 +1,5 @@
 package com.kpd.kpd_bot.api.weather;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kpd.kpd_bot.api.weather.model.GeoCoordinate;
 import com.kpd.kpd_bot.service.WebService;
 import com.kpd.kpd_bot.config.WeatherConfig;
@@ -16,8 +15,6 @@ public class WeatherAPI {
     private final WebService webService;
 
     private final WeatherConfig weatherConfig;
-
-    private final ObjectMapper mapper;
     private final GeocodingAPI geocodingAPI;
 
     private String getUrl(Double lat, Double lon) {
