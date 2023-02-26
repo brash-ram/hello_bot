@@ -7,7 +7,7 @@ import com.kpd.kpd_bot.api.weather.WeatherAdapter;
 import com.kpd.kpd_bot.entity.Subscription;
 import com.kpd.kpd_bot.entity.UserInfo;
 import com.kpd.kpd_bot.api.quote.QuoteAdapter;
-import com.kpd.kpd_bot.util.DateGetter;
+import com.kpd.kpd_bot.utils.DateGetter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

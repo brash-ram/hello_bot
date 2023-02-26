@@ -1,4 +1,4 @@
-package com.kpd.kpd_bot.util;
+package com.kpd.kpd_bot.utils;
 
 
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;

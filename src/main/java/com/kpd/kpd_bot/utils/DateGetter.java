@@ -1,4 +1,4 @@
-package com.kpd.kpd_bot.util;
+package com.kpd.kpd_bot.utils;
 
 
 import lombok.AccessLevel;
@@ -44,7 +44,7 @@ public class DateGetter {
 
 	public static String getFormattedDate(String date, String inputFormat) {
 		LocalDate inputDate = LocalDate.parse(date, DateTimeFormatter.ofPattern(inputFormat));
-		return inputDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN, new Locale("ru"))).toString();
+		return inputDate.format(DateTimeFormatter.ofPattern(DATE_PATTERN, new Locale("ru")));
 	}
 
 	public static int getDifferanceDay(Date date) {

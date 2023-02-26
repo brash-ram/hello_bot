@@ -4,7 +4,7 @@ import com.kpd.kpd_bot.api.Adapter;
 import com.kpd.kpd_bot.api.film.model.Country;
 import com.kpd.kpd_bot.api.film.model.Genres;
 import com.kpd.kpd_bot.entity.cache.Film;
-import com.kpd.kpd_bot.util.DateGetter;
+import com.kpd.kpd_bot.utils.DateGetter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;

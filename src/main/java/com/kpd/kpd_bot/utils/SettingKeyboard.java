@@ -1,4 +1,4 @@
-package com.kpd.kpd_bot.util;
+package com.kpd.kpd_bot.utils;
 
 
 import com.kpd.kpd_bot.entity.ExchangeRatesSetting;

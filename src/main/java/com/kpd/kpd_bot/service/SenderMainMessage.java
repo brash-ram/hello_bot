@@ -2,8 +2,7 @@ package com.kpd.kpd_bot.service;
 
 import com.kpd.kpd_bot.bot.Bot;
 import com.kpd.kpd_bot.bot.MessageAdapter;
-import com.kpd.kpd_bot.entity.UserInfo;
-import com.kpd.kpd_bot.util.DateGetter;
+import com.kpd.kpd_bot.utils.DateGetter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -11,8 +10,6 @@ import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.UnsupportedEncodingException;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor

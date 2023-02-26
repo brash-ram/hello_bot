@@ -8,7 +8,7 @@ import com.kpd.kpd_bot.service.UserService;
 import com.kpd.kpd_bot.service.UserStateService;
 import com.kpd.kpd_bot.statics.Buttons;
 import com.kpd.kpd_bot.statics.StringConst;
-import com.kpd.kpd_bot.util.SettingKeyboard;
+import com.kpd.kpd_bot.utils.SettingKeyboard;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.objects.Message;

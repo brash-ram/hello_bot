@@ -1,6 +1,6 @@
 package com.kpd.kpd_bot.statics;
 
-import com.kpd.kpd_bot.util.InlineKeyboardConstructor;
+import com.kpd.kpd_bot.utils.InlineKeyboardConstructor;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;

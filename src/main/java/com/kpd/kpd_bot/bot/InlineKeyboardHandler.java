@@ -5,9 +5,9 @@ import com.kpd.kpd_bot.myenum.UserStateEnum;
 import com.kpd.kpd_bot.service.*;
 import com.kpd.kpd_bot.statics.Buttons;
 import com.kpd.kpd_bot.statics.StringConst;
-import com.kpd.kpd_bot.util.InlineKeyboardConstructor;
-import com.kpd.kpd_bot.util.SettingKeyboard;
-import com.kpd.kpd_bot.util.TimeSendInlineKeyboardHandler;
+import com.kpd.kpd_bot.utils.InlineKeyboardConstructor;
+import com.kpd.kpd_bot.utils.SettingKeyboard;
+import com.kpd.kpd_bot.utils.TimeSendInlineKeyboardHandler;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.DeleteMessage;
@@ -23,7 +23,6 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class InlineKeyboardHandler {
-	private final TimeSendInlineKeyboardHandler timeSendInlineKeyboardHandler;
 	private final SubscriptionService subscriptionService;
 	private final ExchangeRatesSettingService exchangeRatesSettingService;
 	private final UserService userService;
@@ -127,7 +126,7 @@ public class InlineKeyboardHandler {
 				} else if (listCurrencies.contains(callData)) {
 					this.handleExchangeRatesSetting(callData, editMessage, userInfo.getExchangeRatesSetting());
 				} else if (TimeSendInlineKeyboardHandler.listTimeButtons.contains(callData)) {
-					editMessage.setText(timeSendInlineKeyboardHandler.getNewTime(messageText, callData));
+					editMessage.setText(TimeSendInlineKeyboardHandler.getNewTime(messageText, callData));
 				} else {
 					editMessage = null;
 				}

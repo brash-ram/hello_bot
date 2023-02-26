@@ -2,7 +2,7 @@ package com.kpd.kpd_bot.api.exchangerate;
 
 import com.kpd.kpd_bot.entity.cache.ExchangeRate;
 import com.kpd.kpd_bot.jpa.cache.ExchangeRateRepository;
-import com.kpd.kpd_bot.util.DateGetter;
+import com.kpd.kpd_bot.utils.DateGetter;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;

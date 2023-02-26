@@ -1,4 +1,4 @@
-package com.kpd.kpd_bot.util;
+package com.kpd.kpd_bot.utils;
 
 import org.springframework.stereotype.Service;
 
@@ -9,7 +9,7 @@ import java.util.List;
 @Service
 public class TimeSendInlineKeyboardHandler {
 	public static final List<String> listTimeButtons = new ArrayList<String>(Arrays.asList("-3hour", "-hour", "+hour", "+3hour", "-10min", "-min", "+min", "+10min"));
-	public String getNewTime(String oldTime, String param) {
+	public static String getNewTime(String oldTime, String param) {
 		String newTime = oldTime;
 		switch (param) {
 			case "-3hour" -> newTime = changeHour(oldTime, -3);
@@ -25,7 +25,7 @@ public class TimeSendInlineKeyboardHandler {
 		return newTime;
 	}
 
-	private String changeHour(String oldTime, int changeTime) {
+	private static String changeHour(String oldTime, int changeTime) {
 		String[] bigTime = oldTime.split(":");
 		int time = Integer.parseInt(bigTime[0]);
 		int newTime = (time + changeTime) % 24;
@@ -35,7 +35,7 @@ public class TimeSendInlineKeyboardHandler {
 		return newTime +":"+bigTime[1];
 	}
 
-	private String changeMinutes(String oldTime, int changeTime) {
+	private static String changeMinutes(String oldTime, int changeTime) {
 		String[] bigTime = oldTime.split(":");
 		int time = Integer.parseInt(bigTime[1]);
 		int newTime = (time + changeTime) % 60;
@@ -51,7 +51,7 @@ public class TimeSendInlineKeyboardHandler {
 		return result;
 	}
 
-	private String createNewTimeForMinutes(String hour, int minutes) {
+	private static String createNewTimeForMinutes(String hour, int minutes) {
 		String result = "";
 		if (0 <= minutes && minutes <= 9) {
 			result = hour+":"+"0"+minutes;

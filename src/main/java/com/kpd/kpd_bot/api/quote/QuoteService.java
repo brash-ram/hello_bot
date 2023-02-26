@@ -1,9 +1,8 @@
 package com.kpd.kpd_bot.api.quote;
 
-import com.kpd.kpd_bot.entity.cache.Film;
 import com.kpd.kpd_bot.entity.cache.Quote;
 import com.kpd.kpd_bot.jpa.cache.QuoteRepository;
-import com.kpd.kpd_bot.util.DateGetter;
+import com.kpd.kpd_bot.utils.DateGetter;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;

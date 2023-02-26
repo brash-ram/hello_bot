@@ -1,4 +1,4 @@
-package com.kpd.kpd_bot.util;
+package com.kpd.kpd_bot.utils;
 
 public class WindDegreesConverter {
     private WindDegreesConverter() {}
