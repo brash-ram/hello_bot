@@ -8,8 +8,8 @@ import com.kpd.kpd_bot.statics.StringConst;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 public class SettingKeyboard {
-	private static final String yes = "✅";
-	private static final String no = "❌";
+	public static final String yes = "✅";
+	public static final String no = "❌";
 
 	public static InlineKeyboardMarkup createInlineKeyboardSettingSubscription(Subscription subscription) {
 		InlineKeyboardConstructor constructor = new InlineKeyboardConstructor();

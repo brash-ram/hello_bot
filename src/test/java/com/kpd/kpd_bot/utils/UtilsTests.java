@@ -7,10 +7,10 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class UtilsTests {
+    private static final String TEST_STRING = "TEST";
 
     @ParameterizedTest
     @CsvSource({"0,С↑", "130,ЮВ↘", "250,З←"})
@@ -29,14 +29,46 @@ public class UtilsTests {
 
     @Test
     public void createBasicSettingKeyboardTest() {
-        InlineKeyboardMarkup keyboardMarkup = SettingKeyboard.createBasicSettingKeyboard(new UserSetting());
-        assertEquals(keyboardMarkup.getKeyboard().size(), 3);
+        InlineKeyboardMarkup keyboardMarkup = SettingKeyboard.createBasicSettingKeyboard(new UserSetting().setSendMainMessage(true));
+        assertEquals(keyboardMarkup.getKeyboard().size(), 4);
+        assertTrue(keyboardMarkup.getKeyboard().get(3).get(0).getText().contains(SettingKeyboard.yes));
     }
 
     @Test
     public void createInlineKeyboardExchangeRatesSettingTest() {
         InlineKeyboardMarkup keyboardMarkup = SettingKeyboard
-                .createInlineKeyboardExchangeRatesSetting(new ExchangeRatesSetting().setEUR_RUB(true));
-        assertTrue(keyboardMarkup.getKeyboard().get(1).get(0).getText().contains("✅"));
+                .createInlineKeyboardExchangeRatesSetting(new ExchangeRatesSetting(null, true, false, true, true, true, true));
+        assertTrue(keyboardMarkup.getKeyboard().get(1).get(0).getText().contains(SettingKeyboard.yes));
+    }
+
+    @Test
+    public void addInlineButtonInRowSizeTest() {
+        InlineKeyboardConstructor inlineKeyboardConstructor = new InlineKeyboardConstructor();
+        inlineKeyboardConstructor.addInlineButtonInRow(TEST_STRING, TEST_STRING);
+        inlineKeyboardConstructor.addNewInlineRow();
+        assertEquals(inlineKeyboardConstructor.size(), 1);
+    }
+
+    @Test
+    public void addInlineButtonInRowTextTest() {
+        InlineKeyboardConstructor inlineKeyboardConstructor = new InlineKeyboardConstructor();
+        inlineKeyboardConstructor.addInlineButtonInRow(TEST_STRING, TEST_STRING);
+        inlineKeyboardConstructor.addNewInlineRow();
+        assertEquals(inlineKeyboardConstructor.getInlineKeyboard().getKeyboard().get(0).get(0).getText(), TEST_STRING);
+        assertEquals(inlineKeyboardConstructor.getInlineKeyboard().getKeyboard().get(0).get(0).getCallbackData(), TEST_STRING);
+    }
+
+    @Test
+    public void addInlineButtonInRowNullKeyboardTest() {
+        InlineKeyboardConstructor inlineKeyboardConstructor = new InlineKeyboardConstructor();
+        inlineKeyboardConstructor.addNewInlineRow();
+        inlineKeyboardConstructor.addNewInlineRow();
+        inlineKeyboardConstructor.addNewInlineRow();
+        assertNull(inlineKeyboardConstructor.getInlineKeyboard().getKeyboard());
+    }
+
+    @Test
+    public void createInlineKeyboardNewsCategorySettingTest() {
+        assertThrowsExactly(NullPointerException.class, () -> {SettingKeyboard.createInlineKeyboardNewsCategorySetting(null);});
     }
 }
