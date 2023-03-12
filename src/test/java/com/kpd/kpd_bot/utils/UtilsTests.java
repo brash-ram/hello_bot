@@ -1,9 +1,14 @@
 package com.kpd.kpd_bot.utils;
 
+import com.kpd.kpd_bot.entity.ExchangeRatesSetting;
+import com.kpd.kpd_bot.entity.UserSetting;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class UtilsTests {
 
@@ -20,5 +25,18 @@ public class UtilsTests {
         String time = "10:00";
         String actualValue = TimeSendInlineKeyboardHandler.getNewTime(time, input);
         assertEquals(expected, actualValue);
+    }
+
+    @Test
+    public void createBasicSettingKeyboardTest() {
+        InlineKeyboardMarkup keyboardMarkup = SettingKeyboard.createBasicSettingKeyboard(new UserSetting());
+        assertEquals(keyboardMarkup.getKeyboard().size(), 3);
+    }
+
+    @Test
+    public void createInlineKeyboardExchangeRatesSettingTest() {
+        InlineKeyboardMarkup keyboardMarkup = SettingKeyboard
+                .createInlineKeyboardExchangeRatesSetting(new ExchangeRatesSetting().setEUR_RUB(true));
+        assertTrue(keyboardMarkup.getKeyboard().get(1).get(0).getText().contains("✅"));
     }
 }
